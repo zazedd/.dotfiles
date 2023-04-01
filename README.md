@@ -1,4 +1,4 @@
-my dot files man
+my dot files
 
 some requirements:
 - picom
