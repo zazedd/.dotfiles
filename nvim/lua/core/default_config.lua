@@ -43,7 +43,7 @@ M.ui = {
 
   -- lazyload it when there are 1+ buffers
   tabufline = {
-    enabled = true,
+    enabled = false,
     lazyload = true,
     overriden_modules = nil,
   },
@@ -53,20 +53,30 @@ M.ui = {
     load_on_startup = true,
 
     header = {
-      "           ▄ ▄                   ",
-      "       ▄   ▄▄▄     ▄ ▄▄▄ ▄ ▄     ",
-      "       █ ▄ █▄█ ▄▄▄ █ █▄█ █ █     ",
-      "    ▄▄ █▄█▄▄▄█ █▄█▄█▄▄█▄▄█ █     ",
-      "  ▄ █▄▄█ ▄ ▄▄ ▄█ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ",
-      "  █▄▄▄▄ ▄▄▄ █ ▄ ▄▄▄ ▄ ▄▄▄ ▄ ▄ █ ▄",
-      "▄ █ █▄█ █▄█ █ █ █▄█ █ █▄█ ▄▄▄ █ █",
-      "█▄█ ▄ █▄▄█▄▄█ █ ▄▄█ █ ▄ █ █▄█▄█ █",
-      "    █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█ █▄█▄▄▄█    ",
+      [[                                                ]],
+      [[                                          _.oo. ]],
+      [[                  _.u[[/;:,.         .odMMMMMM' ]],
+      [[               .o888UU[[[/;:-.  .o@P^    MMM^   ]],
+      [[              oN88888UU[[[/;::-.        dP^     ]],
+      [[             dNMMNN888UU[[[/;:--.   .o@P^       ]],
+      [[            ,MMMMMMN888UU[[/;::-. o@^           ]],
+      [[            NNMMMNN888UU[[[/~.o@P^              ]],
+      [[            888888888UU[[[/o@^-..               ]],
+      [[           oI8888UU[[[/o@P^:--..                ]],
+      [[        .@^  YUU[[[/o@^;::---..                 ]],
+      [[      oMP     ^/o@P^;:::---..                   ]],
+      [[   .dMMM    .o@^ ^;::---...                     ]],
+      [[  dMMMMMMM@^`       `^^^^                       ]],
+      [[ YMMMUP^                                        ]],
+      [[  ^^                                            ]],
+      [[                                                ]],
     },
 
     buttons = {
       { "  Find File", "Spc f f", "Telescope find_files" },
       { "  Recent Files", "Spc f o", "Telescope oldfiles" },
+      { "  Project Manager", "Spc p p", "Telescope projects" },
+      { "  File Explorer", "Spc f b", "Telescope file_browser" },
       { "  Find Word", "Spc f w", "Telescope live_grep" },
       { "  Bookmarks", "Spc b m", "Telescope marks" },
       { "  Themes", "Spc t h", "Telescope themes" },

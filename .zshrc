@@ -1,7 +1,7 @@
 # source ~/zsh-snap/znap.zsh
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+ZSH_THEME="m3-round"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -111,6 +111,7 @@ source $ZSH/oh-my-zsh.sh
 
 # turn off beeper
 xset b off
+
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.oh-my-zsh/plugins/z/z.plugin.zsh

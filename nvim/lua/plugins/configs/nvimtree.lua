@@ -14,9 +14,9 @@ local options = {
   },
   view = {
     adaptive_size = false,
-    side = "left",
+    side = "right",
     width = 30,
-    hide_root_folder = true,
+    hide_root_folder = false,
   },
   git = {
     enable = true,
@@ -47,13 +47,13 @@ local options = {
       },
 
       glyphs = {
-        default = '',
+        default = "",
         symlink = "",
         folder = {
-          default = '',
+          default = "",
           empty = "",
           empty_open = "",
-          open = '',
+          open = "",
           symlink = "",
           symlink_open = "",
           arrow_open = "",

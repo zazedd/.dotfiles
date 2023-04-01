@@ -25,14 +25,16 @@ if vim.g.neovide then
   vim.g.neovide_transparency = 0.8
   vim.g.transparency = 0.9
   vim.g.neovide_background_color = alpha()
-  vim.g.neovide_floating_blur_amount_x = 0
-  vim.g.neovide_floating_blur_amount_y = 0
+  vim.g.neovide_floating_blur_amount_x = 10
+  vim.g.neovide_floating_blur_amount_y = 10
 
   vim.o.guifont = "JetBrainsMono Nerd Font"
 end
 
 vim.opt.rtp:prepend(lazypath)
 require "plugins"
+
+dofile(vim.g.base46_cache .. "defaults")
 
 vim.o.autochdir = true
 vim.g.nvim_tree_respect_buf_cwd = 1
@@ -48,15 +50,12 @@ for _, plugin in pairs(enable_providers) do
   vim.cmd("runtime " .. plugin)
 end
 
-vim.g['bracey_server_allow_remote_connections'] = 1
-
-
-dofile(vim.g.base46_cache .. "defaults")
+vim.g["bracey_server_allow_remote_connections"] = 1
 
 -- colors
-vim.cmd("hi Normal guibg=#000000")
+vim.cmd "hi Normal guibg=#000000"
 vim.g.flow_strength = 0.5 -- low: 0.3, middle: 0.5, high: 0.7 (default)
 vim.api.nvim_set_hl(0, "FSPrefix", { fg = "#cdd6f4" })
 vim.api.nvim_set_hl(0, "FSSuffix", { fg = "#6C7086" })
 
-require('telescope').load_extension('projects')
+require("telescope").load_extension "projects"

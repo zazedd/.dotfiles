@@ -10,6 +10,8 @@ local options = {
       "--column",
       "--smart-case",
     },
+
+    -- TODO: do this later
     prompt_prefix = "   ",
     selection_caret = "  ",
     entry_prefix = "  ",
@@ -49,7 +51,7 @@ local options = {
     },
   },
 
-  extensions_list = { "themes", "terms" },
+  extensions_list = { "themes", "terms", "file_browser", "projects" },
 }
 
 return options

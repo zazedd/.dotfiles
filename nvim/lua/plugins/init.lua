@@ -47,6 +47,17 @@ local default_plugins = {
   },
 
   {
+    "nvim-tree/nvim-web-devicons",
+    opts = function()
+      return { override = require("nvchad_ui.icons").devicons }
+    end,
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "devicons")
+      require("nvim-web-devicons").setup(opts)
+    end,
+  },
+
+  {
     "lukas-reineke/indent-blankline.nvim",
     init = function()
       require("core.utils").lazy_load "indent-blankline.nvim"
@@ -138,8 +149,9 @@ local default_plugins = {
         -- snippet plugin
         "L3MON4D3/LuaSnip",
         dependencies = "rafamadriz/friendly-snippets",
-        config = function()
-          require("plugins.configs.others").luasnip()
+        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+        config = function(_, opts)
+          require("plugins.configs.others").luasnip(opts)
         end,
       },
 
@@ -186,18 +198,8 @@ local default_plugins = {
     end,
   },
 
-  {
-    "MunifTanjim/nui.nvim",
-    lazy = false
-  },
-
-  {
-    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-    lazy = false
-  },
-
   -- file managing , picker etc
-{
+  {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     init = require("core.utils").load_mappings "nvimtree",

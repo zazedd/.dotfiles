@@ -1,26 +1,42 @@
--- Errors
-require("naughty").connect_signal("request::display_error", function(message, startup)
-    require("naughty").notification {
-        urgency = "critical",
-        title   = "Error "..(startup and " during startup!" or "!"),
-        message = message
-    }
-end)
+-- A random rice. i guess.
+-- source: https://github.com/saimoomedits/dotfiles |-| Copyleft © 2022 Saimoomedits
+------------------------------------------------------------------------------------
 
--- Defaults
-terminal = "alacritty"
-browser = "firefox"
-files = "nemo"
-editor = "nvim"
-editor_cmd = terminal .. " -e " .. editor
-shutdown = "systemctl poweroff"
-reboot = "systemctl reboot"
-modkey = "Mod4"
-alt = "Mod1"
+pcall(require, "luarocks.loader")
+local naughty = require("naughty")
 
--- Config
-require("awful.autofocus")
-require("signals")
-require("themes.linear")
+-- home variable 🏠
+home_var = os.getenv("HOME")
+
+-- require("awful").spawn.easy_async_with_shell(home_var .. "/.config/awesome/misc/scripts/monitor.sh") -- disable laptop monitor
+
+-- user preferences ⚙️
+user_likes = {
+
+	-- aplications
+	term = "alacritty",
+	editor = "alacritty -e " .. "nvim",
+	code = "neovide",
+	web = "firefox",
+	music = "alacritty --class 'music' --config-file " .. home_var .. "/.config/alacritty/ncmpcpp.yml -e ncmpcpp ",
+	files = "nemo",
+
+	-- your profile
+	username = os.getenv("USER"),
+	userdesc = "i fear no man",
+}
+
+-- theme 🖌️
+require("theme")
+
+-- configs ⚙️
 require("config")
 
+-- miscallenous ✨
+require("misc")
+
+-- signals 📶
+require("signal")
+
+-- ui elements 💻
+require("layout")
