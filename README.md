@@ -1,7 +1,7 @@
 my dot files
 
 about iceberg.lua, run this command  
-```sh
+```shell
 cp iceberg.lua .local/share/nvim/lazy/base46/lua/base46/themes/
 ```
 
