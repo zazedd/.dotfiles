@@ -49,6 +49,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# universal extract command
 extract () {
   if [ -f $1 ] ; then
     case $1 in
@@ -84,22 +85,31 @@ extract () {
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# Sudo alias hack
+alias sudo="nocorrect sudo "
+
+# Better default command replacement
 alias mv="mv -iv"
 alias mkdir="mkdir -p"
 alias ddu="du -h"
 alias du="gdu -n"
-alias sudo="nocorrect sudo "
-alias zyp="zypper"
-alias nvid="neovide"
-alias idea="/home/zazed/Documents/IDEA/bin/idea.sh"
 alias ls="/usr/bin/exa --color=always --group-directories-first"
 alias la="/usr/bin/exa -l --color=always --group-directories-first"
 alias l="/usr/bin/exa -lah --color=always --group-directories-first"
-alias weather="curl v2.wttr.in/covilha"
+alias zyp="zypper"
+
+alias nvid="neovide"
+alias idea="/home/zazed/Documents/IDEA/bin/idea.sh"
 alias t="tmux new-session \; send-keys "nvim" C-m \; neww \; split-window -v \; selectp -t 1  \; selectw -t 1"
+
+alias weather="curl v2.wttr.in"
+
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias gs="git status"
 alias gcl="git clone"
+
+alias localip="ip addr sh eno1"
+
 alias ff="fastfetch --logo-color-1 3 --structure Title:Separator:OS:Host:Kernel:CPU:GPU:Uptime:Packages:Shell:Display:Terminal:TerminalFont:Disk:Battery:Memory --cpu-temp true --multithreading true"
 alias rr="source ~/.zshrc"
 
@@ -111,8 +121,7 @@ if [ ! "$TMUX" ]; then
   fastfetch --logo-color-1 3 --structure Title:Separator:OS:Host:Kernel:CPU:GPU:Uptime:Packages:Shell:Display:Terminal:TerminalFont:Disk:Battery:Memory --cpu-temp true --multithreading true
 fi
 
-# Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  echo "Don't break anything if you are a bad actor pls"
+  echo "Don't break anything if you are a bad actor pls I beg you"
 else
 fi
