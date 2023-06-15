@@ -1,11 +1,7 @@
 my dot files
 
-about iceberg.lua, run this command  
-```shell
-cp iceberg.lua .local/share/nvim/lazy/base46/lua/base46/themes/
-```
+some requirements for awesome:
 
-some requirements:
 - picom
 - brightnessctl
 - pipewire
