@@ -1,9 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
+# Set name of the theme to load
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
@@ -19,17 +17,8 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # Display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
 HIST_STAMPS="dd/mm/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
@@ -46,27 +35,29 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-
+# ---------------------------------------------------------
 # User configuration
 
 # vi mode
 bindkey -v
+
 # Remove mode switching delay.
 KEYTIMEOUT=5
 
-    # Change cursor shape for different vi modes.
+# Change cursor shape for different vi modes.
 function zle-keymap-select {
-if [[ ${KEYMAP} == vicmd ]] ||
-  [[ $1 = 'block' ]]; then
-      echo -ne '\e[1 q'
+  if [[ ${KEYMAP} == vicmd ]] ||
+    [[ $1 = 'block' ]]; then
+       echo -ne '\e[1 q'
 
-    elif [[ ${KEYMAP} == main ]] ||
-      [[ ${KEYMAP} == viins ]] ||
-      [[ ${KEYMAP} = '' ]] ||
-      [[ $1 = 'beam' ]]; then
-              echo -ne '\e[5 q'
-fi
+  elif [[ ${KEYMAP} == main ]] ||
+    [[ ${KEYMAP} == viins ]] ||
+    [[ ${KEYMAP} = '' ]] ||
+    [[ $1 = 'beam' ]]; then
+       echo -ne '\e[5 q'
+  fi
 }
+
 zle -N zle-keymap-select
 
 # Use beam shape cursor on startup.
