@@ -20,11 +20,26 @@ COMPLETION_WAITING_DOTS="true"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 HIST_STAMPS="dd/mm/yyyy"
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+
+# problems with multiple shell instances
+setopt inc_append_history
+setopt share_history
+
+# no more duplicate commands in history
+setopt histignorealldups
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 # source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 source ~/.zsh/theme.zsh
+
+# syntax highlighing on tab completion
+zstyle ':completion:*' menu select
+eval "$(dircolors)"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 plugins=(
 	git
@@ -133,6 +148,9 @@ alias weather="curl v2.wttr.in"
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias gs="git status"
+alias gc="git commit"
+alias gp="git push"
+alias gpl="git pull"
 alias gcl="git clone"
 
 alias ff="fastfetch --logo-color-1 3 --structure Title:Separator:OS:Host:Kernel:CPU:GPU:Uptime:Packages:Shell:Display:Terminal:TerminalFont:Disk:Battery:Memory --cpu-temp true --multithreading true"
