@@ -49,6 +49,34 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# vi mode
+bindkey -v
+# Remove mode switching delay.
+KEYTIMEOUT=5
+
+    # Change cursor shape for different vi modes.
+function zle-keymap-select {
+if [[ ${KEYMAP} == vicmd ]] ||
+  [[ $1 = 'block' ]]; then
+      echo -ne '\e[1 q'
+
+    elif [[ ${KEYMAP} == main ]] ||
+      [[ ${KEYMAP} == viins ]] ||
+      [[ ${KEYMAP} = '' ]] ||
+      [[ $1 = 'beam' ]]; then
+              echo -ne '\e[5 q'
+fi
+}
+zle -N zle-keymap-select
+
+# Use beam shape cursor on startup.
+echo -ne '\e[5 q'
+
+# Use beam shape cursor for each new prompt.
+preexec() {
+  echo -ne '\e[5 q'
+}
+
 # Create a new directory and enter it
 mc () {
   mkdir -p "$@" && cd "$@"
@@ -74,6 +102,16 @@ extract () {
     esac
   else
     echo "'$1' is not a valid file"
+  fi
+}
+
+function localip () {
+  local eno1_output=$(ip addr show eno1)
+
+  if ! echo "$eno1_output" | grep -q "DOWN"; then
+    echo "$eno1_output"
+  else
+    ip addr show wlp4s0
   fi
 }
 
@@ -105,8 +143,6 @@ alias weather="curl v2.wttr.in"
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias gs="git status"
 alias gcl="git clone"
-
-alias localip="ip addr sh eno1"
 
 alias ff="fastfetch --logo-color-1 3 --structure Title:Separator:OS:Host:Kernel:CPU:GPU:Uptime:Packages:Shell:Display:Terminal:TerminalFont:Disk:Battery:Memory --cpu-temp true --multithreading true"
 alias rr="source ~/.zshrc"
