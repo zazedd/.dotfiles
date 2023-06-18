@@ -19,7 +19,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-HIST_STAMPS="dd/mm/yyyy"
+HIST_STAMPS=""
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
@@ -141,6 +141,7 @@ alias l="/usr/bin/exa -lah --color=always --group-directories-first"
 alias zyp="zypper"
 
 alias nvid="neovide"
+alias v="nvim"
 alias idea="/home/zazed/Documents/IDEA/bin/idea.sh"
 alias t="tmux new-session \; send-keys "nvim" C-m \; neww \; split-window -v \; selectp -t 1  \; selectw -t 1"
 

@@ -124,7 +124,8 @@ font:
     # family: JetBrains Mono Nerd Font
     #family: Hack Nerd Font
     # family: Caskaydia Cove Nerd Font
-    family: Fira Code Nerd Font
+    #family: Fira Code Nerd Font
+    family: BlexMono Nerd Font
     # The `style` can be specified to pick a specific face.
     style: Regular
 
@@ -136,7 +137,8 @@ font:
     # value specified for the normal font.
     # family: JetBrains Mono Nerd Font # The `style` can be specified to pick a specific face.
     # family: Caskaydia Cove Nerd Font
-    family: Fira Code Nerd Font
+    # family: Fira Code Nerd Font
+    family: BlexMono Nerd Font
     #family: Hack Nerd Font
     style: Bold
 
@@ -149,7 +151,8 @@ font:
     # family: monospace
     # family: JetBrains Mono Nerd Font # The `style` can be specified to pick a specific face.
     # family: Caskaydia Cove Nerd Font
-    family: Fira Code Nerd Font
+    # family: Fira Code Nerd Font
+    family: BlexMono Nerd Font
     #family: Hack Nerd Font
     style: Italic
 
@@ -162,7 +165,8 @@ font:
     # family: monospace
     # family: JetBrains Mono Nerd Font
     # family: Caskaydia Cove Nerd Font
-    family: Fira Code Nerd Font
+    # family: Fira Code Nerd Font
+    family: BlexMono Nerd Font
     # The `style` can be specified to pick a specific face.
     #family: Hack Nerd Font
     style: Bold Italic
