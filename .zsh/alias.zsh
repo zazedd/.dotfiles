@@ -10,6 +10,8 @@ alias du="gdu -n"
 alias ls="/usr/bin/exa --color=always --group-directories-first"
 alias la="/usr/bin/exa -l --color=always --group-directories-first"
 alias l="/usr/bin/exa -lah --color=always --group-directories-first"
+alias ldir="/usr/bin/exa --color=always --group-directories-first -lahd */"
+alias lhdir="/usr/bin/exa --color=always --group-directories-first -lad .*/"
 alias zyp="zypper"
 
 alias nvid="neovide"
