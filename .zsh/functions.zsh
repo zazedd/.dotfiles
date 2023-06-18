@@ -5,21 +5,26 @@ mc () {
 }
 
 # universal extract command
-extract () {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xvjf $1;;
-      *.tar.gz)    tar xvzf $1;;
-      *.tar.xz)    tar xvf $1;;
-      *.bz2)       bunzip2 $1;;
-      *.rar)       rar x $1;;
-      *.gz)        gunzip $1;;
-      *.tar)       tar xvf $1;;
-      *.tbz2)      tar xvjf $1;;
-      *.tgz)       tar xvzf $1;;
-      *.zip)       unzip $1;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1;;
+extract() {
+  if [ -f "$1" ]; then
+    local dir=""
+    if [ -n "$2" ]; then
+      dir="$2"
+      mkdir -p "$dir"
+    fi
+    case "$1" in
+      *.tar.bz2)   tar xvjf "$1" -C "$dir";;
+      *.tar.gz)    tar xvzf "$1" -C "$dir";;
+      *.tar.xz)    tar xvf "$1" -C "$dir";;
+      *.bz2)       bunzip2 -v "$1";;
+      *.rar)       rar xv "$1" "$dir";;
+      *.gz)        gunzip -v "$1";;
+      *.tar)       tar xvf "$1" -C "$dir";;
+      *.tbz2)      tar xvjf "$1" -C "$dir";;
+      *.tgz)       tar xvzf "$1" -C "$dir";;
+      *.zip)       unzip "$1" -d "$dir";;
+      *.Z)         uncompress "$1";;
+      *.7z)        7z x "$1" -o "$dir";;
       *)           echo "'$1' cannot be extracted via extract()" ;;
     esac
   else

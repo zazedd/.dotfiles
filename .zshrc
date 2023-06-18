@@ -59,7 +59,7 @@ bindkey -v
 # Remove mode switching delay.
 KEYTIMEOUT=5
 
-source ~/.zsh/cursor.zsh
+source ~/.zsh/vimode.zsh
 
 source ~/.zsh/functions.zsh
 
@@ -72,4 +72,6 @@ source ~/.zsh/functions.zsh
 source ~/.zsh/alias.zsh
 
 source ~/.zsh/prompt.zsh
+
+export EDITOR=nvim
 
