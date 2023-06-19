@@ -40,20 +40,6 @@ keymap.set(
   { desc = "lsp rename", noremap = true, silent = true }
 )
 
--- spectre
-keymap.set("n", "<leader>S", '<cmd>lua require("spectre").open()<CR>', {
-  desc = "Open Spectre",
-})
-keymap.set("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-  desc = "Search current word",
-})
-keymap.set("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-  desc = "Search current word",
-})
-keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-  desc = "Search on current file",
-})
-
 -- Move line in visual mode
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "move line down in visual mode" })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "move line up in visual mode" })
