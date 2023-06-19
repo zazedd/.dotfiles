@@ -40,17 +40,19 @@ keymap.set(
   { desc = "lsp rename", noremap = true, silent = true }
 )
 
--- toggleterm
-local opts = { buffer = 0 }
-keymap.set("n", "<M-h>", "<cmd>ToggleTerm dir=<CR>")
-keymap.set("t", "<M-h>", "<cmd>ToggleTerm<CR>")
-keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
-keymap.set("t", "jk", [[<C-\><C-n>]], opts)
-keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
+-- spectre
+keymap.set("n", "<leader>S", '<cmd>lua require("spectre").open()<CR>', {
+  desc = "Open Spectre",
+})
+keymap.set("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+  desc = "Search current word",
+})
+keymap.set("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+  desc = "Search current word",
+})
+keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+  desc = "Search on current file",
+})
 
 -- Move line in visual mode
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "move line down in visual mode" })

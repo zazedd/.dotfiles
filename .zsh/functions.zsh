@@ -5,7 +5,7 @@ mc () {
 }
 
 # universal extract command
-extract() {
+ext () {
   if [ -f "$1" ]; then
     local dir=""
     if [ -n "$2" ]; then
@@ -25,7 +25,7 @@ extract() {
       *.zip)       unzip "$1" -d "$dir";;
       *.Z)         uncompress "$1";;
       *.7z)        7z x "$1" -o "$dir";;
-      *)           echo "'$1' cannot be extracted via extract()" ;;
+      *)           echo "'$1' cannot be extracted via ext ()" ;;
     esac
   else
     echo "'$1' is not a valid file"
