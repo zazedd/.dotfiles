@@ -7,26 +7,31 @@ mc () {
 # universal extract command
 ext () {
   if [ -f "$1" ]; then
-    local dir=""
+    local file="$1"
     if [ -n "$2" ]; then
-      dir="$2"
-      mkdir -p "$dir"
+      file=../"$1"
+      mkdir -p "$2"
+      cd "$2"
     fi
     case "$1" in
-      *.tar.bz2)   tar xvjf "$1" -C "$dir";;
-      *.tar.gz)    tar xvzf "$1" -C "$dir";;
-      *.tar.xz)    tar xvf "$1" -C "$dir";;
-      *.bz2)       bunzip2 -v "$1";;
-      *.rar)       rar xv "$1" "$dir";;
-      *.gz)        gunzip -v "$1";;
-      *.tar)       tar xvf "$1" -C "$dir";;
-      *.tbz2)      tar xvjf "$1" -C "$dir";;
-      *.tgz)       tar xvzf "$1" -C "$dir";;
-      *.zip)       unzip "$1" -d "$dir";;
-      *.Z)         uncompress "$1";;
-      *.7z)        7z x "$1" -o "$dir";;
+      *.tar.bz2)   tar xvjf "$file";;
+      *.tar.gz)    tar xvzf "$file";;
+      *.tar.xz)    tar xvf "$file";;
+      *.bz2)       bunzip2 -v "$file";;
+      *.rar)       rar x "$file";;
+      *.gz)        gunzip -v "$file";;
+      *.tar)       tar xvf "$file";;
+      *.tbz2)      tar xvjf "$file";;
+      *.tgz)       tar xvzf "$file";;
+      *.zip)       unzip "$file";;
+      *.Z)         uncompress "$file";;
+      *.z)         uncompress "$file";;
+      *.7z)        7z x "$file";;
       *)           echo "'$1' cannot be extracted via ext ()" ;;
     esac
+    if [ -n "$2" ]; then
+      cd ..
+    fi
   else
     echo "'$1' is not a valid file"
   fi
