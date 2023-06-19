@@ -43,6 +43,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 plugins=(
 	git
+  sudo
 	zsh-autosuggestions
 	zsh-syntax-highlighting
   z
@@ -53,25 +54,16 @@ source $ZSH/oh-my-zsh.sh
 # ---------------------------------------------------------
 # User configuration
 
-# vi mode
-bindkey -v
+export EDITOR=nvim
 
-# Remove mode switching delay.
-KEYTIMEOUT=5
+source ~/.zsh/keys.zsh
 
 source ~/.zsh/vimode.zsh
 
 source ~/.zsh/functions.zsh
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
 source ~/.zsh/alias.zsh
 
 source ~/.zsh/prompt.zsh
 
-export EDITOR=nvim
 

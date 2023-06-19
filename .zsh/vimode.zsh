@@ -1,4 +1,8 @@
-# Cursor (vi mode)
+# Vi mode options
+
+# Remove mode switching delay.
+KEYTIMEOUT=5
+
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||
@@ -22,3 +26,4 @@ echo -ne '\e[5 q'
 preexec() {
   echo -ne '\e[5 q'
 }
+
