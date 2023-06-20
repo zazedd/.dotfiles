@@ -292,6 +292,7 @@ return {
                 }, args.buf)
           end,
         },
+
         statusline = {
           -- statusline
           hl = { fg = "fg", bg = "#15191f" },
@@ -309,8 +310,9 @@ return {
           status.component.fill(),
           status.component.lsp(),
           status.component.treesitter(),
-          status.component.nav(),
-          status.component.mode { surround = { separator = "right" } },
+          status.component.Ruler,
+          status.component.ScrollBar,
+          status.component.ScrollPercentage,
         },
         winbar = {
           -- winbar
@@ -564,12 +566,16 @@ return {
           ["<C-p>"] = actions.cycle_history_prev,
           ["<C-j>"] = actions.move_selection_next,
           ["<C-k>"] = actions.move_selection_previous,
-          ["<ESC>"] = actions.close,
           ["<C-c>"] = false,
         },
         n = { ["q"] = actions.close },
       }
       return {
+        pickers = {
+          buffers = {
+            initial_mode = "normal"
+          }
+        },
         defaults = {
           prompt_prefix = get_icon("Selected", 1),
           selection_caret = get_icon("Selected", 1),

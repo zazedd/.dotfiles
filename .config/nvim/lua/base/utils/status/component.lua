@@ -10,6 +10,7 @@
 
 local M = {}
 
+local conditions = require('heirline.conditions')
 local condition = require "base.utils.status.condition"
 local env = require "base.utils.status.env"
 local hl = require "base.utils.status.hl"
@@ -89,17 +90,53 @@ end
 ---@param opts? table options for configuring ruler, percentage, scrollbar, and the overall padding
 ---@return table # The Heirline component table
 -- @usage local heirline_component = require("base.utils.status").component.nav()
-function M.nav(opts)
-  opts = extend_tbl({
-    ruler = {},
-    percentage = { padding = { left = 1 } },
-    scrollbar = { padding = { left = 1 }, hl = { fg = "scrollbar" } },
-    surround = { separator = "right", color = "nav_bg" },
-    hl = hl.get_attributes "nav",
-    update = { "CursorMoved", "CursorMovedI", "BufEnter" },
-  }, opts)
-  return M.builder(status_utils.setup_providers(opts, { "ruler", "percentage", "scrollbar" }))
-end
+
+M.Ruler = {
+  surround = { separator = "right", color = "nav_bg" },
+  -- :help 'statusline'
+  -- ------------------
+  -- %-2 : make item takes at least 2 cells and be left justified
+  -- %l  : current line number
+  -- %L  : number of lines in the buffer
+  -- %c  : column number
+  -- %V  : virtual column number as -{num}.  Not displayed if equal to '%c'.
+  provider = ' %9(%l / %L%)  %-3(%c%V%) ',
+  hl = { bold = true }
+}
+
+local hl2 = {
+  ScrollBar = {
+    active     = { bg = "#272727", fg = "#eb8d1a" },
+    non_active = { bg = "#000000", fg = "#222222" }
+  },
+}
+
+M.ScrollBar = {
+  surround = { separator = "right", color = "nav_bg" },
+  static = {
+    sbar = { '🭶', '🭷', '🭸', '🭹', '🭺', '🭻' }
+  },
+  provider = function(self)
+    local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+    local lines = vim.api.nvim_buf_line_count(0)
+    local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
+    return string.rep(self.sbar[i], 2)
+  end,
+  hl = function()
+    if conditions.is_active() then
+      return hl2.ScrollBar.active
+    else
+      return hl2.ScrollBar.non_active
+    end
+  end
+}
+
+M.ScrollPercentage = {
+  surround = { separator = "right", color = "nav_bg" },
+  condition = function() return conditions.width_percent_below(4, 0.035) end,
+  -- %P  : percentage through file of displayed window
+  provider = ' %3(%P%) ',
+}
 
 --- A function to build a set of children components for information shown in the cmdline
 ---@param opts? table options for configuring macro recording, search count, and the overall padding
@@ -144,11 +181,54 @@ end
 -- @usage local heirline_component = require("base.utils.status").component.mode { mode_text = true }
 function M.mode(opts)
   opts = extend_tbl({
-    mode_text = false,
+    init = function(self)
+      self.mode = vim.fn.mode(1) -- :h mode()
+    end,
+    static = {
+      mode_names = { -- change the strings if you like it vvvvverbose!
+        n = "NORMAL",
+        no = "N?",
+        nov = "N?",
+        noV = "N?",
+        ["no\22"] = "N?",
+        niI = "Ni",
+        niR = "Nr",
+        niV = "Nv",
+        nt = "Nt",
+        v = "VISUAL",
+        vs = "Vs",
+        V = "V-BLOCK",
+        Vs = "Vs",
+        ["\22"] = "^V",
+        ["\22s"] = "^V",
+        s = "S",
+        S = "S_",
+        ["\19"] = "^S",
+        i = "INSERT",
+        ic = "Ic",
+        ix = "Ix",
+        R = "R",
+        Rc = "Rc",
+        Rx = "Rx",
+        Rv = "Rv",
+        Rvc = "Rv",
+        Rvx = "Rv",
+        c = "COMMAND",
+        cv = "Ex",
+        r = "...",
+        rm = "M",
+        ["r?"] = "?",
+        ["!"] = "!",
+        t = "T",
+      },
+    },
     paste = false,
     spell = false,
     surround = { separator = "left", color = hl.mode_bg },
     hl = hl.get_attributes "mode",
+    provider = function(self)
+      return " %2(" .. self.mode_names[self.mode] .. "%)"
+    end,
     update = {
       "ModeChanged",
       pattern = "*:*",
@@ -331,7 +411,7 @@ function M.lsp(opts)
             status_utils.build_provider(p_opts, provider[p](p_opts)),
             status_utils.build_provider(p_opts, provider.str(p_opts)),
           }
-        or false
+          or false
     end
   ))
 end
@@ -415,10 +495,10 @@ function M.builder(opts)
   end
   for key, entry in pairs(opts) do
     if
-      type(key) == "number"
-      and type(entry) == "table"
-      and provider[entry.provider]
-      and (entry.opts == nil or type(entry.opts) == "table")
+        type(key) == "number"
+        and type(entry) == "table"
+        and provider[entry.provider]
+        and (entry.opts == nil or type(entry.opts) == "table")
     then
       entry.provider = provider[entry.provider](entry.opts)
     end
@@ -429,7 +509,7 @@ function M.builder(opts)
   end
   return opts.surround
       and status_utils.surround(opts.surround.separator, opts.surround.color, children, opts.surround.condition)
-    or children
+      or children
 end
 
 return M
