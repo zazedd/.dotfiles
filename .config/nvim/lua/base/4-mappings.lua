@@ -96,6 +96,14 @@ maps.n["<C-k>"] = {
   [[<Cmd>TmuxNavigateUp<CR>]], desc = "Tmux up"
 }
 
+maps.n["<leader>L"] = {
+  "<Cmd>Lazy<CR>", desc = "Open lazy"
+}
+
+maps.n["<leader>M"] = {
+  "<Cmd>Mason<CR>", desc = "Open Mason"
+}
+
 -- standard Operations -----------------------------------------------------
 maps.n["j"] =
 { "v:count == 0 ? 'gj' : 'j'", expr = true, desc = "Move cursor down" }

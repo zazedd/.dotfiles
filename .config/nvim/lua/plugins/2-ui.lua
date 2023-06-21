@@ -130,9 +130,11 @@ return {
 
       -- Buttons
       dashboard.section.buttons.val = {
+        dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
         dashboard.button("n", "📄 New     ", "<cmd>ene<CR>"),
         dashboard.button("e", "🌺 Recent  ", "<cmd>Telescope oldfiles<CR>"),
         dashboard.button("r", "🐍 Ranger  ", "<cmd>RnvimrToggle<CR>"),
+        dashboard.button("c", "  Config", ":e $MYVIMRC <CR>"),
         dashboard.button(
           "s",
           "🔎 Sessions",

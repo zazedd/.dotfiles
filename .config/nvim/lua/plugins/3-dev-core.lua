@@ -21,6 +21,9 @@
 --       -> cmp-nvim-lsp                   [auto completion lsp]
 --       -> cmp-luasnip                    [auto completion snippets]
 
+--       ## OTHER
+--       -> leap                           [leap]
+
 return {
   {
     --  PURE CORE -------------------------------------------------------------
@@ -144,7 +147,7 @@ return {
             return _.sort_by(
               _.identity,
               _.filter(_.starts_with(arg_lead), require("mason-registry").get_installed_package_names())
-             )
+            )
           end,
         })
         cmd(
@@ -336,24 +339,24 @@ return {
         local function has_words_before()
           local line, col = unpack(vim.api.nvim_win_get_cursor(0))
           return col ~= 0
-            and vim.api
-                .nvim_buf_get_lines(0, line - 1, line, true)[1]
-                :sub(col, col)
-                :match "%s"
+              and vim.api
+              .nvim_buf_get_lines(0, line - 1, line, true)[1]
+              :sub(col, col)
+              :match "%s"
               == nil
         end
 
         return {
           enabled = function()
             local dap_prompt = utils.is_available "cmp-dap" -- add interoperability with cmp-dap
-              and vim.tbl_contains(
-                { "dap-repl", "dapui_watches", "dapui_hover" },
-                vim.api.nvim_get_option_value("filetype", { buf = 0 })
-              )
+                and vim.tbl_contains(
+                  { "dap-repl", "dapui_watches", "dapui_hover" },
+                  vim.api.nvim_get_option_value("filetype", { buf = 0 })
+                )
             if
-              vim.api.nvim_get_option_value("buftype", { buf = 0 })
+                vim.api.nvim_get_option_value("buftype", { buf = 0 })
                 == "prompt"
-              and not dap_prompt
+                and not dap_prompt
             then
               return false
             end
@@ -364,7 +367,7 @@ return {
           formatting = {
             fields = { "kind", "abbr", "menu" },
             format = lspkind_status_ok and lspkind.cmp_format(base.lspkind)
-              or nil,
+                or nil,
           },
           snippet = {
             expand = function(args) luasnip.lsp_expand(args.body) end,
@@ -459,12 +462,42 @@ return {
           },
           sources = cmp.config.sources {
             { name = "nvim_lsp", priority = 1000 },
-            { name = "luasnip", priority = 750 },
-            { name = "buffer", priority = 500 },
-            { name = "path", priority = 250 },
+            { name = "luasnip",  priority = 750 },
+            { name = "buffer",   priority = 500 },
+            { name = "path",     priority = 250 },
           },
         }
       end,
     },
   }, -- end of collection
+
+  {
+    "ggandor/flit.nvim",
+    keys = function()
+      ---@type LazyKeys[]
+      local ret = {}
+      for _, key in ipairs({ "f", "F", "t", "T" }) do
+        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
+      end
+      return ret
+    end,
+    opts = { labeled_modes = "nx" },
+  },
+  {
+    "ggandor/leap.nvim",
+    keys = {
+      { "s",  mode = { "n", "x", "o" }, desc = "Leap forward to" },
+      { "S",  mode = { "n", "x", "o" }, desc = "Leap backward to" },
+      { "gs", mode = { "n", "x", "o" }, desc = "Leap from windows" },
+    },
+    config = function(_, opts)
+      local leap = require("leap")
+      for k, v in pairs(opts) do
+        leap.opts[k] = v
+      end
+      leap.add_default_mappings(true)
+      vim.keymap.del({ "x", "o" }, "x")
+      vim.keymap.del({ "x", "o" }, "X")
+    end,
+  },
 } -- end of return
