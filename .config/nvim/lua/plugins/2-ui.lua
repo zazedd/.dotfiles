@@ -116,13 +116,31 @@ return {
       --   [[   \ \_\ \_\ \____\ \____/ \ `\___/\ \_\ \_\ \_\ \_\]],
       --   [[    \/_/\/_/\/____/\/___/   `\/__/  \/_/\/_/\/_/\/_/]],
       -- }
+      -- dashboard.section.header.val = {
+      --   [[                __                ]],
+      --   [[  ___   __  __ /\_\    ___ ___    ]],
+      --   [[/' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
+      --   [[/\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+      --   [[\ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
+      --   [[ \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
+      -- }
+
+      -- dashboard.section.header.val = {
+      --   [[                  oo            ]],
+      --   [[                                ]],
+      --   [[88d888b. dP   .dP dP 88d8b.d8b. ]],
+      --   [[88'  `88 88   d8' 88 88'`88'`88 ]],
+      --   [[88    88 88 .88'  88 88  88  88 ]],
+      --   [[dP    dP 8888P'   dP dP  dP  dP ]]
+      -- }
+
       dashboard.section.header.val = {
-        [[                __                ]],
-        [[  ___   __  __ /\_\    ___ ___    ]],
-        [[/' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
-        [[/\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-        [[\ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
-        [[ \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
+        [[dP     dP .d88888b   a88888b.                dP          ]],
+        [[88     88 88.    "' d8'   `88                88          ]],
+        [[88    .8P `Y88888b. 88        .d8888b. .d888b88 .d8888b. ]],
+        [[88    d8'       `8b 88        88'  `88 88'  `88 88ooood8 ]],
+        [[88  .d8P  d8'   .8P Y8.   .88 88.  .88 88.  .88 88.  ... ]],
+        [[888888'    Y88888P   Y88888P' `88888P' `88888P8 `88888P' ]],
       }
 
       dashboard.section.header.opts.hl = "DashboardHeader"
@@ -131,18 +149,18 @@ return {
       -- Buttons
       dashboard.section.buttons.val = {
         dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
-        dashboard.button("n", "📄 New     ", "<cmd>ene<CR>"),
-        dashboard.button("e", "🌺 Recent  ", "<cmd>Telescope oldfiles<CR>"),
-        dashboard.button("r", "🐍 Ranger  ", "<cmd>RnvimrToggle<CR>"),
-        dashboard.button("c", "  Config", ":e $MYVIMRC <CR>"),
+        dashboard.button("n", "  New      ", "<cmd>ene<CR>"),
+        dashboard.button("e", "  Recent   ", "<cmd>Telescope oldfiles<CR>"),
+        dashboard.button("r", "󰇥  Ranger   ", "<cmd>RnvimrToggle<CR>"),
+        dashboard.button("c", "  Config   ", ":e $MYVIMRC | cd $HOME/.config/nvim<CR>"),
         dashboard.button(
           "s",
-          "🔎 Sessions",
+          "󰴋  Sessions",
           "<cmd>SessionManager! load_session<CR>"
         ),
-        dashboard.button("p", "💼 Projects", "<cmd>Telescope projects<CR>"),
+        dashboard.button("p", "  Projects ", "<cmd>Telescope projects<CR>"),
         dashboard.button("", ""),
-        dashboard.button("q", "   Quit", "<cmd>exit<CR>"),
+        dashboard.button("q", "󰩈  Quit     ", "<cmd>exit<CR>"),
         --  --button("LDR f '", "  Bookmarks  "),
       }
 
@@ -170,8 +188,8 @@ return {
             " ",
             " ",
             " ",
-            "Loaded " .. stats.count .. " plugins  in " .. ms .. "ms",
-            "..............................",
+            "Loaded " .. stats.count .. " plugins   in " .. ms .. "ms. NeoVim could never.",
+            "....................................................",
           }
           opts.section.footer.opts.hl = "DashboardFooter"
           vim.cmd "highlight DashboardFooter guifg=#D29B68"

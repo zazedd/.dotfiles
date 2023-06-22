@@ -354,7 +354,7 @@ end
 -- @usage local heirline_component = require("base.utils.status").component.treesitter()
 function M.treesitter(opts)
   opts = extend_tbl({
-    str = { str = "TS", icon = { kind = "ActiveTS", padding = { right = 1 } } },
+    str = { str = "TS ", icon = { kind = "ActiveTS", padding = { right = 1 } } },
     surround = {
       separator = "right",
       color = "treesitter_bg",

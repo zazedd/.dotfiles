@@ -7,6 +7,7 @@
 --       -> nvim-ts-autotag                [treesitter understand html tags]
 --       -> nvim-ts-context-commentstring  [treesitter comments]
 --       -> nvim-colorizer                 [hex colors]
+--       -> nvim-surround                  [surround stuff]
 
 --       ## LSP
 --       -> SchemaStore.nvim               [lsp schema manager]
@@ -65,6 +66,7 @@ return {
         enable = true,
         enable_quotes = true,
       },
+      ensure_installed = { "c", "lua", "ocaml", "vimdoc", "vim", "bash", "markdown", "norg" },
       incremental_selection = { enable = true },
       indent = { enable = true },
       autotag = { enable = true },
@@ -89,6 +91,15 @@ return {
       "ColorizerReloadAllBuffers",
     },
     opts = { user_default_options = { names = false } },
+  },
+
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup()
+    end,
   },
 
   --  LSP -------------------------------------------------------------------
@@ -175,6 +186,9 @@ return {
           "williamboman/mason-lspconfig.nvim",
           cmd = { "LspInstall", "LspUninstall" },
           opts = function(_, opts)
+            opts.ensure_installed = {
+              "clangd", "lua_ls", "marksman", "bashls"
+            }
             if not opts.handlers then opts.handlers = {} end
             opts.handlers[1] = function(server)
               require("base.utils.lsp").setup(server)
@@ -292,7 +306,13 @@ return {
         {
           "jay-babu/mason-null-ls.nvim",
           cmd = { "NullLsInstall", "NullLsUninstall" },
-          opts = { handlers = {} },
+          opts = {
+            handlers = {},
+            ensure_installed = { "prettierd", "clang-format", "beautysh" }
+          },
+          config = function(_, opts)
+            require("mason-null-ls").setup(opts)
+          end,
         },
       },
       event = "User File",
