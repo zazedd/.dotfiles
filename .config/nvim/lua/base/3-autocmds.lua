@@ -469,6 +469,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+
 -- fix for a fucking stupid terminal writing bug
 vim.cmd('command! -nargs=0 Z w | qa')
 vim.cmd('cabbrev wqa Z')

@@ -32,9 +32,14 @@
 --       -> guess-indent                   [guess-indent]
 --       -> neural                         [chatgpt code generator]
 
---       ## EXTRAS
+--       ## USER
+
+--       -> cellular-automaton             [just a bit of fun]
+--       -> hypersonic                     [explains regex expressions]
+--       -> trouble                        [shows all errors]
+--       -> lsp_lines                      [show errors on line]
+--       -> wilder                         [autocomplete for cmdline]
 --       -> wakatime                       [time counter for projects]
---       -> cellular-automaton             [a bit of fun]
 
 --       ## NOT INSTALLED
 --       -> distant.nvim                   [ssh to edit in a remove machine]
@@ -444,6 +449,7 @@ return {
   --  https://github.com/dense-analysis/neural
   {
     "dense-analysis/neural",
+    enabled = false,
     cmd = { "Neural" },
     config = function()
       require("neural").setup {
@@ -459,11 +465,56 @@ return {
     end,
   },
 
-  -- EXTRAS
+
+  -- USER ---------------------------------------------------------------------
+
+  -- cellular-automaton  [just a bit of fun]
   {
     "Eandrju/cellular-automaton.nvim",
+    cmd = "CellularAutomaton"
   },
 
+  -- hypersonic [explains regex expressions]
+  {
+    'tomiis4/Hypersonic.nvim',
+    event = "CmdlineEnter",
+    cmd = "Hypersonic",
+    config = function()
+      require('hypersonic').setup({});
+    end
+  },
+
+  -- trouble [shows all errors]
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = "Trouble"
+  },
+
+  -- lsp_lines [show errors on line]
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    event = "BufEnter",
+  },
+
+  -- wilder [autocomplete for cmdline]
+  {
+    "gelguy/wilder.nvim",
+    enabled = false,
+    event = "CmdlineEnter",
+    config = function()
+      local wilder = require('wilder')
+      wilder.setup({ modes = { ':', '/', '?' } })
+      wilder.set_option('renderer', wilder.popupmenu_renderer({
+        pumblend = 20,
+        highlighter = wilder.basic_highlighter(),
+        left = { ' ', wilder.popupmenu_devicons() },
+        right = { ' ', wilder.popupmenu_scrollbar() },
+      }))
+    end
+  },
+
+  -- wakatime [logs your time coding]
   {
     "wakatime/vim-wakatime",
     lazy = false,

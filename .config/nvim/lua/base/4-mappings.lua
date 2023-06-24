@@ -104,6 +104,19 @@ maps.n["<leader>M"] = {
   "<Cmd>Mason<CR>", desc = "Open Mason"
 }
 
+maps.n["<leader>le"] = {
+  "<Cmd>Hypersonic<CR>", desc = "Open Mason"
+}
+
+maps.n["<leader>t"] = {
+  "<Cmd>Trouble<CR>", desc = "Open Trouble (lsp diagnostics)"
+}
+
+maps.n["<leader>t"] = {
+  ui.toggle_lsplines,
+  desc = "Toggle lsp_lines (lsp diagnostics on line)"
+}
+
 -- standard Operations -----------------------------------------------------
 maps.n["j"] =
 { "v:count == 0 ? 'gj' : 'j'", expr = true, desc = "Move cursor down" }

@@ -100,7 +100,6 @@ function M.get_icon(kind, padding, no_fallback)
   return icon and icon .. string.rep(" ", padding or 0) or ""
 end
 
-
 --- Get a icon spinner table if it is available in the AstroNvim icons. Icons in format `kind1`,`kind2`, `kind3`, ...
 ---@param kind string The kind of icon to check for sequential entries of
 ---@return string[]|nil spinners # A collected table of spinning icons in sequential order or nil if none exist
@@ -114,7 +113,6 @@ function M.get_spinner(kind, ...)
   until not icon or icon == ""
   if #spinner > 0 then return spinner end
 end
-
 
 --- Get highlight properties for a given highlight name
 ---@param name string The highlight group name
@@ -172,8 +170,8 @@ function M.system_open(path)
   elseif vim.fn.has "unix" == 1 and vim.fn.executable "xdg-open" == 1 then
     cmd = { "xdg-open" }
   elseif
-    (vim.fn.has "mac" == 1 or vim.fn.has "unix" == 1)
-    and vim.fn.executable "open" == 1
+      (vim.fn.has "mac" == 1 or vim.fn.has "unix" == 1)
+      and vim.fn.executable "open" == 1
   then
     cmd = { "open" }
   end
@@ -308,7 +306,7 @@ end
 
 --- regex used for matching a valid URL/URI string
 M.url_matcher =
-  "\\v\\c%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)%([&:#*@~%_\\-=?!+;/0-9a-z]+%(%([.;/?]|[.][.]+)[&:#*@~%_\\-=?!+/0-9a-z]+|:\\d+|,%(%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)@![0-9a-z]+))*|\\([&:#*@~%_\\-=?!+;/.0-9a-z]*\\)|\\[[&:#*@~%_\\-=?!+;/.0-9a-z]*\\]|\\{%([&:#*@~%_\\-=?!+;/.0-9a-z]*|\\{[&:#*@~%_\\-=?!+;/.0-9a-z]*})\\})+"
+"\\v\\c%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)%([&:#*@~%_\\-=?!+;/0-9a-z]+%(%([.;/?]|[.][.]+)[&:#*@~%_\\-=?!+/0-9a-z]+|:\\d+|,%(%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)@![0-9a-z]+))*|\\([&:#*@~%_\\-=?!+;/.0-9a-z]*\\)|\\[[&:#*@~%_\\-=?!+;/.0-9a-z]*\\]|\\{%([&:#*@~%_\\-=?!+;/.0-9a-z]*|\\{[&:#*@~%_\\-=?!+;/.0-9a-z]*})\\})+"
 
 --- Delete the syntax matching rules for URLs/URIs if set
 function M.delete_url_match()
@@ -341,7 +339,7 @@ function M.cmd(cmd, show_error)
   end
   return success
       and result:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "")
-    or nil
+      or nil
 end
 
 --- Always ask before exiting nvim, even if there is nothing to be saved.

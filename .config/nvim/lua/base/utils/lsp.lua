@@ -146,7 +146,7 @@ M.on_attach = function(client, bufnr)
   -- Default: LSP mappings
   local lsp_mappings = {
     n = {
-      ["<leader>ld"] = {
+      ["<leader>A"] = {
         function() vim.diagnostic.open_float() end,
         desc = "Hover diagnostics",
       },

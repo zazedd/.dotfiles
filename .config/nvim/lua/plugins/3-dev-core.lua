@@ -93,6 +93,7 @@ return {
     opts = { user_default_options = { names = false } },
   },
 
+  -- nvim-surround [surround stuff]
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
