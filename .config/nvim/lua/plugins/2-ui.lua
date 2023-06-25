@@ -62,8 +62,8 @@ return {
         floats = "dark",   -- style for floating windows
       },
       on_colors = function(c)
-        c.bg_sidebar = "#15191f"
-        c.StatusLine = { bg = "#1c1c1c" }
+        c.bg_sidebar = "#15191c"
+        c.StatusLine = { bg = "#15191c" }
       end,
     },
   },
@@ -315,7 +315,7 @@ return {
 
         statusline = {
           -- statusline
-          hl = { fg = "fg", bg = "#15191f" },
+          hl = { fg = "fg", bg = "#15191c" },
           status.component.mode(),
           status.component.git_branch(),
           status.component.file_info {
@@ -375,7 +375,7 @@ return {
             provider = function(self)
               return string.rep(
                 " ",
-                vim.api.nvim_win_get_width(self.winid) + 1
+                vim.api.nvim_win_get_width(self.winid)
               )
             end,
             hl = { bg = "tabline_bg" },
@@ -436,7 +436,7 @@ return {
         local TabLineFill =
             get_hlgroup("TabLineFill", { fg = C.fg, bg = C.dark_bg })
         local TabLineSel =
-            get_hlgroup("TabLineSel", { fg = C.fg, bg = C.none })
+            get_hlgroup("TabLineSel", { fg = C.fg, bg = C.blue })
         local WinBar = get_hlgroup("WinBar", { fg = C.bright_grey, bg = C.bg })
         local WinBarNC = get_hlgroup("WinBarNC", { fg = C.grey, bg = C.bg })
         local Conditional =
@@ -475,14 +475,17 @@ return {
         local HeirlineTerminal = get_hlgroup("HeirlineTerminal", { bg = nil }).bg
             or hl.lualine_mode("insert", HeirlineInsert)
 
+        local bgdark = "#15191c"
+        local blue = "#7aa2f7"
+
         local colors = {
           close_fg = Error.fg,
           fg = StatusLine.fg,
-          bg = StatusLine.bg,
+          bg = bgdark,
           section_fg = StatusLine.fg,
-          section_bg = StatusLine.bg,
+          section_bg = bgdark,
           git_branch_fg = Conditional.fg,
-          mode_fg = StatusLine.bg,
+          mode_fg = bgdark,
           treesitter_fg = String.fg,
           scrollbar = TypeDef.fg,
           git_added = GitSignsAdd.fg,
@@ -496,16 +499,16 @@ return {
           winbar_bg = WinBar.bg,
           winbarnc_fg = WinBarNC.fg,
           winbarnc_bg = WinBarNC.bg,
-          tabline_bg = TabLineFill.bg,
-          tabline_fg = TabLineFill.bg,
+          tabline_bg = bgdark,
+          tabline_fg = blue,
           buffer_fg = Comment.fg,
           buffer_path_fg = WinBarNC.fg,
           buffer_close_fg = Comment.fg,
-          buffer_bg = TabLineFill.bg,
-          buffer_active_fg = Normal.fg,
+          buffer_bg = bgdark,
+          buffer_active_fg = bgdark,
           buffer_active_path_fg = WinBarNC.fg,
           buffer_active_close_fg = Error.fg,
-          buffer_active_bg = Normal.bg,
+          buffer_active_bg = blue,
           buffer_visible_fg = Normal.fg,
           buffer_visible_path_fg = WinBarNC.fg,
           buffer_visible_close_fg = Error.fg,

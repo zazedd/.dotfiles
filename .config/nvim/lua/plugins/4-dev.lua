@@ -38,7 +38,8 @@
 --       -> hypersonic                     [explains regex expressions]
 --       -> trouble                        [shows all errors]
 --       -> lsp_lines                      [show errors on line]
---       -> wilder                         [autocomplete for cmdline]
+--       -> wilder DISABLED                [autocomplete for cmdline]
+--       -> easyread                       [bionic reading]
 --       -> wakatime                       [time counter for projects]
 
 --       ## NOT INSTALLED
@@ -492,10 +493,10 @@ return {
   },
 
   -- lsp_lines [show errors on line]
-  {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    event = "BufEnter",
-  },
+  -- {
+  --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+  --   event = "User File",
+  -- },
 
   -- wilder [autocomplete for cmdline]
   {
@@ -513,6 +514,15 @@ return {
       }))
     end
   },
+
+  -- easyread [bionic reading]
+  -- {
+  --   "JellyApple102/easyread.nvim",
+  --   cmd = "EasyreadToggle",
+  --   config = function()
+  --     require('easyread').setup()
+  --   end,
+  -- },
 
   -- wakatime [logs your time coding]
   {

@@ -22,8 +22,8 @@
 --       -> cmp-nvim-lsp                   [auto completion lsp]
 --       -> cmp-luasnip                    [auto completion snippets]
 
---       ## OTHER
---       -> leap                           [leap]
+--       ## USER
+--       -> flash.nvim                     [search jump and f jump]
 
 return {
   {
@@ -273,16 +273,16 @@ return {
           orig_handler(_, msg, info)
         end
 
-        if vim.g.lsp_handlers_enabled then
-          vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-            vim.lsp.handlers.hover,
-            { border = "rounded", silent = true }
-          )
-          vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-            vim.lsp.handlers.signature_help,
-            { border = "rounded", silent = true }
-          )
-        end
+        -- if vim.g.lsp_handlers_enabled then
+        --   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+        --     vim.lsp.handlers.hover,
+        --     { border = "rounded", silent = true }
+        --   )
+        --   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+        --     vim.lsp.handlers.signature_help,
+        --     { border = "rounded", silent = true }
+        --   )
+        -- end
         local setup_servers = function()
           vim.api.nvim_exec_autocmds("FileType", {})
           require("base.utils").event "LspSetup"
@@ -492,33 +492,68 @@ return {
     },
   }, -- end of collection
 
+  -- USER
+  -- flash.nvim [search jump and f jump]
   {
-    "ggandor/flit.nvim",
-    keys = function()
-      ---@type LazyKeys[]
-      local ret = {}
-      for _, key in ipairs({ "f", "F", "t", "T" }) do
-        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
-      end
-      return ret
-    end,
-    opts = { labeled_modes = "nx" },
-  },
-  {
-    "ggandor/leap.nvim",
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
     keys = {
-      { "s",  mode = { "n", "x", "o" }, desc = "Leap forward to" },
-      { "S",  mode = { "n", "x", "o" }, desc = "Leap backward to" },
-      { "gs", mode = { "n", "x", "o" }, desc = "Leap from windows" },
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          -- default options: exact mode, multi window, all directions, with a backdrop
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
     },
-    config = function(_, opts)
-      local leap = require("leap")
-      for k, v in pairs(opts) do
-        leap.opts[k] = v
-      end
-      leap.add_default_mappings(true)
-      vim.keymap.del({ "x", "o" }, "x")
-      vim.keymap.del({ "x", "o" }, "X")
-    end,
   },
+
+  {
+    "lewis6991/hover.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("hover").setup {
+        init = function()
+          -- Require providers
+          require("hover.providers.lsp")
+          -- require('hover.providers.gh')
+          -- require('hover.providers.gh_user')
+          -- require('hover.providers.jira')
+          -- require('hover.providers.man')
+          -- require('hover.providers.dictionary')
+        end,
+        preview_opts = {
+          border = nil
+        },
+        -- Whether the contents of a currently open hover window should be moved
+        -- to a :h preview-window when pressing the hover keymap.
+        preview_window = false,
+        title = true
+      }
+
+      -- Setup keymaps
+      vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
+      vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
+    end
+  }
+
 } -- end of return

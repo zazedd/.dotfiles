@@ -43,7 +43,7 @@ M.setup_diagnostics = function(signs)
     float = {
       focused = false,
       style = "minimal",
-      border = "rounded",
+      -- border = "rounded",
       source = "always",
       header = "",
       prefix = "",
@@ -328,7 +328,7 @@ M.on_attach = function(client, bufnr)
 
   -- Work on any symbol
   if client.supports_method "textDocument/hover" then
-    lsp_mappings.n["<leader>lh"] = {
+    lsp_mappings.n["<leader>lK"] = {
       function() vim.lsp.buf.hover() end,
       desc = "Hover symbol details",
     }
