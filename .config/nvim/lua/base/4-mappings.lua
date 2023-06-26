@@ -117,6 +117,11 @@ maps.n["<leader>t"] = {
   desc = "Toggle lsp_lines (lsp diagnostics on line)"
 }
 
+maps.v['<leader>s'] = {
+  ":CarbonNow<CR>",
+  desc = "Screenshot of visual selection"
+}
+
 -- standard Operations -----------------------------------------------------
 maps.n["j"] =
 { "v:count == 0 ? 'gj' : 'j'", expr = true, desc = "Move cursor down" }

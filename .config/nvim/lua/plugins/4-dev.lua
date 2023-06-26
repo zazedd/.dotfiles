@@ -38,8 +38,8 @@
 --       -> hypersonic                     [explains regex expressions]
 --       -> trouble                        [shows all errors]
 --       -> lsp_lines                      [show errors on line]
---       -> wilder DISABLED                [autocomplete for cmdline]
---       -> easyread                       [bionic reading]
+--       -> easyread DISABLEF              [bionic reading]
+--       -> hardtime                       [helps build muscle memoryb]
 --       -> wakatime                       [time counter for projects]
 
 --       ## NOT INSTALLED
@@ -493,10 +493,13 @@ return {
   },
 
   -- lsp_lines [show errors on line]
-  -- {
-  --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-  --   event = "User File",
-  -- },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    event = "User File",
+    config = function()
+      require("lsp_lines").setup()
+    end,
+  },
 
   -- wilder [autocomplete for cmdline]
   {
@@ -524,6 +527,22 @@ return {
   --   end,
   -- },
 
+
+  -- hardtime [helps build muscle memoryb]
+  {
+    "m4xshen/hardtime.nvim",
+    enabled = false,
+    event = "VeryLazy",
+    opts = {}
+  },
+
+  {
+    "ellisonleao/carbon-now.nvim",
+    cmd = "CarbonNow",
+    opts = {
+      open_cmd = "firefox",
+    },
+  },
   -- wakatime [logs your time coding]
   {
     "wakatime/vim-wakatime",
