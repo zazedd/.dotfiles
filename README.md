@@ -22,3 +22,32 @@ Checkout the actual content from the git repository to your `$HOME`:
 ```sh
 dotfiles checkout
 ```
+
+## Dependencies
+Some of the dependencies are:
+
+```sh
+# general
+oh-my-posh
+oh-my-zsh
+fastfetch
+exa
+gdu
+
+# personal
+alacritty
+nvim
+mpv
+tmux
+
+# extraction function
+tar
+bunzip2
+rar
+gunzip
+unzip
+uncompress
+7z
+
+```
+
