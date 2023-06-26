@@ -367,6 +367,19 @@ return {
               == nil
         end
 
+        local function border(hl_name)
+          return {
+            { "╭", hl_name },
+            { "─", hl_name },
+            { "╮", hl_name },
+            { "│", hl_name },
+            { "╯", hl_name },
+            { "─", hl_name },
+            { "╰", hl_name },
+            { "│", hl_name },
+          }
+        end
+
         return {
           enabled = function()
             local dap_prompt = utils.is_available "cmp-dap" -- add interoperability with cmp-dap
@@ -386,9 +399,16 @@ return {
           end,
           preselect = cmp.PreselectMode.None,
           formatting = {
-            fields = { "kind", "abbr", "menu" },
-            format = lspkind_status_ok and lspkind.cmp_format(base.lspkind)
-                or nil,
+            fields = { "abbr", "kind", "menu" },
+            format = function(_, item)
+              local icons = lspkind.presets.default
+              local icon = icons[item.kind] or ""
+
+              icon = lspkind_status_ok and (" " .. icon .. " ") or icon
+              item.kind = string.format("%s %s", icon, item.kind or "")
+
+              return item
+            end,
           },
           snippet = {
             expand = function(args) luasnip.lsp_expand(args.body) end,
@@ -404,9 +424,20 @@ return {
             behavior = cmp.ConfirmBehavior.Replace,
             select = false,
           },
+          completion = {
+            completeopt = "menu,menuone",
+          },
           window = {
-            completion = cmp.config.window.bordered(border_opts),
-            documentation = cmp.config.window.bordered(border_opts),
+            completion = {
+              side_padding = 1,
+              border = border "CmpDocBorder",
+              winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+              scrollbar = false,
+            },
+            documentation = {
+              border = border "CmpDocBorder",
+              winhighlight = "Normal:CmpDoc",
+            },
           },
           mapping = {
             ["<PageUp>"] = cmp.mapping.select_prev_item {
@@ -535,14 +566,14 @@ return {
         init = function()
           -- Require providers
           require("hover.providers.lsp")
-          -- require('hover.providers.gh')
+          require('hover.providers.gh')
           -- require('hover.providers.gh_user')
           -- require('hover.providers.jira')
           -- require('hover.providers.man')
-          -- require('hover.providers.dictionary')
+          require('hover.providers.dictionary')
         end,
         preview_opts = {
-          border = nil
+          border = "rounded"
         },
         -- Whether the contents of a currently open hover window should be moved
         -- to a :h preview-window when pressing the hover keymap.

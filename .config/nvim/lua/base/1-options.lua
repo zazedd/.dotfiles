@@ -80,9 +80,9 @@ local options = {
     mouse = "a",                                   -- Enable mouse support.
     guicursor =
     "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175",
-    scrolloff = 1000,                              -- Number of lines to leave before/after the cursor when scrolling. Setting a high value keep the cusros centered.
-    sidescrolloff = 8,                             -- Same but for side scrolling.
-    selection = "old",                             -- Don't select the newline symbol when using <End> on visual mode
+    scrolloff = 1000,  -- Number of lines to leave before/after the cursor when scrolling. Setting a high value keep the cusros centered.
+    sidescrolloff = 8, -- Same but for side scrolling.
+    selection = "old", -- Don't select the newline symbol when using <End> on visual mode
   },
   g = {
     mapleader = " ",                                                    -- set leader key
@@ -99,6 +99,9 @@ local options = {
   },
   t = vim.t.bufs and vim.t.bufs or { bufs = vim.api.nvim_list_bufs() }, -- initialize buffers for the current tab
 }
+
+-- Set CmpDocBorder highlight
+vim.cmd([[highlight CmpDocBorder guifg=#333333]])
 
 -- set variables
 for scope, table in pairs(options) do

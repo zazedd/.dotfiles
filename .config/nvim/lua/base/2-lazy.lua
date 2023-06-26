@@ -59,11 +59,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
- -- true if channel is 'stable'
+-- true if channel is 'stable'
 local pin_plugins = base.updater.options.channel == "stable"
 
 -- assign spec (if pin_plugins is true, load ./lua/lazy_snapshot.lua)
-local spec = pin_plugins and {{ import = base.updater.snapshot.module }} or {}
+local spec = pin_plugins and { { import = base.updater.snapshot.module } } or {}
 vim.list_extend(spec, { { import = "plugins" } })
 
 
