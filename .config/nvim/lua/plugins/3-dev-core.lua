@@ -188,7 +188,7 @@ return {
           cmd = { "LspInstall", "LspUninstall" },
           opts = function(_, opts)
             opts.ensure_installed = {
-              "clangd", "lua_ls", "marksman", "bashls"
+              "clangd", "lua_ls", "marksman"
             }
             if not opts.handlers then opts.handlers = {} end
             opts.handlers[1] = function(server)

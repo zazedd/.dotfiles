@@ -543,9 +543,4 @@ return {
       open_cmd = "firefox",
     },
   },
-  -- wakatime [logs your time coding]
-  {
-    "wakatime/vim-wakatime",
-    lazy = false,
-  },
 }

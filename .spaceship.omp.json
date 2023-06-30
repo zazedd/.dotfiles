@@ -7,7 +7,19 @@
         {
           "foreground": "lightYellow",
           "style": "plain",
-          "template": "{{ .UserName }} ",
+          "template": "{{ .UserName }}",
+          "type": "session"
+        },
+        {
+          "foreground": "gray",
+          "style": "plain",
+          "template": "@",
+          "type": "session"
+        },
+        {
+          "foreground": "cyan",
+          "style": "plain",
+          "template": "{{ .HostName }} ",
           "type": "session"
         },
         {
@@ -16,7 +28,7 @@
             "style": "folder"
           },
           "style": "plain",
-          "template": "<#ffffff>in</> {{ .Path }} ",
+          "template": "<#ffffff>in</> {{ .Parent }}{{ .Path }} ",
           "type": "path"
         },
         {
@@ -37,7 +49,7 @@
       "newline": true,
       "segments": [
         {
-          "foreground": "lightGreen",
+          "foreground": "cyan",
           "style": "plain",
           "template": "\u276f",
           "type": "text"

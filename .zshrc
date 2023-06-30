@@ -65,5 +65,3 @@ source ~/.zsh/functions.zsh
 source ~/.zsh/alias.zsh
 
 source ~/.zsh/prompt.zsh
-
-
