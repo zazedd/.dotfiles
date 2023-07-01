@@ -51,7 +51,7 @@
         {
           "foreground": "cyan",
           "style": "plain",
-          "template": "\u276f",
+          "template": ">",
           "type": "text"
         }
       ],
