@@ -66,7 +66,6 @@ local pin_plugins = base.updater.options.channel == "stable"
 local spec = pin_plugins and { { import = base.updater.snapshot.module } } or {}
 vim.list_extend(spec, { { import = "plugins" } })
 
-
 -- the actual setup
 require("lazy").setup({
   spec = spec,

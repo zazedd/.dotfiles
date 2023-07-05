@@ -456,6 +456,12 @@ M.on_attach = function(client, bufnr)
     end
   end
 
+  if client.name == "clangd" then
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.offsetEncoding = { "utf-16" }
+    require("lspconfig").clangd.setup({ capabilities = capabilities })
+  end
+
   if not vim.tbl_isempty(lsp_mappings.v) then
     lsp_mappings.v["<leader>l"] =
     { desc = (vim.g.icons_enabled and " " or "") .. "LSP" }
