@@ -16,6 +16,10 @@ alias xbi="xbps-install"
 alias xbq="xbps-query"
 alias xbr="xbps-remove"
 
+alias volup="amixer sset Master playback 5%+"
+alias voldown="amixer sset Master playback 5%-"
+alias volset="amixer sset Master playback"
+
 alias v="nvim"
 alias t="tmux new-session \; send-keys "nvim" C-m \; neww \; split-window -v \; selectp -t 1  \; selectw -t 1"
 
