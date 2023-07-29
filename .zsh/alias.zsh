@@ -1,4 +1,4 @@
-# Alias 
+# Alias
 # Sudo alias hack
 alias sudo="nocorrect sudo "
 
@@ -20,6 +20,8 @@ alias idea="/home/zazed/Documents/IDEA/bin/idea.sh"
 alias t="tmux new-session \; send-keys "nvim" C-m \; neww \; split-window -v \; selectp -t 1  \; selectw -t 1"
 
 alias weather="curl v2.wttr.in"
+
+alias wakesv="sudo ether-wake -i eno1 14:da:e9:6d:5d:c9 -b 192.168.0.255"
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias gs="git status"

@@ -552,10 +552,12 @@ if not status then
 end
 lsp.ocamllsp.setup({
   cmd = { "ocamllsp" },
-  filetypes = { "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "dune" },
+  filetypes = { "ocaml", "ocaml.menhir", "ocaml.interface", "ocamlinterface", "ocaml.ocamllex", "reason", "dune" },
   root_dir = lsp.util.root_pattern("*.opam", "esy.json", "package.json", ".git", "dune-project", "dune-workspace"),
   on_attach = M.on_attach,
   capabilities = M.capabilities,
 })
+
+vim.cmd([[au! BufNewFile,BufRead *.mli setfiletype ocamlinterface]])
 
 return M

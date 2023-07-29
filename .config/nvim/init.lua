@@ -19,5 +19,4 @@ if base.default_colorscheme then
     )
   end
 end
-
 require("plugins.config.luasnips")
