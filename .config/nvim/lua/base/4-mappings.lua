@@ -80,6 +80,7 @@ local icons = {
 }
 
 -- user keybinds
+-- Use <leader>out to update the type
 maps.n["<C-h>"] = {
   [[<Cmd>TmuxNavigateLeft<CR>]], desc = "Tmux left"
 }

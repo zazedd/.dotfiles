@@ -216,4 +216,6 @@ font pango:monospace 0
 titlebar_padding 1
 titlebar_border_thickness 0
 
+for_window [app_id="openglfw"] floating enable
+
 include /etc/sway/config.d/*

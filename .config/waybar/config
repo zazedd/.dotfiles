@@ -7,7 +7,7 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad"],
-    "modules-right": ["idle_inhibitor", "custom/separator", "custom/alsa", "custom/separator", "network", "custom/separator", "cpu", "custom/separator", "memory", "custom/separator", "temperature", "custom/separator", "backlight", "custom/separator", "sway/language", "custom/separator", "battery#bat0", "battery#bat1", "custom/separator", "clock", "tray"],
+    "modules-right": ["idle_inhibitor", "custom/separator", "custom/alsa", "custom/separator", "network", "custom/separator", "cpu", "custom/separator", "memory", "custom/separator", "temperature", "custom/separator", "backlight", "custom/separator", "battery#bat0", "battery#bat1", "custom/separator", "clock", "tray"],
     // Modules configuration
      "sway/workspaces": {
          "disable-scroll": true,
@@ -46,7 +46,7 @@
         "spacing": 10
     },
     "clock": {
-        "timezone": "Europe/Lisbon",
+        "timezone": "GMT0",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%d-%m-%Y}",
         "format" : "{:%H:%M} "
@@ -77,9 +77,9 @@
             "warning": 30,
             "critical": 10
         },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% 󱐋",
-        "format-plugged": "{capacity}% ",
+        "format": "i -> {capacity}% {icon}",
+        "format-charging": "i -> {capacity}% 󱐋",
+        "format-plugged": "i -> {capacity}% ",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
@@ -92,9 +92,9 @@
             "warning": 30,
             "critical": 10
         },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% 󱐋",
-        "format-plugged": "{capacity}% ",
+        "format": "e -> {capacity}% {icon}",
+        "format-charging": "e -> {capacity}% 󱐋",
+        "format-plugged": "e -> {capacity}% ",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
@@ -111,7 +111,7 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "custom/alsa": {
-        "exec": "amixer get Master | sed -nre 's/.*\\[off\\].*/ 󰖁 - muted /p; s/.*\\[(.*%)\\].*/ \\1 󰕾 /p'",
+        "exec": "amixer get Master | sed -nre 's/.*\\[off\\].*/ muted - 󰖁 /p; s/.*\\[(.*%)\\].*/ \\1 󰕾 /p'",
         "on-click": "amixer set Master toggle; pkill -x -RTMIN+11 waybar",
         "on-scroll-up": "amixer set Master 1+; pkill -x -RTMIN+11 waybar",
         "on-scroll-down": "amixer set Master 1-; pkill -x -RTMIN+11 waybar",

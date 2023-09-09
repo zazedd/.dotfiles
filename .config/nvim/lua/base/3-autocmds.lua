@@ -469,7 +469,28 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-
 -- fix for a fucking stupid terminal writing bug
 vim.cmd('command! -nargs=0 Z w | qa')
 vim.cmd('cabbrev wqa Z')
+
+-- only enter command history if ctrl-f is pressed
+local function escape(keys)
+  return vim.api.nvim_replace_termcodes(keys, true, false, true)
+end
+
+vim.keymap.set("c", "<c-f>", function()
+  vim.g.requested_cmdwin = true
+  vim.api.nvim_feedkeys(escape "<c-f>", "n", false)
+end)
+
+vim.api.nvim_create_autocmd("cmdwinenter", {
+  group = vim.api.nvim_create_augroup("cwe", { clear = true }),
+  pattern = "*",
+  callback = function()
+    if vim.g.requested_cmdwin then
+      vim.g.requested_cmdwin = nil
+    else
+      vim.api.nvim_feedkeys(escape ":q<cr>:", "m", false)
+    end
+  end,
+})
