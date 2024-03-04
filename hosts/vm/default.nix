@@ -11,9 +11,8 @@ let user = "zazed";
     agenix.nixosModules.default
   ];
 
-  # Use the systemd-boot EFI boot loader.
-
   config = {
+    # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.device = "/dev/vda";
@@ -88,6 +87,16 @@ let user = "zazed";
       openssh.enable = true;
     };
 
+
+    environment.systemPackages = with pkgs; [
+      agenix.packages."${pkgs.system}".default # "x86_64-linux"
+        gitAndTools.gitFull
+        inetutils
+    ];
+
+    system.stateVersion = "21.05"; # Don't change this
+  };
+
     # Don't require password for users in `wheel` group for these commands
     # security.sudo = {
     #   enable = true;
@@ -111,13 +120,4 @@ let user = "zazed";
     #   noto-fonts
     #   noto-fonts-emoji
     # ];
-
-    environment.systemPackages = with pkgs; [
-      agenix.packages."${pkgs.system}".default # "x86_64-linux"
-        gitAndTools.gitFull
-        inetutils
-    ];
-  };
-
-  system.stateVersion = "21.05"; # Don't change this
 }
