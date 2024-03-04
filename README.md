@@ -82,6 +82,7 @@ nix run .#build-switch
 ### x86_64 machine
 ```sh
 nix run .#build-switch
+```
 
 ### VM
 ```sh
