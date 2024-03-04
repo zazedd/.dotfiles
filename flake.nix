@@ -124,7 +124,7 @@
           system = "aarch64-linux";
           specialArgs = inputs;
           modules = [
-            disko.nixosModules.disko
+            # disko.nixosModules.disko
             home-manager.nixosModules.home-manager {
               home-manager = {
                 useGlobalPkgs = true;

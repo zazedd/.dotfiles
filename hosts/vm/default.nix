@@ -4,8 +4,8 @@ let user = "zazed";
     keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhnU4G74TmS+p" ]; in
 {
   imports = [
-    ../../modules/nixos/secrets.nix
-    # ../../modules/nixos/disk-config.nix
+    ../../modules/vm/secrets.nix
+    # ../../modules/vm/disk-config.nix
     ../../modules/shared
     ../../modules/shared/cachix
     agenix.nixosModules.default
@@ -24,7 +24,7 @@ let user = "zazed";
 
   # Turn on flag for proprietary software
   nix = {
-    nixPath = [ "nixos-config=/home/${user}/.local/share/src/nixos-config:/etc/nixos" ];
+    # nixPath = [ "nixos-config=/home/${user}/.local/share/src/nixos-config:/etc/nixos" ];
     settings.allowed-users = [ "${user}" ];
     package = pkgs.nixUnstable;
     extraOptions = ''
