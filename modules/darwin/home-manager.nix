@@ -42,11 +42,11 @@ in
     # };
   };
 
-  nixpkgs = {
-    overlays =  [
-      inputs.neovim-nightly-overlay.overlay
-    ];
-  };
+  # nixpkgs = {
+  #   overlays =  [
+  #     inputs.neovim-nightly-overlay.overlay
+  #   ];
+  # };
 
   # Enable home-manager
   home-manager = {
@@ -62,7 +62,7 @@ in
 
         stateVersion = "23.11";
       };
-      programs = {} // import ../shared/home-manager.nix { inherit config pkgs lib; };
+      programs = {} // import ../shared/home-manager.nix { inherit inputs; };
 
       xdg.configFile.nvim = {
         source = ../../configs/nvim;

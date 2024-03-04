@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }@inputs:
 
 let
   user = "zazed";
   xdg_home  = "/home/${user}";
-  shared-programs = import ../shared/home-manager.nix { inherit config pkgs lib; };
+  shared-programs = import ../shared/home-manager.nix { inherit inputs; };
   shared-files = import ../shared/files.nix { inherit xdg_home; };
 in
 {
