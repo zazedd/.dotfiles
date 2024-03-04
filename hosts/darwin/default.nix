@@ -46,12 +46,6 @@ let user = "zazed"; in
   };
 
 
-  nixpkgs = {
-    overlays =  [
-      inputs.neovim-nightly-overlay.overlay
-    ];
-  };
-
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
 
