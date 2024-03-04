@@ -50,6 +50,12 @@ let name = "zazed";
         . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
       fi
 
+      if [[ $(uname) == "Darwin" ]]; then
+         [[ ! -r /Users/zazed/.opam/opam-init/init.zsh ]] || source /Users/zazed/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+      else
+         [[ ! -r /home/zazed/.opam/opam-init/init.zsh ]] || source /home/zazed/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+      fi
+
       export PATH=$PATH:/run/current-system/sw/bin
 
       export ZSH="$HOME/.oh-my-zsh"
