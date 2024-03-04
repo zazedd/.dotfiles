@@ -8,6 +8,7 @@ keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhn
     # ../../modules/vm/disk-config.nix
     ../../modules/shared
     ../../modules/shared/cachix
+    ./hardware.nix
     agenix.nixosModules.default
   ];
 
@@ -18,6 +19,7 @@ keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhn
 
   networking.hostName = "nixvm"; 
   networking.networkmanager.enable = true;  
+  networking.useDHCP = true;
 
   time.timeZone = "Portugal";
 
