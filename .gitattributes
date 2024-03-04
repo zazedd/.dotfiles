@@ -1,1 +1,1 @@
-configs/nvim/* linguist-detectable=false
+./configs/nvim/** linguist-vendored
