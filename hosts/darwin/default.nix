@@ -1,4 +1,4 @@
-{ agenix, config, pkgs, ... }:
+{ agenix, config, pkgs, ... }@inputs:
 
 let user = "zazed"; in
 
@@ -46,6 +46,12 @@ let user = "zazed"; in
   };
 
 
+  nixpkgs = {
+    overlays =  [
+      inputs.neovim-nightly-overlay.overlay
+    ];
+  };
+
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
 
@@ -56,6 +62,7 @@ let user = "zazed"; in
 
   # Enable fonts dir
   fonts.fontDir.enable = true;
+
 
 
   system = {
