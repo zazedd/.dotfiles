@@ -118,6 +118,20 @@ let name = "zazed";
         ''
             IdentityFile /Users/${user}/.ssh/id_github
         '')
+
+      ''
+        Host gitlab.com
+          Hostname gitlab.com
+          IdentitiesOnly yes
+      ''
+      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
+        ''
+            IdentityFile /home/${user}/.ssh/id_github
+        '')
+      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
+        ''
+            IdentityFile /Users/${user}/.ssh/id_github
+        '')
     ];
   };
 
