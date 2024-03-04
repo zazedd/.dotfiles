@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }@inputs:
+{ config, pkgs, lib, neovim-nightly-overlay, ... }@inputs:
 
 let
   user = "zazed";
   xdg_home  = "/home/${user}";
-  shared-programs = import ../shared/home-manager.nix { inherit inputs; };
+  shared-programs = import ../shared/home-manager.nix { inherit config pkgs lib neovim-nightly-overlay; };
   shared-files = import ../shared/files.nix { inherit xdg_home; };
 in
 {

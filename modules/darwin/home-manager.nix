@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, ... }@inputs:
+{ config, pkgs, lib, neovim-nightly-overlay, home-manager, ... }@inputs:
 
 let
   user = "zazed";
@@ -62,7 +62,7 @@ in
 
         stateVersion = "23.11";
       };
-      programs = {} // import ../shared/home-manager.nix { inherit inputs; };
+      programs = {} // import ../shared/home-manager.nix { inherit config pkgs lib neovim-nightly-overlay; };
 
       xdg.configFile.nvim = {
         source = ../../configs/nvim;

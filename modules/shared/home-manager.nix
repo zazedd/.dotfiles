@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }@inputs:
+{ config, pkgs, lib, neovim-nightly-overlay, ... }:
 
 let name = "zazed";
     user = "zazed";
@@ -7,7 +7,7 @@ let name = "zazed";
 
   nixpkgs = {
     overlays =  [
-      inputs.neovim-nightly-overlay.overlay
+      neovim-nightly-overlay.overlay
     ];
   };
 
