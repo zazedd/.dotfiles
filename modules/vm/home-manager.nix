@@ -7,14 +7,6 @@ let
   shared-files = import ../shared/files.nix { inherit user config pkgs; };
 in
 {
-
-  users.users.${user} = {
-    name = "${user}";
-    home = "/home/${user}";
-    isHidden = false;
-    shell = pkgs.zsh;
-  };
-
   home = {
     enableNixpkgsReleaseCheck = false;
     username = "${user}";
