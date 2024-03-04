@@ -16,7 +16,6 @@ in
     home = "/Users/${user}";
     isHidden = false;
     shell = pkgs.zsh;
-
   };
 
   homebrew = {

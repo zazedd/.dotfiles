@@ -77,7 +77,6 @@ let user = "zazed";
       extraGroups = [
         "wheel" 
       ];
-      shell = pkgs.zsh;
       openssh.authorizedKeys.keys = keys;
     };
 
