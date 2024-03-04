@@ -5,10 +5,10 @@ keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhn
 {
   imports = [
     ../../modules/vm/secrets.nix
-# ../../modules/vm/disk-config.nix
-      ../../modules/shared
-      ../../modules/shared/cachix
-      agenix.nixosModules.default
+    # ../../modules/vm/disk-config.nix
+    ../../modules/shared
+    ../../modules/shared/cachix
+    agenix.nixosModules.default
   ];
 
 # Use the systemd-boot EFI boot loader.
@@ -21,7 +21,6 @@ keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhn
 
   time.timeZone = "Portugal";
 
-# It's me, it's you, it's everyone
   users.users = {
     ${user} = {
       isNormalUser = true;
@@ -38,9 +37,8 @@ keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhn
     };
   };
 
-# Turn on flag for proprietary software
   nix = {
-# nixPath = [ "nixos-config=/home/${user}/.local/share/src/nixos-config:/etc/nixos" ];
+    # nixPath = [ "nixos-config=/home/${user}/.local/share/src/nixos-config:/etc/nixos" ];
     settings.allowed-users = [ "${user}" ];
     package = pkgs.nixUnstable;
     extraOptions = ''
@@ -48,7 +46,6 @@ keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhn
       '';
   };
 
-# Manages keys and such
   programs = {
     gnupg.agent.enable = true;
     zsh.enable = true;
@@ -58,33 +55,27 @@ keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhn
     xserver = {
       enable = true;
 
-# LightDM Display Manager
       displayManager.defaultSession = "none+bspwm";
       displayManager.lightdm = {
         enable = true;
         greeters.slick.enable = true;
       };
 
-# Tiling window manager
       windowManager.bspwm = {
         enable = true;
       };
 
-# Turn Caps Lock into Ctrl
       layout = "us";
       xkbOptions = "ctrl:nocaps";
 
-# Better support for general peripherals
       libinput.enable = true;
     };
 
     qemuGuest.enable = true;
     spice-vdagentd.enable = true;
 
-# Let's be able to SSH into this machine
     openssh.enable = true;
   };
-
 
   environment.systemPackages = with pkgs; [
     agenix.packages."${pkgs.system}".default # "x86_64-linux"

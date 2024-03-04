@@ -2,8 +2,8 @@
 
 let
   user = "zazed";
-  # Define the content of your file as a derivation
-  sharedFiles = import ../shared/files.nix { inherit user config pkgs; };
+  xdg_home  = "/Users/${user}";
+  sharedFiles = import ../shared/files.nix { inherit xdg_home; };
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
@@ -24,8 +24,6 @@ in
     taps = builtins.attrNames config.nix-homebrew.taps;
 
     brews = [
-      # "koekeishiya/formulae/yabai"
-      # "koekeishiya/formulae/skhd"
       "opam"
       "scala"
       "openjdk"

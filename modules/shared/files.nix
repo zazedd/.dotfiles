@@ -1,8 +1,7 @@
-{ user, pkgs, config, ... }:
+{ xdg_home, ... }:
 
 let
-  xdg_configHome = "${config.users.users.${user}.home}/.config";
-  xdg_home = "${config.users.users.${user}.home}";
+  xdg_configHome = "${xdg_home}/.config";
   githubPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIe2iEv5koQmvSw0TShBa/TGve/onUZJuMOM9XjIZnJM leomendesantos@gmail.com";
 in
 {

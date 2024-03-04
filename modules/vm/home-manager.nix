@@ -2,9 +2,9 @@
 
 let
   user = "zazed";
-  xdg_configHome  = "/home/${user}/.config";
+  xdg_home  = "/home/${user}";
   shared-programs = import ../shared/home-manager.nix { inherit config pkgs lib; };
-  shared-files = import ../shared/files.nix { inherit user config pkgs; };
+  shared-files = import ../shared/files.nix { inherit xdg_home; };
 in
 {
   home = {
