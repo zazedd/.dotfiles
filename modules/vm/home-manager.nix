@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }@inputs:
 
 let
   user = "zazed";
@@ -14,6 +14,12 @@ in
     packages = pkgs.callPackage ./packages.nix {};
     file = shared-files // import ./files.nix { inherit user; };
     stateVersion = "21.05";
+  };
+
+  nixpkgs = {
+    overlays =  [
+      inputs.neovim-nightly-overlay.overlay
+    ];
   };
 
   # Screen lock
