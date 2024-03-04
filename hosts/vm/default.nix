@@ -62,17 +62,15 @@ keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhn
     xserver = {
       enable = true;
 
-      displayManager.defaultSession = "none+bspwm";
+      displayManager.defaultSession = "none+dwm";
       displayManager.lightdm = {
         enable = true;
         greeters.slick.enable = true;
       };
 
-      windowManager.bspwm = {
-        enable = true;
-      };
+      windowManager.dwm. enable = true;
 
-      layout = "us";
+      xkb.layout = "us";
       xkbOptions = "ctrl:nocaps";
 
       libinput.enable = true;
