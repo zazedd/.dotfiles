@@ -1,6 +1,6 @@
 { config, pkgs, agenix, secrets, ... }:
 
-let user = "%USER%"; in
+let user = "zazed"; in
 {
   age.identityPaths = [
     "/home/${user}/.ssh/id_ed25519"
