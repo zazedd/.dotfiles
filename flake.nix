@@ -129,7 +129,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.users.${user} = import ./modules/vm/home-manager.nix;
+                users.${user} = import ./modules/vm/home-manager.nix;
               };
             }
             ./hosts/vm
