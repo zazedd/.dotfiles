@@ -63,8 +63,8 @@ let user = "zazed";
       libinput.enable = true;
     };
 
-    services.qemuGuest.enable = true;
-    services.spice-vdagentd.enable = true;
+    qemuGuest.enable = true;
+    spice-vdagentd.enable = true;
 
     # Let's be able to SSH into this machine
     openssh.enable = true;
