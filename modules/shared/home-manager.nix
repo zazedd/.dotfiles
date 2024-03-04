@@ -1,15 +1,9 @@
-{ config, pkgs, lib, neovim-nightly-overlay, ... }:
+{ config, pkgs, lib, ... }:
 
 let name = "zazed";
     user = "zazed";
     email = "leomendesantos@gmail.com"; in
 {
-
-  nixpkgs = {
-    overlays =  [
-      neovim-nightly-overlay.overlay
-    ];
-  };
 
   # Shared shell configuration
   zsh = {

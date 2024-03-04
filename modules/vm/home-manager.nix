@@ -1,4 +1,4 @@
-{ config, pkgs, lib, neovim-nightly-overlay, ... }@inputs:
+{ config, pkgs, lib, neovim-nightly-overlay, ... }:
 
 let
   user = "zazed";
@@ -7,6 +7,7 @@ let
   shared-files = import ../shared/files.nix { inherit xdg_home; };
 in
 {
+
   home = {
     enableNixpkgsReleaseCheck = false;
     username = "${user}";

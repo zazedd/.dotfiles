@@ -22,6 +22,12 @@ keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhn
 
   time.timeZone = "Portugal";
 
+  nixpkgs = {
+    overlays =  [
+      inputs.neovim-nightly-overlay.overlay
+    ];
+  };
+
   users.users = {
     ${user} = {
       isNormalUser = true;
