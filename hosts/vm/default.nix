@@ -79,6 +79,7 @@ let user = "zazed";
       ];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = keys;
+      home = "/home/${user}";
     };
 
     root = {
