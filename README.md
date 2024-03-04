@@ -11,9 +11,10 @@ This repository contains my configuration for my systems, specifically Nix on ma
   - [For macOS (Feb 2024)](#for-macos-february-2024)
     - [Build check](#1-build-check)
     - [Make changes](#2-make-changes)
-  - [For all platforms](#for-all-platforms)
-    - [Deploying](#deploying)
-    - [Update Dependencies](#update-dependencies)
+  - [Other systems](#other-systems)
+    - [X86_64 machine](#x86_64-machine)
+    - [VM](#vm)
+  - [Updating Dependencies](#updating-dependencies)
 - [Compatibility and Testing](#compatibility-and-testing)
 
 ## Layout
@@ -76,13 +77,17 @@ nix run .#build-switch
 > [!CAUTION]
 > `~/.zshrc` will be replaced with the [`zsh` configuration](https://github.com/dustinlyons/nixos-config/blob/main/templates/starter/modules/shared/home-manager.nix#L8) from this repository. Make edits here first if you'd like.
 
-## For all platforms
+## Other systems
 
-### Deploying
+### x86_64 machine
 ```sh
 nix run .#build-switch
+
+### VM
+```sh
+sudo nixos-rebuild switch --flake .#vm
 ```
-### Update dependencies
+## Updating dependencies
 ```sh
 nix flake update
 ```
