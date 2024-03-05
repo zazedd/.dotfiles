@@ -55,9 +55,12 @@ let user = "zazed"; in
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   # Enable fonts dir
-  fonts.fontDir.enable = true;
-
-
+  fonts = {
+    fontDir.enable = true;
+    fonts = with pkgs; [
+      (nerdfonts.override { fonts = [ "FiraCode" "Iosevka" ]; })
+    ];
+  };
 
   system = {
     stateVersion = 4;

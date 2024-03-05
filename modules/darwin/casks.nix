@@ -4,9 +4,6 @@ _:
   "wezterm"
   "obsidian"
 
-  # "font-blex-mono-nerd-font"
-  "font-iosevka-nerd-font"
-
   # Utility Tools
   "syncthing"
   "aldente"
@@ -19,6 +16,7 @@ _:
   # Entertainment Tools
   "iina"
   "tidal"
+  "airparrot"
 
   # Productivity Tools
   "raycast"
