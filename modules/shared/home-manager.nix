@@ -52,8 +52,12 @@ let name = "zazed";
 
       if [[ $(uname) == "Darwin" ]]; then
          [[ ! -r /Users/zazed/.opam/opam-init/init.zsh ]] || source /Users/zazed/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+         export XDG_CONFIG_HOME=/Users/${user}/.dotfiles/configs
+         export PATH=$PATH:/Users/${user}/.cargo/bin
       else
          [[ ! -r /home/zazed/.opam/opam-init/init.zsh ]] || source /home/zazed/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+         export XDG_CONFIG_HOME=/home/${user}/.dotfiles/configs
+         export PATH=$PATH:/home/${user}/.cargo/bin
       fi
 
       export PATH=$PATH:/run/current-system/sw/bin

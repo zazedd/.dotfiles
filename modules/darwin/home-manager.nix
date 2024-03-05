@@ -24,6 +24,7 @@ in
     taps = builtins.attrNames config.nix-homebrew.taps;
 
     brews = [
+      "gmp"
       "opam"
       "scala"
       "openjdk"
