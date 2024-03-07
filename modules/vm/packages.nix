@@ -6,9 +6,9 @@ shared-packages ++ [
   home-manager
 
   alacritty
-  xorg.xrandr
+  # xorg.xrandr
   gnumake
   xdg-utils
   nmap
-  dmenu
+  # dmenu
 ]

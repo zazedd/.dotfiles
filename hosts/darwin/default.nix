@@ -20,6 +20,21 @@ let user = "zazed"; in
     package = pkgs.nixUnstable;
     settings.trusted-users = [ "@admin" "${user}" ];
 
+    linux-builder = {
+      enable = true;
+      ephemeral = true;
+      maxJobs = 4;
+      config = {
+        virtualisation = {
+          darwin-builder = {
+            # diskSize = 40 * 1024;
+            memorySize = 6 * 1024;
+          };
+          cores = 6;
+        };
+      };
+    };
+
     gc = {
       user = "root";
       automatic = true;
@@ -85,7 +100,7 @@ let user = "zazed"; in
         autohide = true;
         show-recents = false;
         launchanim = true;
-        orientation = "left";
+        orientation = "right";
         tilesize = 48;
       };
 

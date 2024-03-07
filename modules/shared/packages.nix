@@ -33,14 +33,10 @@ with pkgs; [
   # Text and terminal utilities
   htop
   eza
-  hunspell
-  iftop
-  jetbrains-mono
   jq
   ripgrep
   fzf
   tree
   unrar
   unzip
-  zsh-powerlevel10k
 ]

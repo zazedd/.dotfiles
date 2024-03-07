@@ -4,6 +4,10 @@ mc () {
   mkdir -p "$@" && cd "$@"
 }
 
+nixvm () {
+  nix run ~/.dotfiles/#simple-vm
+}
+
 # universal extract command
 ext () {
   if [ -f "$1" ]; then

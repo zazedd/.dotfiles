@@ -40,7 +40,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-     secrets = {
+    secrets = {
       url = "git+ssh://git@github.com/zazedd/nix-secrets.git";
       flake = false;
     };
@@ -131,6 +131,29 @@
             ./hosts/vm
           ];
         };
+
+        simple-vm = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = inputs;
+          modules = [
+            {
+              virtualisation.vmVariant.virtualisation.graphics = false;
+              virtualisation.vmVariant.virtualisation.host.pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+            }
+            # disko.nixosModules.disko
+            # home-manager.nixosModules.home-manager {
+            #   home-manager = {
+            #     useGlobalPkgs = true;
+            #     useUserPackages = true;
+            #     users.${user} = import ./modules/vm/home-manager.nix;
+            #   };
+            # }
+            # ./hosts/vm
+            ./hosts/simple-vm
+          ];
+        };
       };
+
+    packages.aarch64-darwin.simple-vm = self.nixosConfigurations.simple-vm.config.system.build.vm;
   };
 }
