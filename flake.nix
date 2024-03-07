@@ -137,8 +137,14 @@
           specialArgs = inputs;
           modules = [
             {
-              virtualisation.vmVariant.virtualisation.graphics = false;
-              virtualisation.vmVariant.virtualisation.host.pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+              virtualisation = {
+                vmVariant.virtualisation = {
+                  graphics = false;
+                  resolution = { x = 1900; y = 1200; };
+                  host.pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+                };
+              };
+              
             }
             # disko.nixosModules.disko
             # home-manager.nixosModules.home-manager {
