@@ -100,7 +100,10 @@ let name = "zazed";
 	    editor = "nvim";
         autocrlf = "input";
       };
+      
       commit.gpgsign = true;
+      gpg.format = "ssh";
+      user.signingkey = "~/.ssh/github.pub";
       pull.rebase = true;
       rebase.autoStash = true;
     };
