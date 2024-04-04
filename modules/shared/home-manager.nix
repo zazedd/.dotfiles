@@ -95,15 +95,14 @@ let name = "zazed";
       enable = true;
     };
     extraConfig = {
+      commit.gpgsign = true;
+
       init.defaultBranch = "main";
       core = { 
 	    editor = "nvim";
         autocrlf = "input";
       };
       
-      commit.gpgsign = true;
-      gpg.format = "ssh";
-      user.signingkey = "~/.ssh/github.pub";
       pull.rebase = true;
       rebase.autoStash = true;
     };
