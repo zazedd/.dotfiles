@@ -1,4 +1,4 @@
-{ config, pkgs, lib, neovim-nightly-overlay, home-manager, ... }@inputs:
+{ config, pkgs, lib, neovim-nightly-overlay, fenix, home-manager, ... }@inputs:
 
 let
   user = "zazed";
@@ -26,8 +26,6 @@ in
     brews = [
       "gmp"
       "opam"
-      "scala"
-      "openjdk"
     ];
 
     # These app IDs are from using the mas CLI app
@@ -45,6 +43,7 @@ in
 
   nixpkgs = {
     overlays =  [
+      (_: super: let pkgs = fenix.inputs.nixpkgs.legacyPackages.${super.system}; in fenix.overlays.default pkgs pkgs)
       inputs.neovim-nightly-overlay.overlay
     ];
   };
@@ -63,7 +62,7 @@ in
 
         stateVersion = "23.11";
       };
-      programs = {} // import ../shared/home-manager.nix { inherit config pkgs lib neovim-nightly-overlay; };
+      programs = { } // import ../shared/home-manager.nix { inherit config pkgs lib neovim-nightly-overlay; };
 
       xdg.configFile.nvim = {
         source = ../../configs/nvim;

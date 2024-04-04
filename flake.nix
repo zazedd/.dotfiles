@@ -5,6 +5,10 @@
     agenix.url = "github:ryantm/agenix";
     home-manager.url = "github:nix-community/home-manager";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,7 +49,7 @@
       flake = false;
     };
   };
-  outputs = { self, secrets, darwin, nix-homebrew, neovim-nightly-overlay, homebrew-bundle, homebrew-core, homebrew-cask, homebrew-services, homebrew-cask-fonts, koek, home-manager, nixpkgs, disko, agenix } @inputs:
+  outputs = { self, secrets, darwin, nix-homebrew, neovim-nightly-overlay, fenix, homebrew-bundle, homebrew-core, homebrew-cask, homebrew-services, homebrew-cask-fonts, koek, home-manager, nixpkgs, disko, agenix } @inputs:
     let
       user = "zazed";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -81,6 +85,7 @@
         "build-switch" = mkApp "build-switch" system;
         "check-keys" = mkApp "check-keys" system;
         "rollback" = mkApp "rollback" system;
+        "vm" = mkApp "vm" system;
       };
     in
     {

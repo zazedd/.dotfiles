@@ -11,6 +11,7 @@ _:
   "unnaturalscrollwheels"
   "displaperture"
   "deluge"
+  "betterdisplay"
   #"whatsapp"
 
   # Entertainment Tools
