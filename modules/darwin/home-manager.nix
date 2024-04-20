@@ -25,7 +25,6 @@ in
 
     brews = [
       "gmp"
-      "opam"
     ];
 
     # mas = mac app store
@@ -41,7 +40,8 @@ in
 
   nixpkgs = {
     overlays =  [
-      (_: super: let pkgs = fenix.inputs.nixpkgs.legacyPackages.${super.system}; in fenix.overlays.default pkgs pkgs)
+      # (_: super: let pkgs = fenix.inputs.nixpkgs.legacyPackages.${super.system}; in fenix.overlays.default pkgs pkgs)
+      fenix.overlays.default
       inputs.neovim-nightly-overlay.overlay
     ];
   };

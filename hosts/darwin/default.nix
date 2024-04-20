@@ -49,6 +49,7 @@ let user = "zazed"; in
 
   };
 
+
   services.yabai = {
     enable = true;
     enableScriptingAddition = false;
@@ -65,7 +66,7 @@ let user = "zazed"; in
   system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     agenix.packages."${pkgs.system}".default
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 

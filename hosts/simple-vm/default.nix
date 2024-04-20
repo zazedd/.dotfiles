@@ -30,6 +30,13 @@ in
 
   security.sudo.wheelNeedsPassword = false;
 
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      ''* * * * * zazed echo "Hello World $(date)" >> ~/hello.txt''
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     neofetch
     neovim-nightly

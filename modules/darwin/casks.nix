@@ -12,16 +12,18 @@ _:
   "displaperture"
   "deluge"
   "betterdisplay"
+  "qmk-toolbox"
   #"whatsapp"
 
   # Entertainment Tools
   "iina"
   "tidal"
   "airparrot"
+  "jellyfin-media-player"
 
   # Productivity Tools
   "raycast"
-  # "utm"
+  "utm"
 
   # Browsers
   "arc"

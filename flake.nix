@@ -6,7 +6,7 @@
     home-manager.url = "github:nix-community/home-manager";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     fenix = {
-      url = "github:nix-community/fenix";
+      url = "github:nix-community/fenix/monthly";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     darwin = {
@@ -89,6 +89,11 @@
       };
     in
     {
+      packages.aarch64-darwin = {
+          default = fenix.packages.aarch64-linux.default.toolchain;
+          simple-vm = self.nixosConfigurations.simple-vm.config.system.build.vm;
+      };
+      
       devShells = forAllSystems devShell;
       apps = nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
 
@@ -112,7 +117,7 @@
                   "koekeishiya/formulae" = koek;
                 };
                 mutableTaps = true;
-                autoMigrate = true;
+                autoMigrate = false;
               };
             }
             ./hosts/darwin
@@ -164,7 +169,5 @@
           ];
         };
       };
-
-    packages.aarch64-darwin.simple-vm = self.nixosConfigurations.simple-vm.config.system.build.vm;
   };
 }

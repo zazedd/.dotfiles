@@ -1,0 +1,611 @@
+@nix { "action": "setPhase", "phase": "qtPreHook" }
+Running phase: qtPreHook
+@nix { "action": "setPhase", "phase": "unpackPhase" }
+Running phase: unpackPhase
+unpacking source archive /nix/store/29ys8cyv10ylq1grnpriyn7f8npfdyx0-pinentry-1.2.1.tar.bz2
+source root is pinentry-1.2.1
+setting SOURCE_DATE_EPOCH to timestamp 1661338375 of file pinentry-1.2.1/ChangeLog
+@nix { "action": "setPhase", "phase": "patchPhase" }
+Running phase: patchPhase
+applying patch /nix/store/vczshddss29zdgjv2alr02ph4r6n2lx7-autoconf-ar.patch
+patching file configure.ac
+Hunk #1 succeeded at 82 (offset 1 line).
+patching file pinentry/Makefile.in
+Hunk #1 succeeded at 122 (offset 9 lines).
+patching file secmem/Makefile.in
+Hunk #1 succeeded at 122 (offset 9 lines).
+applying patch /nix/store/a45agg4g16j6y7yca4dk39k81bfiqafi-0007-gtk2-When-X11-input-grabbing-fails-try-again-over-0..patch
+patching file gtk+-2/pinentry-gtk-2.c
+Hunk #1 succeeded at 161 (offset -3 lines).
+Hunk #2 succeeded at 170 (offset -3 lines).
+Hunk #3 succeeded at 195 (offset -3 lines).
+Hunk #4 succeeded at 217 (offset -3 lines).
+@nix { "action": "setPhase", "phase": "autoreconfPhase" }
+Running phase: autoreconfPhase
+autoreconf: export WARNINGS=
+autoreconf: Entering directory '.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal --force -I m4
+autoreconf: configure.ac: tracing
+autoreconf: configure.ac: not using Libtool
+autoreconf: configure.ac: not using Intltool
+autoreconf: configure.ac: not using Gtkdoc
+autoreconf: running: /nix/store/pd42h32y1ii2h6f812q3amjl5pl70rlr-autoconf-2.72/bin/autoconf --force
+autoreconf: running: /nix/store/pd42h32y1ii2h6f812q3amjl5pl70rlr-autoconf-2.72/bin/autoheader --force
+autoreconf: running: automake --add-missing --copy --force-missing
+autoreconf: 'build-aux/install-sh' is updated
+autoreconf: Leaving directory '.'
+@nix { "action": "setPhase", "phase": "updateAutotoolsGnuConfigScriptsPhase" }
+Running phase: updateAutotoolsGnuConfigScriptsPhase
+Updating Autotools / GNU config script to a newer upstream version: ./build-aux/config.sub
+Updating Autotools / GNU config script to a newer upstream version: ./build-aux/config.guess
+@nix { "action": "setPhase", "phase": "configurePhase" }
+Running phase: configurePhase
+patching script interpreter paths in ./configure
+./configure: interpreter directive changed from "#! /bin/sh" to "/nix/store/lp3ginchcanhcj4dgw6yzdgv8bgdkm1v-bash-5.2p26/bin/sh"
+configure flags: --disable-dependency-tracking --prefix=/nix/store/vy8dqpx2b2bs7kcss1n9avlckllfhq34-pinentry-all-1.2.1 --with-libgpg-error-prefix=/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev --with-libassuan-prefix=/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev --enable-libsecret --enable-pinentry-curses --enable-pinentry-emacs --enable-pinentry-gnome3 --enable-pinentry-gtk2 --enable-pinentry-qt --enable-pinentry-tty
+checking for a BSD-compatible install... /nix/store/ssqkq33b9jb441g7baplb87z8vnyp34i-coreutils-9.5/bin/install -c
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... /nix/store/ssqkq33b9jb441g7baplb87z8vnyp34i-coreutils-9.5/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make supports the include directive... yes (GNU style)
+checking for gcc... clang
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether clang accepts -g... yes
+checking for clang option to enable C11 features... none needed
+checking whether clang understands -c and -o together... yes
+checking dependency style of clang... none
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for wchar.h... yes
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking whether _XOPEN_SOURCE should be defined... no
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking build system type... aarch64-apple-darwin23.2.0
+checking host system type... aarch64-apple-darwin23.2.0
+checking whether make sets $(MAKE)... (cached) yes
+checking whether build environment is sane... yes
+checking for gcc... (cached) clang
+checking whether the compiler supports GNU C... (cached) yes
+checking whether clang accepts -g... (cached) yes
+checking for clang option to enable C11 features... (cached) none needed
+checking whether clang understands -c and -o together... (cached) yes
+checking dependency style of clang... (cached) none
+checking how to run the C preprocessor... clang -E
+checking for ranlib... ranlib
+checking for ar... ar
+checking whether the compiler supports GNU C++... yes
+checking whether clang++ accepts -g... yes
+checking for clang++ option to enable C++11 features... none needed
+checking dependency style of clang++... none
+checking whether ln -s works... yes
+checking pkg-config is at least version 0.9.0... yes
+checking for windres... no
+checking for gitlog-to-changelog... no
+checking if gcc ignores unknown -Wno-* options... no
+checking if gcc supports -Wno-pointer-sign... yes
+checking if gcc supports -Wpointer-arith... yes
+checking for string.h... (cached) yes
+checking for unistd.h... (cached) yes
+checking for langinfo.h... yes
+checking for termio.h... no
+checking for locale.h... yes
+checking for utime.h... yes
+checking for wchar.h... (cached) yes
+checking for seteuid... yes
+checking for stpcpy... yes
+checking for mmap... yes
+checking for stat... yes
+checking for mlock... yes
+checking for sysconf... yes
+checking for getpagesize... yes
+checking whether mlock is broken... no
+checking for uint32_t... yes
+checking for gpg-error-config... /nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/bin/gpg-error-config
+checking for gpgrt-config... /nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/bin/gpgrt-config
+checking for GPG Error - version >= 1.16... yes (1.48)
+configure: WARNING:
+***
+*** The config script "/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/bin/gpg-error-config" was
+*** built for aarch64-apple-darwin23.4.0 and thus may not match the
+*** used host aarch64-apple-darwin23.2.0.
+*** You may want to use the configure option --with-libgpg-error-prefix
+*** to specify a matching config script or use $SYSROOT.
+***
+checking for libassuan-config... /nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/bin/libassuan-config
+checking for LIBASSUAN - version >= 2.1.0... yes (2.5.7)
+checking LIBASSUAN API version... okay
+configure: WARNING:
+***
+*** The config script "/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/bin/libassuan-config" was
+*** built for aarch64-apple-darwin23.4.0 and thus may not match the
+*** used host aarch64-apple-darwin23.2.0.
+*** You may want to use the configure option --with-libassuan-prefix
+*** to specify a matching config script.
+***
+checking for byte... no
+checking for ulong... no
+checking for u64... no
+checking for ncursesw... yes
+checking for ncurses include dir... none
+checking for ld... ld
+checking if the linker (ld) is GNU ld... no
+checking for shared library run path origin... done
+checking 32-bit host C ABI... no
+checking for egrep -e... /nix/store/w57dxm682rl3b7ayf7ay8lsy9lkzmh7z-gnugrep-3.11/bin/grep -E
+checking for ELF binary format... no
+checking for the common suffixes of directories in the library search path... lib,lib,lib
+checking for iconv... yes
+checking for working iconv... yes
+checking for iconv declaration... 
+         extern size_t iconv (iconv_t cd, char * *inbuf, size_t *inbytesleft, char * *outbuf, size_t *outbytesleft);
+checking if Unix domain socket is supported... yes
+checking for elementary >= 1.18,ecore-x... no
+configure: WARNING: pkg-config could not find the modules elementary or ecore-x
+checking for gtk+-2.0 >= 2.12.0... yes
+checking for gcr-3,gcr-base-3... yes
+checking for libsecret-1... yes
+checking for x11... yes
+checking for KF5WaylandClient >= 5.60... no
+configure: WARNING: pkg-config could not find the module KF5WaylandClient
+checking for Qt5Core >= 5.0.0 Qt5Gui >= 5.0.0 Qt5Widgets >= 5.0.0... yes
+checking for Qt5Core >= 5.7.0... yes
+checking for Qt5X11Extras >= 5.1.0... no
+configure: WARNING: pinentry-qt will be built without Caps Lock warning on X11
+checking for moc... moc
+checking moc version... checking for rcc... rcc
+checking rcc version... configure: WARNING: pinentry-qt will be built without Caps Lock warning on Wayland
+checking for QtCore >= 4.6.0 QtGui >= 4.6.0... no
+checking for fltk-config... no
+configure: WARNING: fltk-config is not found
+checking that generated files are newer than configure... done
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating m4/Makefile
+config.status: creating secmem/Makefile
+config.status: creating pinentry/Makefile
+config.status: creating curses/Makefile
+config.status: creating tty/Makefile
+config.status: creating efl/Makefile
+config.status: creating emacs/Makefile
+config.status: creating gtk+-2/Makefile
+config.status: creating gnome3/Makefile
+config.status: creating qt/Makefile
+config.status: creating qt/icons/Makefile
+config.status: creating qt4/Makefile
+config.status: creating tqt/Makefile
+config.status: creating w32/Makefile
+config.status: creating fltk/Makefile
+config.status: creating doc/Makefile
+config.status: creating Makefile
+config.status: creating config.h
+config.status: executing depfiles commands
+configure:
+
+	Pinentry v1.2.1-unknown has been configured as follows:
+
+	Revision:  0000000  (0)
+	Platform:  aarch64-apple-darwin23.2.0
+
+	Curses Pinentry ..: yes
+	TTY Pinentry .....: yes
+	Emacs Pinentry ...: yes
+	EFL Pinentry .....: no
+	GTK+-2 Pinentry ..: yes
+	GNOME 3 Pinentry .: yes
+	Qt5 Pinentry .....: yes
+	Qt4 Pinentry .....: no
+	TQt Pinentry .....: no
+	W32 Pinentry .....: no
+	FLTK Pinentry ....: no
+
+	Fallback to Curses: yes
+	Emacs integration : yes
+
+	libsecret ........: yes
+
+	Default Pinentry .: pinentry-gtk-2
+
+@nix { "action": "setPhase", "phase": "buildPhase" }
+Running phase: buildPhase
+build flags: SHELL=/nix/store/lp3ginchcanhcj4dgw6yzdgv8bgdkm1v-bash-5.2p26/bin/bash
+make  all-recursive
+make[1]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1'
+Making all in m4
+make[2]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/m4'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/m4'
+Making all in secmem
+make[2]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/secmem'
+clang -DHAVE_CONFIG_H -I. -I..   -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o secmem.o secmem.c
+clang -DHAVE_CONFIG_H -I. -I..   -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o util.o util.c
+rm -f libsecmem.a
+ar cru libsecmem.a secmem.o util.o 
+ranlib libsecmem.a
+make[2]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/secmem'
+Making all in pinentry
+make[2]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/pinentry'
+clang -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include  -I../secmem -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o pinentry.o pinentry.c
+clang -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include  -I../secmem -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o argparse.o argparse.c
+clang -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include  -I../secmem -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o password-cache.o password-cache.c
+clang -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include  -I../secmem -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o pinentry-emacs.o pinentry-emacs.c
+rm -f libpinentry.a
+ar cru libpinentry.a pinentry.o argparse.o password-cache.o pinentry-emacs.o 
+ranlib libpinentry.a
+clang -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include  -I../secmem -Wall -D_DARWIN_C_SOURCE -DNCURSES_WIDECHAR -I/nix/store/1gbz1nna8j48qzsaiwwcq48jlra8yrlm-ncurses-6.4-dev/include -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o libpinentry_curses_a-pinentry-curses.o `test -f 'pinentry-curses.c' || echo './'`pinentry-curses.c
+rm -f libpinentry-curses.a
+ar cru libpinentry-curses.a libpinentry_curses_a-pinentry-curses.o 
+ranlib libpinentry-curses.a
+make[2]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/pinentry'
+Making all in curses
+make[2]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/curses'
+clang -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include   -I../pinentry -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o pinentry-curses.o pinentry-curses.c
+clang  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith   -o pinentry-curses pinentry-curses.o ../pinentry/libpinentry.a ../pinentry/libpinentry-curses.a ../secmem/libsecmem.a -L/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib -L/nix/store/vyjw5s926gzliqripc1njrndg8jzvwpb-libsecret-0.21.4/lib -lsecret-1 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -L/nix/store/2vfcmxqn0mp7kxl1yl4yr3ryx9c67zfg-libassuan-2.5.7/lib -lassuan -L/nix/store/sfnba2ijbp3mgrws0f6dfwdvlr8cxx4g-libgpg-error-1.48/lib -lgpg-error -L/nix/store/sfnba2ijbp3mgrws0f6dfwdvlr8cxx4g-libgpg-error-1.48/lib -lgpg-error  -L/nix/store/ycqmaxrlzh96ki74cc13azzdkggw0p0f-ncurses-6.4/lib -Wl,-search_paths_first -lncursesw  
+make[2]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/curses'
+Making all in tty
+make[2]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/tty'
+clang -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include  -I../secmem -I../pinentry -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o pinentry-tty.o pinentry-tty.c
+clang  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith   -o pinentry-tty pinentry-tty.o ../pinentry/libpinentry.a ../secmem/libsecmem.a -L/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib -L/nix/store/vyjw5s926gzliqripc1njrndg8jzvwpb-libsecret-0.21.4/lib -lsecret-1 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -L/nix/store/2vfcmxqn0mp7kxl1yl4yr3ryx9c67zfg-libassuan-2.5.7/lib -lassuan -L/nix/store/sfnba2ijbp3mgrws0f6dfwdvlr8cxx4g-libgpg-error-1.48/lib -lgpg-error -L/nix/store/sfnba2ijbp3mgrws0f6dfwdvlr8cxx4g-libgpg-error-1.48/lib -lgpg-error   
+make[2]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/tty'
+Making all in emacs
+make[2]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/emacs'
+clang -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include   -I../pinentry -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o pinentry-emacs.o pinentry-emacs.c
+clang  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith   -o pinentry-emacs pinentry-emacs.o ../pinentry/libpinentry.a ../secmem/libsecmem.a -L/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib -L/nix/store/vyjw5s926gzliqripc1njrndg8jzvwpb-libsecret-0.21.4/lib -lsecret-1 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -L/nix/store/2vfcmxqn0mp7kxl1yl4yr3ryx9c67zfg-libassuan-2.5.7/lib -lassuan -L/nix/store/sfnba2ijbp3mgrws0f6dfwdvlr8cxx4g-libgpg-error-1.48/lib -lgpg-error -L/nix/store/sfnba2ijbp3mgrws0f6dfwdvlr8cxx4g-libgpg-error-1.48/lib -lgpg-error    
+make[2]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/emacs'
+Making all in gtk+-2
+make[2]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/gtk+-2'
+clang -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include  -I/nix/store/3dbsqqdj1bbrkmkyxi944phvdizmvjxh-at-spi2-core-2.50.2-dev/include/atk-1.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/ads4cwwqnglmcfwcqhihc0p2a92gmwiv-cairo-1.18.0-dev/include/cairo -I/nix/store/r773wa31hvnzfj4m35brl79qhvbh0k42-freetype-2.13.2-dev/include/freetype2 -I/nix/store/r773wa31hvnzfj4m35brl79qhvbh0k42-freetype-2.13.2-dev/include -I/nix/store/xh634qaw02gvl07brssjh2xy255jnkfm-gdk-pixbuf-2.42.10-dev/include/gdk-pixbuf-2.0 -I/nix/store/zzd9is83acnanz1az4ypigyf25lhz82m-pango-1.51.2-dev/include/pango-1.0 -I/nix/store/f67f37f3hqr1wa6qa5ik6x54ma14shbq-harfbuzz-8.4.0-dev/include/harfbuzz -I/nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0 -I/nix/store/bmb3pjndmn0dg5wlwmsjakpdqw6ryyhp-gtk+-2.24.33/lib/gtk-2.0/include  -I../secmem -I../pinentry -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o pinentry-gtk-2.o pinentry-gtk-2.c
+In file included from pinentry-gtk-2.c:33:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtk.h:33:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtkaboutdialog.h:32:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtkdialog.h:35:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtkwindow.h:36:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtkbin.h:35:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtkcontainer.h:35:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtkwidget.h:36:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtkobject.h:37:
+[1m/nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtktypeutils.h:236:34: [0m[0;1;35mwarning: [0m[1m'GTypeDebugFlags' is deprecated [-Wdeprecated-declarations][0m
+void            gtk_type_init   (GTypeDebugFlags    debug_flags);
+[0;1;32m                                 ^
+[0m[1m/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0/gobject/gtype.h:729:19: [0m[0;1;30mnote: [0m'GTypeDebugFlags' has been explicitly marked deprecated here[0m
+} GTypeDebugFlags GOBJECT_DEPRECATED_TYPE_IN_2_36;
+[0;1;32m                  ^
+[0m[1m/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0/gobject/gobject-visibility.h:213:41: [0m[0;1;30mnote: [0mexpanded from macro 'GOBJECT_DEPRECATED_TYPE_IN_2_36'[0m
+#define GOBJECT_DEPRECATED_TYPE_IN_2_36 GLIB_DEPRECATED_TYPE
+[0;1;32m                                        ^
+[0m[1m/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0/glib/gmacros.h:1323:30: [0m[0;1;30mnote: [0mexpanded from macro 'GLIB_DEPRECATED_TYPE'[0m
+#define GLIB_DEPRECATED_TYPE G_DEPRECATED
+[0;1;32m                             ^
+[0m[1m/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0/glib/gmacros.h:1262:37: [0m[0;1;30mnote: [0mexpanded from macro 'G_DEPRECATED'[0m
+#define G_DEPRECATED __attribute__((__deprecated__))
+[0;1;32m                                    ^
+[0mIn file included from pinentry-gtk-2.c:33:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtk.h:126:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtkmenutoolbutton.h:30:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtktoolbutton.h:30:
+In file included from /nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtktoolitem.h:31:
+[1m/nix/store/h49wanwb152ln0xyacl2amnmvy7azxqn-gtk+-2.24.33-dev/include/gtk-2.0/gtk/gtktooltips.h:73:3: [0m[0;1;35mwarning: [0m[1m'GTimeVal' is deprecated: Use 'GDateTime' instead [-Wdeprecated-declarations][0m
+  GTimeVal last_popdown;
+[0;1;32m  ^
+[0m[1m/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0/glib/gtypes.h:578:35: [0m[0;1;30mnote: [0m'GTimeVal' has been explicitly marked deprecated here[0m
+typedef struct _GTimeVal GTimeVal GLIB_DEPRECATED_TYPE_IN_2_62_FOR(GDateTime);
+[0;1;32m                                  ^
+[0m[1m/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0/glib/glib-visibility.h:656:45: [0m[0;1;30mnote: [0mexpanded from macro 'GLIB_DEPRECATED_TYPE_IN_2_62_FOR'[0m
+#define GLIB_DEPRECATED_TYPE_IN_2_62_FOR(f) GLIB_DEPRECATED_TYPE_FOR (f)
+[0;1;32m                                            ^
+[0m[1m/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0/glib/gmacros.h:1324:37: [0m[0;1;30mnote: [0mexpanded from macro 'GLIB_DEPRECATED_TYPE_FOR'[0m
+#define GLIB_DEPRECATED_TYPE_FOR(f) G_DEPRECATED_FOR(f)
+[0;1;32m                                    ^
+[0m[1m/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0/glib/gmacros.h:1272:44: [0m[0;1;30mnote: [0mexpanded from macro 'G_DEPRECATED_FOR'[0m
+#define G_DEPRECATED_FOR(f) __attribute__((__deprecated__("Use '" #f "' instead")))
+[0;1;32m                                           ^
+[0m[1mpinentry-gtk-2.c:278:23: [0m[0;1;35mwarning: [0m[1mcast to smaller integer type 'confirm_value_t' from 'gpointer' (aka 'void *') [-Wvoid-pointer-to-enum-cast][0m
+      confirm_value = (confirm_value_t) data;
+[0;1;32m                      ^~~~~~~~~~~~~~~~~~~~~~
+[0m3 warnings generated.
+clang  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith   -o pinentry-gtk-2 pinentry-gtk-2.o ../pinentry/libpinentry.a ../secmem/libsecmem.a -L/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib -L/nix/store/vyjw5s926gzliqripc1njrndg8jzvwpb-libsecret-0.21.4/lib -lsecret-1 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -L/nix/store/2vfcmxqn0mp7kxl1yl4yr3ryx9c67zfg-libassuan-2.5.7/lib -lassuan -L/nix/store/sfnba2ijbp3mgrws0f6dfwdvlr8cxx4g-libgpg-error-1.48/lib -lgpg-error -L/nix/store/sfnba2ijbp3mgrws0f6dfwdvlr8cxx4g-libgpg-error-1.48/lib -lgpg-error  -L/nix/store/scbkzvmcvvvla3r975v1kc2j6an0jr5h-at-spi2-core-2.50.2/lib -L/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib -L/nix/store/2f65p1f5brvi9j7mnd0wk9w6f9dx872n-cairo-1.18.0/lib -L/nix/store/nl62kzii4ggnimc5wkqjbbr354lwkgl2-gdk-pixbuf-2.42.10/lib -L/nix/store/cmjk8pzlvvxc3h8r8pz75wr25jf08r4x-pango-1.51.2/lib -L/nix/store/i1nqyzgbq26ahy4n1brlzp67wsv95zhm-harfbuzz-8.4.0/lib -L/nix/store/bmb3pjndmn0dg5wlwmsjakpdqw6ryyhp-gtk+-2.24.33/lib -lgtk-quartz-2.0 -lgdk-quartz-2.0 -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 ../pinentry/libpinentry-curses.a -L/nix/store/ycqmaxrlzh96ki74cc13azzdkggw0p0f-ncurses-6.4/lib -Wl,-search_paths_first -lncursesw  
+make[2]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/gtk+-2'
+Making all in gnome3
+make[2]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/gnome3'
+clang -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include  -I/nix/store/vv1isgq8dg6637r4vb2ryc0qgynn90x9-gtk+3-3.24.41-dev/include/gtk-3.0 -I/nix/store/3dbsqqdj1bbrkmkyxi944phvdizmvjxh-at-spi2-core-2.50.2-dev/include/atk-1.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/ads4cwwqnglmcfwcqhihc0p2a92gmwiv-cairo-1.18.0-dev/include/cairo -I/nix/store/r773wa31hvnzfj4m35brl79qhvbh0k42-freetype-2.13.2-dev/include/freetype2 -I/nix/store/r773wa31hvnzfj4m35brl79qhvbh0k42-freetype-2.13.2-dev/include -I/nix/store/xh634qaw02gvl07brssjh2xy255jnkfm-gdk-pixbuf-2.42.10-dev/include/gdk-pixbuf-2.0 -I/nix/store/zzd9is83acnanz1az4ypigyf25lhz82m-pango-1.51.2-dev/include/pango-1.0 -I/nix/store/f67f37f3hqr1wa6qa5ik6x54ma14shbq-harfbuzz-8.4.0-dev/include/harfbuzz -I/nix/store/k6nldk2rmaxryrr942kiwjrxy4xmdwik-gcr-3.41.2-dev/include/gcr-3 -I/nix/store/k6nldk2rmaxryrr942kiwjrxy4xmdwik-gcr-3.41.2-dev/include/gck-1 -I/nix/store/pa2z3nb3a8jr968zghq5gr1jxsacpapz-p11-kit-0.25.3-dev/include/p11-kit-1  -I../secmem -I../pinentry -Wall  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith -c -o pinentry-gnome3.o pinentry-gnome3.c
+clang  -g -O2 -Wall -Wno-pointer-sign -Wpointer-arith   -o pinentry-gnome3 pinentry-gnome3.o ../pinentry/libpinentry.a ../secmem/libsecmem.a -L/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib -L/nix/store/vyjw5s926gzliqripc1njrndg8jzvwpb-libsecret-0.21.4/lib -lsecret-1 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -L/nix/store/2vfcmxqn0mp7kxl1yl4yr3ryx9c67zfg-libassuan-2.5.7/lib -lassuan -L/nix/store/sfnba2ijbp3mgrws0f6dfwdvlr8cxx4g-libgpg-error-1.48/lib -lgpg-error -L/nix/store/sfnba2ijbp3mgrws0f6dfwdvlr8cxx4g-libgpg-error-1.48/lib -lgpg-error  -L/nix/store/p0r4njbz4isliqhqpbwlnp03zp7y6ckp-gtk+3-3.24.41/lib -L/nix/store/scbkzvmcvvvla3r975v1kc2j6an0jr5h-at-spi2-core-2.50.2/lib -L/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib -L/nix/store/2f65p1f5brvi9j7mnd0wk9w6f9dx872n-cairo-1.18.0/lib -L/nix/store/nl62kzii4ggnimc5wkqjbbr354lwkgl2-gdk-pixbuf-2.42.10/lib -L/nix/store/cmjk8pzlvvxc3h8r8pz75wr25jf08r4x-pango-1.51.2/lib -L/nix/store/i1nqyzgbq26ahy4n1brlzp67wsv95zhm-harfbuzz-8.4.0/lib -L/nix/store/j4qvi2cr4fjaq014qyk8f3r1hs58db15-gcr-3.41.2/lib -L/nix/store/jzf0jxl6l9cw3x9bvd3h0fqc99m411l1-p11-kit-0.25.3/lib -lgcr-ui-3 -lgtk-3 -lgdk-3 -lz -Wl,-framework,Cocoa -Wl,-framework,Carbon -Wl,-framework,CoreGraphics -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgcr-base-3 -lgck-1 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lp11-kit ../pinentry/libpinentry-curses.a -L/nix/store/ycqmaxrlzh96ki74cc13azzdkggw0p0f-ncurses-6.4/lib -Wl,-search_paths_first -lncursesw  
+make[2]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/gnome3'
+Making all in qt
+make[2]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/qt'
+moc `test -f 'pinentryconfirm.h' || echo './'`pinentryconfirm.h -o pinentryconfirm.moc
+moc `test -f 'pinentrydialog.h' || echo './'`pinentrydialog.h -o pinentrydialog.moc
+moc `test -f 'pinlineedit.h' || echo './'`pinlineedit.h -o pinlineedit.moc
+moc `test -f 'capslock.h' || echo './'`capslock.h -o capslock.moc
+rcc `test -f 'pinentryrc.qrc' || echo './'`pinentryrc.qrc -o pinentryrc.cpp
+make  all-recursive
+make[3]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/qt'
+Making all in icons
+make[4]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/qt/icons'
+make[4]: Nothing to be done for 'all'.
+make[4]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/qt/icons'
+make[4]: Entering directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/qt'
+clang++ -DHAVE_CONFIG_H -I. -I..  -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/gio-unix-2.0 -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include -I/nix/store/cggmdv3swxnz3bydy6ya84fk9bbhrgg3-glib-2.78.4-dev/include/glib-2.0 -I/nix/store/l97hvbynrnha8kx0kz7vgpss9v9w8qcz-glib-2.78.4/lib/glib-2.0/include -I/nix/store/cbii17mlyq84kla057mwxdi9i14m6fny-libsecret-0.21.4-dev/include/libsecret-1 -I/nix/store/pp46dj7dsb2rd12dyvghv2v3v72f4wpx-libassuan-2.5.7-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include -I/nix/store/6yaai3z8ml2l8p86z5s5q8h4lgl83m13-libgpg-error-1.48-dev/include  -I.. -I../secmem  -I../pinentry -Wall -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtWidgets -I/nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include -I/nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui -I/nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include -I/nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore -I/nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include -std=c++11 -g -O2 -c -o pinentrydialog.o pinentrydialog.cpp
+In file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:45:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/type_traits:421:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__functional/invoke.h:15:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__type_traits/apply_cv.h:15:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__type_traits/remove_reference.h:13:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cstddef:41:
+[1m../version:1:1: [0m[0;1;31merror: [0m[1mexpected unqualified-id[0m
+1.2.1-unknown
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:45:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/type_traits:539:
+[1m../version:1:1: [0m[0;1;31merror: [0m[1mexpected unqualified-id[0m
+1.2.1-unknown
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:47:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/utility:244:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__utility/cmp.h:20:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/limits:117:
+[1m../version:1:1: [0m[0;1;31merror: [0m[1mexpected unqualified-id[0m
+1.2.1-unknown
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:47:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/utility:260:
+[1m../version:1:1: [0m[0;1;31merror: [0m[1mexpected unqualified-id[0m
+1.2.1-unknown
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:47:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/utility:265:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/compare:145:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__compare/compare_partial_order_fallback.h:13:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__compare/partial_order.h:14:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__compare/weak_order.h:14:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__compare/strong_order.h:20:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cmath:315:
+[1m../version:1:1: [0m[0;1;31merror: [0m[1mexpected unqualified-id[0m
+1.2.1-unknown
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:47:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/utility:265:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/compare:157:
+[1m../version:1:1: [0m[0;1;31merror: [0m[1mexpected unqualified-id[0m
+1.2.1-unknown
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:47:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/utility:278:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/iosfwd:101:
+[1m../version:1:1: [0m[0;1;31merror: [0m[1mexpected unqualified-id[0m
+1.2.1-unknown
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1711:
+[1m../version:1:1: [0m[0;1;31merror: [0m[1mexpected unqualified-id[0m
+1.2.1-unknown
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1713:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/adjacent_find.h:14:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/iterator_operations.h:13:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/ranges_iterator_concept.h:13:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__iterator/concepts.h:31:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__iterator/iter_move.h:15:
+[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__iterator/iterator_traits.h:429:13: [0m[0;1;31merror: [0m[1mreference to unresolved using declaration[0m
+    typedef ptrdiff_t difference_type;
+[0;1;32m            ^
+[0m[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cstddef:60:1: [0m[0;1;30mnote: [0musing declaration annotated with 'using_if_exists' here[0m
+using ::ptrdiff_t _LIBCPP_USING_IF_EXISTS;
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1713:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/adjacent_find.h:14:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/iterator_operations.h:13:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/ranges_iterator_concept.h:13:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__iterator/concepts.h:34:
+[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__memory/pointer_traits.h:67:29: [0m[0;1;31merror: [0m[1mreference to unresolved using declaration[0m
+    typedef _LIBCPP_NODEBUG ptrdiff_t type;
+[0;1;32m                            ^
+[0m[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cstddef:60:1: [0m[0;1;30mnote: [0musing declaration annotated with 'using_if_exists' here[0m
+using ::ptrdiff_t _LIBCPP_USING_IF_EXISTS;
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1713:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/adjacent_find.h:14:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/iterator_operations.h:13:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/ranges_iterator_concept.h:13:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__iterator/concepts.h:34:
+[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__memory/pointer_traits.h:141:13: [0m[0;1;31merror: [0m[1mreference to unresolved using declaration[0m
+    typedef ptrdiff_t difference_type;
+[0;1;32m            ^
+[0m[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cstddef:60:1: [0m[0;1;30mnote: [0musing declaration annotated with 'using_if_exists' here[0m
+using ::ptrdiff_t _LIBCPP_USING_IF_EXISTS;
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1731:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/find_end.h:21:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__iterator/reverse_iterator.h:23:
+[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__iterator/iterator.h:22:56: [0m[0;1;31merror: [0m[1mreference to unresolved using declaration[0m
+template<class _Category, class _Tp, class _Distance = ptrdiff_t,
+[0;1;32m                                                       ^
+[0m[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cstddef:60:1: [0m[0;1;30mnote: [0musing declaration annotated with 'using_if_exists' here[0m
+using ::ptrdiff_t _LIBCPP_USING_IF_EXISTS;
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1747:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/inplace_merge.h:27:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__memory/temporary_buffer.h:17:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/new:97:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/exception:92:
+[1m../version:1:1: [0m[0;1;31merror: [0m[1mexpected unqualified-id[0m
+1.2.1-unknown
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1747:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/inplace_merge.h:27:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__memory/temporary_buffer.h:17:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/new:98:
+[1m../version:1:1: [0m[0;1;31merror: [0m[1mexpected unqualified-id[0m
+1.2.1-unknown
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1747:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/inplace_merge.h:27:
+[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__memory/temporary_buffer.h:27:12: [0m[0;1;31merror: [0m[1mreference to unresolved using declaration[0m
+pair<_Tp*, ptrdiff_t>
+[0;1;32m           ^
+[0m[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cstddef:60:1: [0m[0;1;30mnote: [0musing declaration annotated with 'using_if_exists' here[0m
+using ::ptrdiff_t _LIBCPP_USING_IF_EXISTS;
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1747:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/inplace_merge.h:27:
+[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__memory/temporary_buffer.h:27:12: [0m[0;1;31merror: [0m[1mreference to unresolved using declaration[0m
+pair<_Tp*, ptrdiff_t>
+[0;1;32m           ^
+[0m[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cstddef:60:1: [0m[0;1;30mnote: [0musing declaration annotated with 'using_if_exists' here[0m
+using ::ptrdiff_t _LIBCPP_USING_IF_EXISTS;
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1747:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/inplace_merge.h:27:
+[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__memory/temporary_buffer.h:28:22: [0m[0;1;31merror: [0m[1mreference to unresolved using declaration[0m
+get_temporary_buffer(ptrdiff_t __n) _NOEXCEPT
+[0;1;32m                     ^
+[0m[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cstddef:60:1: [0m[0;1;30mnote: [0musing declaration annotated with 'using_if_exists' here[0m
+using ::ptrdiff_t _LIBCPP_USING_IF_EXISTS;
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1747:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/inplace_merge.h:27:
+[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__memory/temporary_buffer.h:30:16: [0m[0;1;31merror: [0m[1mreference to unresolved using declaration[0m
+    pair<_Tp*, ptrdiff_t> __r(0, 0);
+[0;1;32m               ^
+[0m[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cstddef:60:1: [0m[0;1;30mnote: [0musing declaration annotated with 'using_if_exists' here[0m
+using ::ptrdiff_t _LIBCPP_USING_IF_EXISTS;
+[0;1;32m^
+[0mIn file included from pinentrydialog.cpp:30:
+In file included from ./pinentrydialog.h:29:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/QAccessible:1:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qaccessible.h:40:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtGui/qtguiglobal.h:43:
+In file included from /nix/store/akd8jiygsza773597xzsm8glvpgz717p-qtbase-5.15.12-dev/include/QtCore/qglobal.h:142:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/algorithm:1747:
+In file included from /nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__algorithm/inplace_merge.h:27:
+[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/__memory/temporary_buffer.h:30:16: [0m[0;1;31merror: [0m[1mreference to unresolved using declaration[0m
+    pair<_Tp*, ptrdiff_t> __r(0, 0);
+[0;1;32m               ^
+[0m[1m/nix/store/halxxa3djkhgddflg8iva8nlj70fvami-libcxx-16.0.6-dev/include/c++/v1/cstddef:60:1: [0m[0;1;30mnote: [0musing declaration annotated with 'using_if_exists' here[0m
+using ::ptrdiff_t _LIBCPP_USING_IF_EXISTS;
+[0;1;32m^
+[0m[0;1;31mfatal error: [0m[1mtoo many errors emitted, stopping now [-ferror-limit=][0m
+20 errors generated.
+make[4]: *** [Makefile:575: pinentrydialog.o] Error 1
+make[4]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/qt'
+make[3]: *** [Makefile:591: all-recursive] Error 1
+make[3]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/qt'
+make[2]: *** [Makefile:466: all] Error 2
+make[2]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1/qt'
+make[1]: *** [Makefile:497: all-recursive] Error 1
+make[1]: Leaving directory '/private/tmp/nix-build-pinentry-all-1.2.1.drv-0/pinentry-1.2.1'
+make: *** [Makefile:438: all] Error 2
