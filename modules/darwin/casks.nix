@@ -13,6 +13,7 @@ _:
   "deluge"
   "betterdisplay"
   "qmk-toolbox"
+  "nextcloud"
   #"whatsapp"
 
   # Entertainment Tools

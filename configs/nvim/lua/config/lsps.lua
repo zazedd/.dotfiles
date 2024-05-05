@@ -1,3 +1,5 @@
+require("java").setup()
+
 local lsp = require("lspconfig")
 
 local c = vim.lsp.protocol.make_client_capabilities()
@@ -18,3 +20,5 @@ lsp.ocamllsp.setup({
   root_dir = lsp.util.root_pattern("*.opam", "esy.json", "package.json", ".git", "dune-project", "dune-workspace"),
   capabilities = capabilities,
 })
+
+lsp.jdtls.setup({})

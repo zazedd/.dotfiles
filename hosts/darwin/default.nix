@@ -17,7 +17,6 @@ let user = "zazed"; in
 
   # Setup user, packages, programs
   nix = {
-    package = pkgs.nixUnstable;
     settings.trusted-users = [ "@admin" "${user}" ];
 
     linux-builder = {
