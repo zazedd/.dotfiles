@@ -72,13 +72,13 @@
           exec ${self}/apps/${system}/${scriptName}
         '')}/bin/${scriptName}";
       };
-      mkLinuxApps = system: {
-        "apply" = mkApp "apply" system;
-        "build-switch" = mkApp "build-switch" system;
-        "check-keys" = mkApp "check-keys" system;
-        "install" = mkApp "install" system;
-        "install-with-secrets" = mkApp "install-with-secrets" system;
-      };
+     mkLinuxApps = system: {
+       "apply" = mkApp "apply" system;
+       "build-switch" = mkApp "build-switch" system;
+       "check-keys" = mkApp "check-keys" system;
+       "install" = mkApp "install" system;
+       "install-with-secrets" = mkApp "install-with-secrets" system;
+     };
       mkDarwinApps = system: {
         "apply" = mkApp "apply" system;
         "build" = mkApp "build" system;
@@ -89,8 +89,14 @@
       };
     in
     {
+      packages.aarch64-darwin = {
+          default = fenix.packages.aarch64-linux.default.toolchain;
+          simple-vm = self.nixosConfigurations.simple-vm.config.system.build.vm;
+      };
+      
       devShells = forAllSystems devShell;
       apps = nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
+      # nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // 
 
       darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (system:
         darwin.lib.darwinSystem {
@@ -121,36 +127,36 @@
       );
 
       nixosConfigurations = {
-        vm = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = inputs;
-          modules = [
-            # disko.nixosModules.disko
-            home-manager.nixosModules.home-manager {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.${user} = import ./modules/vm/home-manager.nix;
-              };
-            }
-            ./hosts/vm
-          ];
-        };
+       vm = nixpkgs.lib.nixosSystem {
+         system = "aarch64-linux";
+         specialArgs = inputs;
+         modules = [
+           # disko.nixosModules.disko
+           home-manager.nixosModules.home-manager {
+             home-manager = {
+               useGlobalPkgs = true;
+               useUserPackages = true;
+               users.${user} = import ./modules/vm/home-manager.nix;
+             };
+           }
+           ./hosts/vm
+         ];
+       };
 
-        simple-vm = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = inputs;
-          modules = [
-            {
-              virtualisation = {
-                vmVariant.virtualisation = {
-                  graphics = false;
-                  resolution = { x = 1900; y = 1200; };
-                  host.pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-                };
-              };
+       simple-vm = nixpkgs.lib.nixosSystem {
+         system = "aarch64-linux";
+         specialArgs = inputs;
+         modules = [
+           {
+             virtualisation = {
+               vmVariant.virtualisation = {
+                 graphics = false;
+                 resolution = { x = 1900; y = 1200; };
+                 host.pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+               };
+             };
               
-            }
+           }
             # disko.nixosModules.disko
             # home-manager.nixosModules.home-manager {
             #   home-manager = {
@@ -160,11 +166,9 @@
             #   };
             # }
             # ./hosts/vm
-            ./hosts/simple-vm
-          ];
-        };
-      };
-
-    packages.aarch64-darwin.simple-vm = self.nixosConfigurations.simple-vm.config.system.build.vm;
+           ./hosts/simple-vm
+         ];
+       };
+     };
   };
 }

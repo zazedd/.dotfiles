@@ -9,7 +9,7 @@ let name = "zazed";
   zsh = {
     enable = true;
     autocd = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
     shellAliases = {
       sl = "eza";
@@ -20,7 +20,7 @@ let name = "zazed";
     };
     oh-my-zsh = {
       enable = true;
-      plugins = [ "sudo" "git" "z" ];
+      plugins = [ "git" "z" ];
     };
     plugins = [
       {
@@ -32,6 +32,16 @@ let name = "zazed";
           sha256 = "0zmq66dzasmr5pwribyh4kbkk23jxbpdw4rjxx0i7dx8jjp2lzl4";
         };
         file = "zsh-syntax-highlighting.zsh";
+      }
+      {
+        name = "zsh-vi-mode";
+        src = pkgs.fetchFromGitHub {
+          owner = "jeffreytse";
+          repo = "zsh-vi-mode";
+          rev = "v0.11.0";
+          sha256 = "xbchXJTFWeABTwq6h4KWLh+EvydDrDzcY9AQVK65RS8=";
+        };
+        file = "zsh-vi-mode.zsh";
       }
       {
         name = "zsh-autopair";

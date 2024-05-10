@@ -21,7 +21,7 @@ with pkgs; [
   openssl
   gnupg
   libfido2
-  pinentry
+  # pinentry
 
   # Media-related packages
   ffmpeg

@@ -1,4 +1,7 @@
 return {
+
+  -- { "akinsho/bufferline.nvim", enabled = false },
+
   {
     "ThePrimeagen/harpoon",
     dependencies = { "nvim-lua/plenary.nvim" },

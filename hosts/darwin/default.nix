@@ -17,7 +17,7 @@ let user = "zazed"; in
 
   # Setup user, packages, programs
   nix = {
-    package = pkgs.nixUnstable;
+    # package = pkgs.nixVersions.git;
     settings.trusted-users = [ "@admin" "${user}" ];
 
     linux-builder = {
@@ -51,7 +51,7 @@ let user = "zazed"; in
 
   services.yabai = {
     enable = true;
-    enableScriptingAddition = false;
+    enableScriptingAddition = true;
     extraConfig = builtins.readFile ../../configs/yabai/yabairc;
   };
 

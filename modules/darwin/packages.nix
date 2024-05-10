@@ -14,6 +14,10 @@ shared-packages ++ [
    "rust-analyzer"
   ])
 
+  colima
+  docker
+  yazi
+  opam
   gcalcli
   gmp
   dockutil
