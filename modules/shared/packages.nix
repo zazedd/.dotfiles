@@ -11,24 +11,16 @@ with pkgs; [
   coreutils
   killall
   fastfetch
-  openssh
   wget
   zip
 
   # Encryption and security tools
-  age
-  age-plugin-yubikey
   openssl
   gnupg
-  libfido2
-  # pinentry
 
   # Media-related packages
   ffmpeg
   fd
-  font-awesome
-  hack-font
-  meslo-lgs-nf
 
   # Text and terminal utilities
   htop

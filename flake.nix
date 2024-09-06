@@ -96,7 +96,6 @@
       
       devShells = forAllSystems devShell;
       apps = nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
-      # nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // 
 
       darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (system:
         darwin.lib.darwinSystem {
@@ -127,48 +126,31 @@
       );
 
       nixosConfigurations = {
-       vm = nixpkgs.lib.nixosSystem {
-         system = "aarch64-linux";
-         specialArgs = inputs;
-         modules = [
-           # disko.nixosModules.disko
-           home-manager.nixosModules.home-manager {
-             home-manager = {
-               useGlobalPkgs = true;
-               useUserPackages = true;
-               users.${user} = import ./modules/vm/home-manager.nix;
-             };
-           }
-           ./hosts/vm
-         ];
-       };
-
-       simple-vm = nixpkgs.lib.nixosSystem {
-         system = "aarch64-linux";
-         specialArgs = inputs;
-         modules = [
-           {
-             virtualisation = {
-               vmVariant.virtualisation = {
-                 graphics = false;
-                 resolution = { x = 1900; y = 1200; };
-                 host.pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-               };
-             };
-              
-           }
-            # disko.nixosModules.disko
-            # home-manager.nixosModules.home-manager {
-            #   home-manager = {
-            #     useGlobalPkgs = true;
-            #     useUserPackages = true;
-            #     users.${user} = import ./modules/vm/home-manager.nix;
-            #   };
-            # }
-            # ./hosts/vm
-           ./hosts/simple-vm
-         ];
-       };
+        asahi = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = inputs;
+          modules = [
+	    home-manager.nixosModules.home-manager
+	    ./hosts/asahi
+	  ];
+	};
+       
+        simple-vm = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = inputs;
+          modules = [
+            {
+              virtualisation = {
+                vmVariant.virtualisation = {
+                  graphics = false;
+                  resolution = { x = 1900; y = 1200; };
+                  host.pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+                };
+              };
+            }
+            ./hosts/simple-vm
+          ];
+        };
      };
   };
 }
