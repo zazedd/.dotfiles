@@ -4,7 +4,6 @@ let name = "zazed";
     user = "zazed";
     email = "leomendesantos@gmail.com"; in
 {
-
   # Shared shell configuration
   zsh = {
     enable = true;
@@ -79,6 +78,7 @@ let name = "zazed";
       export HISTIGNORE="pwd:ls:cd"
 
       export EDITOR="nvim"
+      export GIT_EDITOR="nvim --clean"
 
       zstyle ':completion:*' menu select
 
@@ -112,7 +112,7 @@ let name = "zazed";
 	    editor = "nvim";
         autocrlf = "input";
       };
-      
+
       pull.rebase = true;
       rebase.autoStash = true;
     };
