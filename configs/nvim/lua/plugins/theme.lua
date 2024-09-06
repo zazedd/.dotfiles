@@ -7,59 +7,6 @@ local navic = require("nvim-navic")
 
 return {
   {
-    "folke/tokyonight.nvim",
-    event = "User LoadColorSchemes",
-    enabled = false,
-    opts = {
-      plugins = { ["dashboard-nvim"] = true },
-      dim_inactive = true, -- dims inactive windows
-      transparent = true,
-
-      -- Colors can be overrided
-      on_highlights = function(hl, _)
-        hl.Function = { fg = "#4278e3", bold = true }
-        hl.SpecialChar = { fg = "#b4be82" }
-        hl.Variable = { fg = "#84a0c6" }
-        hl["@keyword"] = { fg = "#84a0c6" }
-        hl["@keyword.function"] = { fg = "#84a0c6" }
-        hl["@parameter"] = { fg = "#D9D7D6" }
-        hl["@variable"] = { fg = "#D9D7D6" }
-        hl["@constructor"] = { fg = "#eb8d1a" }
-        hl["@conditional"] = { fg = "#7aa2f7" }
-        hl["@namespace"] = { fg = "#8a9099" }
-        hl["@comment"] = { fg = "#495154", italic = true }
-      end,
-      styles = {
-        sidebars = "dark", -- style for sidebars, see below
-        floats = "dark", -- style for floating windows
-      },
-      on_colors = function(c)
-        c.bg_sidebar = "#15191c"
-        c.StatusLine = { bg = "#15191c" }
-      end,
-    },
-  },
-
-  {
-    "sainnhe/gruvbox-material",
-    event = "User LoadColorSchemes",
-    enabled = false,
-  },
-
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    event = "User LoadColorSchemes",
-    enabled = false,
-  },
-
-  {
-    "https://codeberg.org/oahlen/iceberg.nvim",
-    event = "User LoadColorSchemes",
-    enabled = false,
-  },
-
-  {
     "rebelot/kanagawa.nvim",
     event = "User LoadColorSchemes",
     opts = {

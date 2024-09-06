@@ -130,11 +130,11 @@
           system = "aarch64-linux";
           specialArgs = inputs;
           modules = [
-	    home-manager.nixosModules.home-manager
-	    ./hosts/asahi
-	  ];
-	};
-       
+            home-manager.nixosModules.home-manager
+            ./hosts/asahi
+          ];
+        };
+
         simple-vm = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = inputs;

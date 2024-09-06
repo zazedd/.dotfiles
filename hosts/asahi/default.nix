@@ -58,6 +58,7 @@ let user = "zazed"; in
     wantedBy = [ "multi-user.target" ];
   };
 
+
   services.xserver.enable = true;
   services.xserver.windowManager.i3.enable = true;
   services.xserver.desktopManager.lxqt.enable = true;

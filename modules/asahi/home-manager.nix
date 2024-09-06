@@ -47,11 +47,11 @@ in
       xsession.windowManager.i3 = {
         enable = true;
         config = {
-          modifier = "Mod4";
+          modifier = "Mod1";
           terminal = "alacritty";
           fonts = {
             names = [ "Iosevka" ];
-            style = "Bold";
+            style = "Regular";
             size = 13.0;
           };
           gaps = {
@@ -65,10 +65,6 @@ in
           };
         };
       };
-
-      # Marked broken Oct 20, 2022 check later to remove this
-      # https://github.com/nix-community/home-manager/issues/3344
-      manual.manpages.enable = false;
     };
   };
 }

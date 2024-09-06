@@ -13,4 +13,5 @@ shared-packages ++ [
   gnumake
   pkg-config
   bubblewrap
+  xclip
 ]
