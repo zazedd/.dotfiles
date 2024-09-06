@@ -1,7 +1,6 @@
 { pkgs }:
 
 with pkgs; [
-  neovim-nightly
 
   # General packages for development and system management
   starship

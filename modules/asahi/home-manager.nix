@@ -18,10 +18,9 @@ in
 
   programs.zsh.enable = true;
 
-  nixpkgs = {
-    overlays =  [
-      inputs.neovim-nightly-overlay.overlay
-    ];
+  programs.neovim = {
+    enable = true;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
   };
 
   # Enable home-manager
