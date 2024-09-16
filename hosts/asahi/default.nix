@@ -1,6 +1,13 @@
-{ agenix, config, pkgs, ... }@inputs:
+{
+  agenix,
+  config,
+  pkgs,
+  ...
+}@inputs:
 
-let user = "zazed"; in
+let
+  user = "zazed";
+in
 
 {
 
@@ -40,7 +47,7 @@ let user = "zazed"; in
 
   # Brighness control
   programs.light.enable = true;
-  environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
+  environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
   # Swap fn and ctrl
   systemd.services.fnctrl = {
@@ -58,10 +65,7 @@ let user = "zazed"; in
     wantedBy = [ "multi-user.target" ];
   };
 
-
-  services.xserver.enable = true;
-  services.xserver.windowManager.i3.enable = true;
-  services.xserver.desktopManager.lxqt.enable = true;
+  services.xserver.enable = false;
 
   services.dbus.enable = true;
 
@@ -69,12 +73,13 @@ let user = "zazed"; in
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+    jack.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput = {
     enable = true;
-    touchpad = { 
+    touchpad = {
       naturalScrolling = true;
       disableWhileTyping = true;
     };
@@ -83,20 +88,20 @@ let user = "zazed"; in
   # Power management shit
   powerManagement.enable = true;
   services.tlp = {
-      enable = true;
-      settings = {
-	TLP_ENABLE = 1;
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    enable = true;
+    settings = {
+      TLP_ENABLE = 1;
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 100;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 60;
-      };
+      CPU_MIN_PERF_ON_AC = 0;
+      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 60;
+    };
   };
 
   # SSH
@@ -107,7 +112,10 @@ let user = "zazed"; in
   # Setup user, packages, programs
   nix = {
     # package = pkgs.nixVersions.git;
-    settings.trusted-users = [ "@admin" "${user}" ];
+    settings.trusted-users = [
+      "@admin"
+      "${user}"
+    ];
 
     gc = {
       automatic = true;
@@ -122,9 +130,12 @@ let user = "zazed"; in
   };
 
   # Load configuration that is shared across systems
-  environment.systemPackages = with pkgs; [
-    agenix.packages."${pkgs.system}".default
-  ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+  environment.systemPackages =
+    with pkgs;
+    [
+      agenix.packages."${pkgs.system}".default
+    ]
+    ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   fonts = {
     fontDir.enable = true;
@@ -133,6 +144,5 @@ let user = "zazed"; in
     ];
   };
 
-  system.stateVersion = "24.11"; 
+  system.stateVersion = "24.11";
 }
-

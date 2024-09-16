@@ -27,19 +27,19 @@
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
       flake = false;
-    }; 
+    };
     homebrew-cask-fonts = {
       url = "github:homebrew/homebrew-cask-fonts";
       flake = false;
-    }; 
-    homebrew-services= {
+    };
+    homebrew-services = {
       url = "github:homebrew/homebrew-services";
       flake = false;
-    }; 
+    };
     koek = {
       url = "github:koekeishiya/homebrew-formulae";
       flake = false;
-    }; 
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,36 +49,71 @@
       flake = false;
     };
   };
-  outputs = { self, secrets, darwin, nix-homebrew, neovim-nightly-overlay, fenix, homebrew-bundle, homebrew-core, homebrew-cask, homebrew-services, homebrew-cask-fonts, koek, home-manager, nixpkgs, disko, agenix } @inputs:
+  outputs =
+    {
+      self,
+      secrets,
+      darwin,
+      nix-homebrew,
+      neovim-nightly-overlay,
+      fenix,
+      homebrew-bundle,
+      homebrew-core,
+      homebrew-cask,
+      homebrew-services,
+      homebrew-cask-fonts,
+      koek,
+      home-manager,
+      nixpkgs,
+      disko,
+      agenix,
+    }@inputs:
     let
       user = "zazed";
-      linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
+      linuxSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       darwinSystems = [ "aarch64-darwin" ];
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
-      devShell = system: let pkgs = nixpkgs.legacyPackages.${system}; in {
-        default = with pkgs; mkShell {
-          nativeBuildInputs = with pkgs; [ bashInteractive git age age-plugin-yubikey ];
-          shellHook = with pkgs; ''
-            export EDITOR=vim
-          '';
+      devShell =
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default =
+            with pkgs;
+            mkShell {
+              nativeBuildInputs = with pkgs; [
+                bashInteractive
+                git
+                age
+                age-plugin-yubikey
+              ];
+              shellHook = with pkgs; ''
+                export EDITOR=vim
+              '';
+            };
         };
-      };
       mkApp = scriptName: system: {
         type = "app";
-        program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
-          #!/usr/bin/env bash
-          PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
-          echo "Running ${scriptName} for ${system}"
-          exec ${self}/apps/${system}/${scriptName}
-        '')}/bin/${scriptName}";
+        program = "${
+          (nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
+            #!/usr/bin/env bash
+            PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
+            echo "Running ${scriptName} for ${system}"
+            exec ${self}/apps/${system}/${scriptName}
+          '')
+        }/bin/${scriptName}";
       };
-     mkLinuxApps = system: {
-       "apply" = mkApp "apply" system;
-       "build-switch" = mkApp "build-switch" system;
-       "check-keys" = mkApp "check-keys" system;
-       "install" = mkApp "install" system;
-       "install-with-secrets" = mkApp "install-with-secrets" system;
-     };
+      mkLinuxApps = system: {
+        "apply" = mkApp "apply" system;
+        "build-switch" = mkApp "build-switch" system;
+        "check-keys" = mkApp "check-keys" system;
+        "install" = mkApp "install" system;
+        "install-with-secrets" = mkApp "install-with-secrets" system;
+      };
       mkDarwinApps = system: {
         "apply" = mkApp "apply" system;
         "build" = mkApp "build" system;
@@ -90,14 +125,17 @@
     in
     {
       packages.aarch64-darwin = {
-          default = fenix.packages.aarch64-linux.default.toolchain;
-          simple-vm = self.nixosConfigurations.simple-vm.config.system.build.vm;
+        default = fenix.packages.aarch64-linux.default.toolchain;
+        simple-vm = self.nixosConfigurations.simple-vm.config.system.build.vm;
       };
-      
-      devShells = forAllSystems devShell;
-      apps = nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
 
-      darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (system:
+      devShells = forAllSystems devShell;
+      apps =
+        nixpkgs.lib.genAttrs linuxSystems mkLinuxApps
+        // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
+
+      darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (
+        system:
         darwin.lib.darwinSystem {
           inherit system;
           specialArgs = inputs;
@@ -143,7 +181,10 @@
               virtualisation = {
                 vmVariant.virtualisation = {
                   graphics = false;
-                  resolution = { x = 1900; y = 1200; };
+                  resolution = {
+                    x = 1900;
+                    y = 1200;
+                  };
                   host.pkgs = nixpkgs.legacyPackages.aarch64-darwin;
                 };
               };
@@ -151,6 +192,6 @@
             ./hosts/simple-vm
           ];
         };
-     };
-  };
+      };
+    };
 }

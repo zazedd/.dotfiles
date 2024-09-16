@@ -1,0 +1,128 @@
+@define-color base      #181818;
+@define-color text      #ebdbb2;
+@define-color select    #928374;
+@define-color urgent    #d79921;
+@define-color red       #fb4934;
+@define-color green     #b8bb26;
+@define-color blue      #83a598;
+
+* {
+    font-family: "Iosevka Nerd Font";
+    font-size: 18px;
+}
+
+window#waybar {
+    background-color: @base;
+    color: @text;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+#window {
+    margin-top: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    transition: none;
+}
+
+button {
+    border: none;
+    border-radius: 0;
+}
+
+#workspaces button {
+    padding: 0 6px;
+    background-color: @base;
+    color: @text;
+}
+
+#workspaces button:hover {
+    background: @select;
+}
+
+#workspaces button.focused {
+    background-color: @select;
+    color: @text;
+}
+
+#workspaces button.urgent {
+    background-color: @urgent;
+}
+
+#cpu {
+    margin: 5px 6px 5px 6px;
+    color: @text;
+}
+
+#memory {
+    margin: 5px 6px 5px 6px;
+    color: @text;
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+    color: @text;
+}
+
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#backlight-slider,
+#pulseaudio-slider {
+    min-width: 0px;
+    transition: min-width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    text-decoration: none;
+}
+
+#backlight-slider:hover,
+#pulseaudio-slider:hover {
+    min-width: 100px;
+}
+
+#backlight-slider slider,
+#pulseaudio-slider slider {
+    min-height: 0px;
+    min-width: 0px;
+    opacity: 0;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+    min-height: 0px;
+    min-width: 0px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: @base;
+    transition: min-width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), min-height 0.3s ease-in-out;
+}
+
+#backlight-slider:hover trough,
+#pulseaudio-slider:hover trough {
+    min-height: 8px;
+    min-width: 100px;
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+    min-width: 0px;
+    border-radius: 0px;
+    background-color: @text;
+    text-decoration: none;
+    transition: min-width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+#backlight-slider:hover highlight,
+#pulseaudio-slider:hover highlight {
+    min-width: 10px;
+    border-radius: 5px;
+}

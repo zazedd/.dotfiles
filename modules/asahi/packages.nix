@@ -1,17 +1,35 @@
 { pkgs }:
 
 with pkgs;
-let shared-packages = import ../shared/packages.nix { inherit pkgs; }; in
-shared-packages ++ [
+let
+  shared-packages = import ../shared/packages.nix { inherit pkgs; };
+in
+shared-packages
+++ [
+  # general
   firefox
-  powertop
 
   # programming
-  opam
   alacritty
   gcc
   gnumake
   pkg-config
   bubblewrap
-  xclip
+  gnused
+  gnugrep
+  gawk
+
+  ## nix
+  nixfmt-rfc-style
+  nil
+  nixd
+
+  # wayland stuff
+  wl-clipboard
+  wtype
+
+  ## screenshot
+  grim
+  slurp
+  swappy
 ]

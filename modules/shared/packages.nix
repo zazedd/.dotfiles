@@ -3,6 +3,7 @@
 with pkgs; [
 
   # General packages for development and system management
+  zoxide
   starship
   bash-completion
   bat
