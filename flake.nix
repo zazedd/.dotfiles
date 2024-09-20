@@ -40,6 +40,7 @@
       url = "github:koekeishiya/homebrew-formulae";
       flake = false;
     };
+    nix-minecraft.url = "github:zazedd/nix-minecraft";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,6 +64,7 @@
       homebrew-services,
       homebrew-cask-fonts,
       koek,
+      nix-minecraft,
       home-manager,
       nixpkgs,
       disko,
