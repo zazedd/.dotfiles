@@ -36,8 +36,6 @@ in
 
   services.openssh.enable = true;
 
-  nixpkgs.overlays = [ (import ./apple-silicon-support/packages/overlay.nix) ];
-
   # Setup user, packages, programs
   nix = {
     # package = pkgs.nixVersions.git;
