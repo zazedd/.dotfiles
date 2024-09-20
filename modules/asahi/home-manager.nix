@@ -17,7 +17,7 @@ in
 {
   users.users.${user} = {
     name = "${user}";
-    home = "/home/${user}";
+    home = "${xdg_home}";
     group = "users";
     extraGroups = [
       "wheel"
@@ -32,10 +32,6 @@ in
   programs.neovim = {
     enable = true;
     package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-  };
-
-  environment.variables = {
-    MOZ_ENABLE_WAYLAND = 1;
   };
 
   # Enable home-manager
@@ -56,6 +52,12 @@ in
             sharedFiles
             additionalFiles
           ];
+
+          sessionVariables = {
+            MOZ_ENABLE_WAYLAND = 1;
+            XDG_CURRENT_DESKTOP = "sway";
+            XDG_CONFIG_HOME = "${xdg_home}/.dotfiles/configs";
+          };
 
           pointerCursor = {
             gtk.enable = true;
@@ -93,76 +95,7 @@ in
           recursive = true;
         };
 
-        wayland.windowManager.sway =
-          let
-            opt = "Mod1";
-            cmd = "Mod4";
-          in
-          {
-            enable = true;
-            wrapperFeatures.gtk = true;
-            checkConfig = false; # to get around the false reporting that the bg doesnt exist
-            extraConfig = ''
-              bindgesture swipe:right workspace prev
-              bindgesture swipe:left workspace next
-
-              seat seat0 xcursor_theme phinger-cursors-dark 24
-            '';
-            config = {
-              modifier = opt;
-              terminal = "alacritty";
-              defaultWorkspace = "workspace number 1";
-              keybindings = lib.mkOptionDefault {
-                "${opt}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
-                "${opt}+Shift+q" = "kill";
-                "${opt}+d" = "exec ${pkgs.bemenu}/bin/bemenu-run";
-                "${opt}+Shift+s" = "exec '${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -d)\" - | ${pkgs.wl-clipboard}/bin/wl-copy'";
-
-                # mac style copying
-                "${cmd}+x" = "exec ${pkgs.wtype}/bin/wtype -P XF86Cut";
-                "${cmd}+c" = "exec ${pkgs.wtype}/bin/wtype -P XF86Copy";
-                "${cmd}+v" = "exec ${pkgs.wtype}/bin/wtype -P XF86Paste";
-              };
-              fonts = {
-                names = [ "Iosevka" ];
-                style = "Regular";
-                size = 13.0;
-              };
-              input = {
-                "type:touchpad" = {
-                  dwt = "enabled";
-                  tap = "enabled";
-                  natural_scroll = "enabled";
-                  middle_emulation = "enabled";
-                  accel_profile = "flat";
-                  pointer_accel = "0.7";
-                  scroll_factor = "0.25";
-                };
-                "type:keyboard" = {
-                  repeat_delay = "350";
-                };
-              };
-              bars = [
-                {
-                  position = "top";
-                  command = "waybar";
-                }
-              ];
-              gaps = {
-                inner = 5;
-              };
-              window = {
-                titlebar = false;
-                hideEdgeBorders = "both";
-              };
-              output = {
-                eDP-1 = {
-                  scale = "1";
-                  bg = "/home/${user}/Documents/walls/hasui.jpg fill";
-                };
-              };
-            };
-          };
+        wayland.windowManager.sway = import ./sway.nix { inherit pkgs user lib; };
       };
   };
 }

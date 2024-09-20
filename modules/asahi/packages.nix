@@ -11,13 +11,7 @@ shared-packages
 
   # programming
   alacritty
-  gcc
-  gnumake
-  pkg-config
   bubblewrap
-  gnused
-  gnugrep
-  gawk
 
   ## nix
   nixfmt-rfc-style

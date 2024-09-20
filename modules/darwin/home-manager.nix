@@ -1,26 +1,34 @@
-{ config, pkgs, lib, neovim-nightly-overlay, fenix, home-manager, ... }@inputs:
+{
+  config,
+  pkgs,
+  lib,
+  neovim-nightly-overlay,
+  fenix,
+  home-manager,
+  ...
+}@inputs:
 
 let
   user = "zazed";
-  xdg_home  = "/Users/${user}";
+  xdg_home = "/Users/${user}";
   sharedFiles = import ../shared/files.nix { inherit xdg_home; };
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
   imports = [
-   ./dock
+    ./dock
   ];
 
   users.users.${user} = {
     name = "${user}";
-    home = "/Users/${user}";
+    home = "${xdg_home}";
     isHidden = false;
     shell = pkgs.zsh;
   };
 
   homebrew = {
     enable = true;
-    casks = pkgs.callPackage ./casks.nix {};
+    casks = pkgs.callPackage ./casks.nix { };
     taps = builtins.attrNames config.nix-homebrew.taps;
 
     brews = [
@@ -40,8 +48,14 @@ in
   };
 
   nixpkgs = {
-    overlays =  [
-      (_: super: let pkgs = fenix.inputs.nixpkgs.legacyPackages.${super.system}; in fenix.overlays.default pkgs pkgs)
+    overlays = [
+      (
+        _: super:
+        let
+          pkgs = fenix.inputs.nixpkgs.legacyPackages.${super.system};
+        in
+        fenix.overlays.default pkgs pkgs
+      )
       inputs.neovim-nightly-overlay.overlay
     ];
   };
@@ -49,32 +63,52 @@ in
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
-    users.${user} = { pkgs, config, lib, ... }:{
-      home = {
-        enableNixpkgsReleaseCheck = false;
-        packages = pkgs.callPackage ./packages.nix {};
-        file = lib.mkMerge [
-          sharedFiles
-          additionalFiles
-        ];
+    users.${user} =
+      {
+        pkgs,
+        config,
+        lib,
+        ...
+      }:
+      {
+        home = {
+          enableNixpkgsReleaseCheck = false;
+          packages = pkgs.callPackage ./packages.nix { };
+          file = lib.mkMerge [
+            sharedFiles
+            additionalFiles
+          ];
 
-        stateVersion = "24.05";
+          sessionVariables = {
+            XDG_CONFIG_HOME = "${xdg_home}/.dotfiles/configs";
+          };
+
+          stateVersion = "24.05";
+        };
+        programs =
+          { }
+          // import ../shared/home-manager.nix {
+            inherit
+              config
+              pkgs
+              lib
+              neovim-nightly-overlay
+              ;
+          };
+
+        xdg.configFile.nvim = {
+          source = ../../configs/nvim;
+          recursive = true;
+        };
+
+        # Marked broken Oct 20, 2022 check later to remove this
+        # https://github.com/nix-community/home-manager/issues/3344
+        manual.manpages.enable = false;
       };
-      programs = { } // import ../shared/home-manager.nix { inherit config pkgs lib neovim-nightly-overlay; };
-
-      xdg.configFile.nvim = {
-        source = ../../configs/nvim;
-        recursive = true;
-      };
-
-      # Marked broken Oct 20, 2022 check later to remove this
-      # https://github.com/nix-community/home-manager/issues/3344
-      manual.manpages.enable = false;
-    };
   };
 
   # Fully declarative dock using the latest from Nix Store
-  local = { 
+  local = {
     dock = {
       enable = true;
       entries = [

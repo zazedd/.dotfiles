@@ -2,7 +2,7 @@
 {
   enable = true;
   prefix = "C-Space";
-  terminal = "alacritty";
+  terminal = "tmux-256color";
   keyMode = "vi";
   mouse = true;
   plugins = with pkgs.tmuxPlugins; [
@@ -21,9 +21,9 @@
         set -g @nova-status-style-active-fg "#2e3540"
         set -g @nova-status-style-double-bg "#2d3540"
 
-        set -g @nova-pane "#I#{?pane_in_mode, #{pane_mode},} #W"
+        set -g @nova-pane "#I#{?pane_in_mode, #{pane_mode},}\u00A0>>=\u00A0#W"
 
-        set -g @nova-segment-mode "#{?client_prefix,,󰘧}"
+        set -g @nova-segment-mode "#{?client_prefix,,󰘩}"
         set -g @nova-segment-mode-colors "#78a2c1 #2e3440"
 
         set -g @nova-segment-whoami "#(whoami)@#h"
@@ -56,7 +56,7 @@
   baseIndex = 1;
   extraConfig = ''
     # True color
-    set-option -a terminal-overrides ",alacritty:RGB"
+    set -as terminal-features ",alacritty*:RGB"
 
     bind-key -n C-Delete send-keys -X backward-delete-word
 

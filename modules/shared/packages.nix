@@ -1,6 +1,7 @@
 { pkgs }:
 
-with pkgs; [
+with pkgs;
+[
 
   # General packages for development and system management
   zoxide
@@ -13,6 +14,13 @@ with pkgs; [
   fastfetch
   wget
   zip
+  comma
+  gcc
+  gnumake
+  pkg-config
+  gnused
+  gnugrep
+  gawk
 
   # Encryption and security tools
   openssl
