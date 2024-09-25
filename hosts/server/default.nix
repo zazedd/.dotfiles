@@ -18,6 +18,7 @@ in
     ../../modules/shared
     ../../modules/shared/cachix
     ./hardware-configuration.nix
+    ./files.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -93,6 +94,7 @@ in
   services.minecraft-server = {
     enable = true;
     eula = true;
+    dataDir = "/etc/srv/minecraft";
 
     package = pkgs.callPackage ./purpur.nix { inherit pkgs; };
     declarative = true;
