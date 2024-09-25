@@ -26,17 +26,21 @@ let
 
   extractedTweaks = extractVanillaTweaks vanillatweaks;
 
-  zipsToEtc =
-    let
-      zipFiles = builtins.filter (file: lib.hasSuffix ".zip" file) (
-        builtins.listFiles "${extractedTweaks}/srv/minecraft/datapacks"
-      );
+  extractedZipEntries = lib.attrValues (
+    lib.genAttrs (builtins.attrNames (builtins.readDir "${extractedTweaks}/srv/minecraft/datapacks"))
+      (fileName: {
+        inherit fileName;
+        src = "${extractedTweaks}/srv/minecraft/datapacks/${fileName}";
+      })
+  );
 
-      toEtcEntry = file: {
-        "srv/minecraft/datapacks/${lib.basename file}" = builtins.readFile file;
-      };
-    in
-    lib.flatten (map toEtcEntry zipFiles);
+  # Generate the environment.etc entries from the extracted zip files
+  etcEntries = lib.listToAttrs (
+    map (zip: {
+      name = "srv/minecraft/datapacks/${zip.fileName}";
+      value = builtins.readFile zip.src;
+    }) extractedZipEntries
+  );
 
   infinity_mending = fetchurl {
     url = "";
@@ -91,5 +95,5 @@ in
     "srv/minecraft/datapacks/no_enderman_grief.zip" = builtins.readFile no_enderman_grief;
     "srv/minecraft/datapacks/no_creeper_grief.zip" = builtins.readFile no_creeper_grief;
     "srv/minecraft/datapacks/afk.zip" = builtins.readFile afk;
-  } // zipsToEtc;
+  } // etcEntries;
 }
