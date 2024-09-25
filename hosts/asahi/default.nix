@@ -87,21 +87,24 @@ in
     };
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput = {
-    enable = true;
-    touchpad = {
-      naturalScrolling = true;
-      disableWhileTyping = true;
-    };
-  };
-
   # Power management shit
   powerManagement.enable = true;
   services.tlp = {
     enable = true;
     settings = {
       TLP_ENABLE = 1;
+
+      WIFI_PWR_ON_AC = "off";
+      WIFI_PWR_ON_BAT = "on";
+
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+
+      PLATFORM_PROFILE_ON_AC = "performance";
+      PLATFORM_PROFILE_ON_BAT = "balanced";
+
+      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MAX_PERF_ON_BAT = 80;
     };
   };
 
@@ -137,6 +140,8 @@ in
       agenix.packages."${pkgs.system}".default
     ]
     ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+
+  services.tailscale.enable = true;
 
   fonts = {
     fontDir.enable = true;

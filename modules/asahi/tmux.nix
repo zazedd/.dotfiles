@@ -4,6 +4,7 @@
   prefix = "C-Space";
   terminal = "tmux-256color";
   keyMode = "vi";
+  customPaneNavigationAndResize = true;
   mouse = true;
   plugins = with pkgs.tmuxPlugins; [
     {
@@ -59,6 +60,8 @@
     set -as terminal-features ",alacritty*:RGB"
 
     bind-key -n C-Delete send-keys -X backward-delete-word
+
+    set-option -g renumber-windows on
 
     # open pane in same dir
     bind '"' split-window -c "#{pane_current_path}"

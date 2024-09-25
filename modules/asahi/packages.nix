@@ -26,4 +26,7 @@ shared-packages
   grim
   slurp
   swappy
+
+  ## gaming
+  prismlauncher
 ]
