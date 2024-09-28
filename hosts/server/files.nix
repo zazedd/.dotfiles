@@ -15,7 +15,7 @@ let
 
       buildCommand = ''
         mkdir -p $out/srv/minecraft/datapacks
-        ${pkgs.unzip}/bin/unzip ${vanillatweaks} -d tempdir
+        ${pkgs.unzip}/bin/unzip ${builtins.readFile vanillatweaks} -d tempdir
 
         # Move inner zip files to the final output directory
         for zip in tempdir/*.zip; do
