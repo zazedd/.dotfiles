@@ -8,6 +8,7 @@ let
     src = fetchurl {
       url = "https://vanillatweaks.net/share#qbpkiO";
       hash = "sha256-JgPS/ORYMONimuy+AA40N4RwA88eLouT6xU0jarU6No=";
+      nativeBuildInputs = [ unzip ];
       postFetch = ''
         cp $out unzip-me.zip
         ${pkgs.unzip}/bin/unzip unzip-me
@@ -16,7 +17,6 @@ let
       '';
     };
 
-    nativeBuildInputs = [ unzip ];
     buildPhase = ''
       mkdir zips/
 
