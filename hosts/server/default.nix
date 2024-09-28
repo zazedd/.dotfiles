@@ -2,6 +2,7 @@
   agenix,
   config,
   pkgs,
+  lib,
   ...
 }@inputs:
 
@@ -18,8 +19,10 @@ in
     ../../modules/shared
     ../../modules/shared/cachix
     ./hardware-configuration.nix
-    ./files.nix
+    inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
+
+  nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -91,23 +94,7 @@ in
     '';
   };
 
-  services.minecraft-server = {
-    enable = true;
-    eula = true;
-    dataDir = "/etc/srv/minecraft";
-
-    package = pkgs.callPackage ./purpur.nix { inherit pkgs; };
-    declarative = true;
-
-    serverProperties = {
-      online = "false";
-      gamemode = "survival";
-      difficulty = "normal";
-      simulation-distance = "12";
-      server-port = "42069";
-      level-seed = "199";
-    };
-  };
+  services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
 
   # Load configuration that is shared across systems
   environment.systemPackages =

@@ -1,5 +1,6 @@
 {
   pkgs,
+  JVM_OPTS,
   ...
 }:
 
@@ -25,6 +26,7 @@ stdenv.mkDerivation rec {
     cp -v $src $out/lib/minecraft/server.jar
 
     makeWrapper ${jdk}/bin/java $out/bin/minecraft-server \
+      --add-flags "${JVM_OPTS}" \
       --add-flags "-jar $out/lib/minecraft/server.jar nogui"
   '';
 
