@@ -8,10 +8,12 @@ shared-packages
 ++ [
   # general
   firefox
+  zathura
 
   # programming
   alacritty
   bubblewrap
+  mcrl2
 
   ## nix
   nixfmt-rfc-style
@@ -29,4 +31,7 @@ shared-packages
 
   ## gaming
   prismlauncher
+
+  ## others
+  libsForQt5.qt5.qtwayland
 ]

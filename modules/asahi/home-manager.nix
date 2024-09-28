@@ -22,6 +22,7 @@ in
     extraGroups = [
       "wheel"
       "video"
+      "vboxusers"
     ];
     shell = pkgs.zsh;
     isNormalUser = true;
