@@ -3,43 +3,41 @@
 with pkgs;
 
 let
-  vanillatweaks = fetchurl {
-    url = "https://vanillatweaks.net/share#qbpkiO";
-    hash = "sha256-JgPS/ORYMONimuy+AA40N4RwA88eLouT6xU0jarU6No=";
-  };
-
-  extractVanillaTweaks =
-    vanillatweaks:
-    stdenv.mkDerivation {
-      name = "extract-vanilla-tweaks";
-
-      buildCommand = ''
-        mkdir -p $out/srv/minecraft/datapacks
-        ${pkgs.unzip}/bin/unzip ${builtins.readFile vanillatweaks} -d tempdir
-
-        # Move inner zip files to the final output directory
-        for zip in tempdir/*.zip; do
-          mv "$zip" $out/srv/minecraft/datapacks/
-        done
-      '';
+  vanillatweaks = stdenv.mkDerivation {
+    name = "extract-vanilla-tweaks";
+    src = fetchzip {
+      url = "https://vanillatweaks.net/share#qbpkiO";
+      hash = "sha256-JgPS/ORYMONimuy+AA40N4RwA88eLouT6xU0jarU6No=";
     };
 
-  extractedTweaks = extractVanillaTweaks vanillatweaks;
+    nativeBuildInputs = [ unzip ];
+    buildPhase = ''
+      mkdir inner-zips
 
-  extractedZipEntries = lib.attrValues (
-    lib.genAttrs (builtins.attrNames (builtins.readDir "${extractedTweaks}/srv/minecraft/datapacks"))
-      (fileName: {
+      mv $src/*.zip inner-zips/
+    '';
+
+    installPhase = ''
+      mkdir -p $out/zips/
+      cp -r * $out/zips/
+    '';
+  };
+
+  extractedZipEntries =
+    vanillatweaks:
+    lib.attrValues (
+      lib.genAttrs (builtins.attrNames (builtins.readDir "${vanillatweaks}/zips/")) (fileName: {
         inherit fileName;
-        src = "${extractedTweaks}/srv/minecraft/datapacks/${fileName}";
+        src = "${vanillatweaks}/zips/${fileName}";
       })
-  );
+    );
 
   # Generate the environment.etc entries from the extracted zip files
   etcEntries = lib.listToAttrs (
     map (zip: {
       name = "srv/minecraft/datapacks/${zip.fileName}";
       value = builtins.readFile zip.src;
-    }) extractedZipEntries
+    }) (extractedZipEntries vanillatweaks)
   );
 
   infinity_mending = fetchurl {
