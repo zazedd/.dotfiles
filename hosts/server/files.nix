@@ -5,16 +5,22 @@ with pkgs;
 let
   vanillatweaks = stdenv.mkDerivation {
     name = "extract-vanilla-tweaks";
-    src = fetchzip {
+    src = fetchurl {
       url = "https://vanillatweaks.net/share#qbpkiO";
       hash = "sha256-JgPS/ORYMONimuy+AA40N4RwA88eLouT6xU0jarU6No=";
+      postFetch = ''
+        cp $out unzip-me.zip
+        ${pkgs.unzip}/bin/unzip unzip-me
+
+        rm unzip-me.zip
+      '';
     };
 
     nativeBuildInputs = [ unzip ];
     buildPhase = ''
-      mkdir inner-zips
+      mkdir zips/
 
-      mv $src/*.zip inner-zips/
+      mv $src/*.zip zips/
     '';
 
     installPhase = ''
