@@ -40,6 +40,7 @@
       url = "github:koekeishiya/homebrew-formulae";
       flake = false;
     };
+    nix-minecraft.url = "github:zazedd/nix-minecraft";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,10 +53,8 @@
   outputs =
     {
       self,
-      secrets,
       darwin,
       nix-homebrew,
-      neovim-nightly-overlay,
       fenix,
       homebrew-bundle,
       homebrew-core,
@@ -65,8 +64,6 @@
       koek,
       home-manager,
       nixpkgs,
-      disko,
-      agenix,
     }@inputs:
     let
       user = "zazed";
@@ -91,7 +88,7 @@
                 age
                 age-plugin-yubikey
               ];
-              shellHook = with pkgs; ''
+              shellHook = ''
                 export EDITOR=vim
               '';
             };
