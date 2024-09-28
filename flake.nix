@@ -53,17 +53,22 @@
   outputs =
     {
       self,
+      secrets,
       darwin,
       nix-homebrew,
+      neovim-nightly-overlay,
       fenix,
       homebrew-bundle,
       homebrew-core,
       homebrew-cask,
       homebrew-services,
       homebrew-cask-fonts,
+      nix-minecraft,
       koek,
       home-manager,
       nixpkgs,
+      disko,
+      agenix,
     }@inputs:
     let
       user = "zazed";
@@ -88,7 +93,7 @@
                 age
                 age-plugin-yubikey
               ];
-              shellHook = ''
+              shellHook = with pkgs; ''
                 export EDITOR=vim
               '';
             };
