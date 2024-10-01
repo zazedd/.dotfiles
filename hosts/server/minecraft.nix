@@ -168,7 +168,7 @@ in
     symlinks =
       {
         "allowed_symlinks.txt" = pkgs.writeText "allowed_symlinks.txt" "/nix/store";
-        "server-icon.png".source = ../../configs/minecraft/server-icon.png;
+        "server-icon.png" = ../../configs/minecraft/server-icon.png;
 
         # plugins
         "plugins/marriage.jar" = marriage;
@@ -177,6 +177,8 @@ in
         "plugins/tree-capitator.jar" = tree-capitator;
         "plugins/autosaveworld.jar" = autosaveworld;
         "plugins/veinminer.jar" = veinminer;
+
+        "plugins/AutoSaveWorld/config.yml" = ../../configs/minecraft/backup-config.yml;
 
         # datapacks
         "world/datapacks/infinity_mending.zip" = infinity_mending;
