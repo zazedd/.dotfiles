@@ -25,10 +25,23 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
-  networking.hostName = "shitbook"; # Define your hostname.
-  networking.wireless.iwd = {
-    enable = true;
-    settings.General.EnableNetworkConfiguration = true;
+  networking = {
+    hostName = "shitbook"; # Define your hostname.
+    wireless.iwd = {
+      enable = true;
+      settings.General.EnableNetworkConfiguration = true;
+    };
+
+    interfaces.veth0.virtual = true;
+    bridges.br0.interfaces = [ "veth0" ];
+
+    nat.enable = true;
+    nat.internalInterfaces = [
+      "ve-machine1"
+      "vb-machine1"
+      "br0"
+    ];
+    nat.externalInterface = "wlan0";
   };
 
   time.timeZone = "Portugal";
@@ -142,6 +155,7 @@ in
     ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   services.tailscale.enable = true;
+  programs.extra-container.enable = true;
 
   fonts = {
     fontDir.enable = true;

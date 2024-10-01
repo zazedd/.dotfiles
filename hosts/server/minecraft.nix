@@ -168,6 +168,7 @@ in
     symlinks =
       {
         "allowed_symlinks.txt" = pkgs.writeText "allowed_symlinks.txt" "/nix/store";
+        "server-icon.png".source = ../../configs/minecraft/server-icon.png;
 
         # plugins
         "plugins/marriage.jar" = marriage;

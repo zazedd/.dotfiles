@@ -20,4 +20,3 @@ lsp.ocamllsp.setup({
 })
 
 lsp.nixd.setup({})
-lsp.hls.setup({})

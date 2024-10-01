@@ -31,7 +31,9 @@ shared-packages
 
   ## gaming
   prismlauncher
+  moonlight-qt
 
   ## others
   libsForQt5.qt5.qtwayland
+  tidal-hifi
 ]
