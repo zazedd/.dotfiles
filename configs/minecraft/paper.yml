@@ -1,6 +1,0 @@
-unsupported-settings:
-  allow-headless-pistons: true
-  allow-permanent-block-break-exploits: true
-  allow-grindstone-overstacking: true
-  allow-unsafe-end-portal-teleportation: true
-  allow-tripwire-disarming-exploits: true
