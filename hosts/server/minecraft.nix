@@ -170,7 +170,7 @@ in
         "allowed_symlinks.txt" = pkgs.writeText "allowed_symlinks.txt" "/nix/store";
         "server-icon.png" = ../../configs/minecraft/server-icon.png;
 
-        "config/paper-global.yml" = ../../configs/minecraft/paper.yml;
+        "config/paper-global.yml" = ../../configs/minecraft/paper-global.yml;
 
         # plugins
         "plugins/marriage.jar" = marriage;
