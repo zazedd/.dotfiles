@@ -23,7 +23,7 @@ local function escape(keys)
   return vim.api.nvim_replace_termcodes(keys, true, false, true)
 end
 
-vim.keymap.set("c", "<c-f>", function()
+vim.keymap.set("n", "<c-f>", function()
   vim.g.requested_cmdwin = true
   vim.api.nvim_feedkeys(escape("<c-f>"), "n", false)
 end)

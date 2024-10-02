@@ -18,12 +18,30 @@ in
     autosuggestion.enable = true;
     enableCompletion = true;
     shellAliases = {
+      v = "nvim";
+      t = "tmux new-session \; send-keys \"nvim\" C-m \; neww \; split-window -v \; selectp -t 1  \; selectw -t 1";
+
+      # sudo alias hack
+      sudo = "nocorrect sudo ";
+
+      # utilities
+      mv = "mv -iv";
+      mkdir = "mkdir -p";
+      nv = "nvim --clean";
       sl = "eza";
       ls = "eza";
       l = "eza -l";
       la = "eza -la";
       ip = "ip --color=auto";
       sw = "sway --config ~/.config/sway/config";
+      du = "dua";
+
+      gs = "git status";
+      gcl = "git clone";
+
+      weather = "curl v2.wttr.in";
+      ff = "fastfetch --logo-color-1 3 --structure Title:Separator:OS:Host:Kernel:CPU:GPU:Uptime:Packages:Shell:Display:Terminal:TerminalFont:Disk:Battery:Memory --cpu-temp true --multithreading true";
+      rr = "source ~/.zshrc";
     };
     plugins = [
       {

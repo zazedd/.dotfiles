@@ -14,10 +14,6 @@ in
     text = builtins.readFile ../../configs/wezterm/wezterm.lua;
   };
 
-  "${xdg_home}/.zsh/alias.zsh" = {
-    text = builtins.readFile ../../configs/zsh/alias.zsh;
-  };
-
   "${xdg_home}/.zsh/functions.zsh" = {
     text = builtins.readFile ../../configs/zsh/functions.zsh;
   };

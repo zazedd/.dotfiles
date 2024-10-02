@@ -34,5 +34,4 @@ source ~/.zsh/theme.zsh
 source ~/.zsh/keys.zsh
 source ~/.zsh/vimode.zsh
 source ~/.zsh/functions.zsh
-source ~/.zsh/alias.zsh
 source ~/.zsh/prompt.zsh

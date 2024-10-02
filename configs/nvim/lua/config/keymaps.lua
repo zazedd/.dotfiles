@@ -8,6 +8,8 @@ local del = vim.keymap.del
 
 del("n", "<leader><space>")
 del("n", "<leader>l")
+del("n", "<C-f>")
+del("i", "<C-f>")
 
 map("n", "<C-d>", "<C-d>zz", { desc = "Center on Ctrl-d", remap = true })
 map("n", "<C-u>", "<C-u>zz", { desc = "Center on Ctrl-u", remap = true })
