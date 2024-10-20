@@ -90,7 +90,7 @@ let
 
   silkspawner = fetchurl {
     url = "https://mediafilez.forgecdn.net/files/5485/260/SilkSpawners.jar";
-    hash = "";
+    hash = "sha256-MJ1CObGXyo/E75NRHDa1sOXPXbx9xCqSh0dv/Q+EoZQ=";
   };
 
   laggremover = fetchurl {
