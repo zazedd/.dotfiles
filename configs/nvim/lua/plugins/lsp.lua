@@ -1,4 +1,25 @@
 return {
+
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        lua_ls = {
+          mason = false,
+        },
+      },
+    },
+  },
+
+  {
+    "williamboman/mason.nvim",
+    opts_extend = { "ensure_installed" },
+    opts = {
+      ensure_installed = {
+      },
+    },
+  },
+
   -- LSP keymaps
   {
     "neovim/nvim-lspconfig",

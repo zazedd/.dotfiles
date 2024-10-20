@@ -88,6 +88,11 @@ let
     hash = "sha256-e/zLN/wIG/GerHB9vksI6xnpDEkDfufW0mBHI8/5SVY=";
   };
 
+  silkspawner = fetchurl {
+    url = "https://mediafilez.forgecdn.net/files/5485/260/SilkSpawners.jar";
+    hash = "";
+  };
+
   laggremover = fetchurl {
     url = "https://dev.bukkit.org/projects/laggremover/files/2744510/download";
     hash = "sha256-xIajcL4SKKiSbM96263jmRtJtlOl1jqgZjrIFaq2Hz4=";
@@ -175,6 +180,7 @@ in
         # plugins
         "plugins/marriage.jar" = marriage;
         "plugins/changeskin.jar" = changeskin;
+        "plugins/silkspawner.jar" = silkspawner;
         "plugins/laggremover.jar" = laggremover;
         "plugins/tree-capitator.jar" = tree-capitator;
         "plugins/autosaveworld.jar" = autosaveworld;

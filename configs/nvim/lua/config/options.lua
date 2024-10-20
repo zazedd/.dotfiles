@@ -64,3 +64,4 @@ local function customstatuscolumn()
 end
 
 ui.statuscolumn = customstatuscolumn
+

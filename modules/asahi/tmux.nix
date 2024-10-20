@@ -35,21 +35,6 @@
         set -g @nova-segments-0-right "whoami"
       '';
     }
-    {
-      plugin = resurrect;
-      extraConfig = ''
-        set -g @resurrect-strategy-nvim 'session'
-        set -g @resurrect-capture-pane-contents 'on'
-      '';
-    }
-    {
-      plugin = continuum;
-      extraConfig = ''
-        set -g @continuum-restore 'on'
-        set -g @continuum-boot 'on'
-        set -g @continuum-save-interval '10'
-      '';
-    }
     sensible
     vim-tmux-navigator
     better-mouse-mode
