@@ -38,8 +38,10 @@ in
 
   services.openssh = {
     enable = true;
-    PasswordAuthentication = false;
-    PermitRootLogin = "no";
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
   };
 
   # Setup user, packages, programs
