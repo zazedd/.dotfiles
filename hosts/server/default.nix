@@ -36,7 +36,11 @@ in
 
   time.timeZone = "Portugal";
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+    permitRootLogin = "no";
+  };
 
   # Setup user, packages, programs
   nix = {
