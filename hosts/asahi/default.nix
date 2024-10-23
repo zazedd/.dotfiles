@@ -82,6 +82,9 @@ in
 
   services.xserver.enable = false;
 
+  # for uppaal only
+  programs.nix-ld.dev.enable = true;
+
   services.dbus.enable = true;
 
   # Sound

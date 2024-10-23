@@ -5,6 +5,10 @@
     agenix.url = "github:ryantm/agenix";
     home-manager.url = "github:nix-community/home-manager";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,6 +60,7 @@
       secrets,
       darwin,
       nix-homebrew,
+      nix-ld,
       neovim-nightly-overlay,
       fenix,
       homebrew-bundle,
@@ -170,6 +175,7 @@
           system = "aarch64-linux";
           specialArgs = inputs;
           modules = [
+            nix-ld.nixosModules.nix-ld
             home-manager.nixosModules.home-manager
             ./hosts/asahi
           ];

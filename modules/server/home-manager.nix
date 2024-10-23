@@ -19,7 +19,7 @@ in
     home = "${xdg_home}";
     group = "users";
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA47RV+m4PubAm9G21MCU7KCyWEvrFS+HGfFloX16gUjx"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA47RV+m4PubAmG21MCU7KCyWEvrFS+HGfFloX16gUjx"
     ];
     extraGroups = [
       "wheel"
