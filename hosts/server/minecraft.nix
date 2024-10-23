@@ -174,6 +174,7 @@ in
     files."world/paper-world.yml" = ../../configs/minecraft/paper-world.yml;
     files."bukkit.yml" = ../../configs/minecraft/bukkit.yml;
     files."spigot.yml" = ../../configs/minecraft/spigot.yml;
+    files."purpur.yml" = ../../configs/minecraft/purpur.yml;
 
     symlinks =
       {
