@@ -1,0 +1,3 @@
+entities:
+  spawning:
+    per-player-mob-spawn: true
