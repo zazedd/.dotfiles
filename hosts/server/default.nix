@@ -71,14 +71,6 @@ in
     user = "zazed";
   };
 
-  services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.x11vnc}/bin/x11vnc -rfbauth $HOME/.vnc/passwd &
-  '';
-
-  services.xserver.desktopManager.xfce = {
-    enable = true;
-  };
-
   # services.xrdp.enable = true;
   # services.xrdp.defaultWindowManager = "dwm";
   # services.xrdp.openFirewall = true;

@@ -6,4 +6,5 @@ let
 in
 shared-packages
 ++ [
+  tigervnc
 ]
