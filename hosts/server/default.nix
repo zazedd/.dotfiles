@@ -133,7 +133,11 @@ in
     enable = true;
     trustedInterfaces = [ "tailscale0" ];
     allowedUDPPorts = [ config.services.tailscale.port ];
-    allowedTCPPorts = [ 42069 ];
+    allowedTCPPorts = [
+      42069
+      5900
+      5901
+    ];
   };
 
   system.stateVersion = "24.11";
