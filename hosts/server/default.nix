@@ -66,9 +66,12 @@ in
 
   # rdp
   services.xserver.enable = true;
-  services.xserver.windowManager.dwm.enable = true;
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "zazed";
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
+
+  services.xrdp.enable = true;
+  services.xrdp.defaultWindowManager = "startplasma-x11";
+  services.xrdp.openFirewall = true;
 
   services.tailscale.enable = true;
 
