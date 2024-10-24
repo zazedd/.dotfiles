@@ -9,6 +9,7 @@ shared-packages
   # general
   firefox
   zathura
+  tigervnc
 
   # programming
   alacritty

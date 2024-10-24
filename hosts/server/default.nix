@@ -69,7 +69,7 @@ in
   services.xserver.windowManager.dwm.enable = true;
 
   services.xrdp.enable = true;
-  services.xrdp.defaultWindowManager = "startplasma-x11";
+  services.xrdp.defaultWindowManager = "dwm";
   services.xrdp.openFirewall = true;
 
   services.tailscale.enable = true;
