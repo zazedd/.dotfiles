@@ -67,8 +67,8 @@ in
   # rdp
   services.xserver.enable = true;
   services.xserver.windowManager.dwm.enable = true;
-  services.xserver.displayManager.auto.enable = true;
-  services.xserver.displayManager.auto.user = "zazed";
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "zazed";
 
   services.tailscale.enable = true;
 
