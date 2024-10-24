@@ -66,15 +66,10 @@ in
 
   # rdp
   services.xserver.enable = true;
-  services.xserver.displayManager.autoLogin = {
-    enable = true;
-    user = "zazed";
-  };
+  services.xserver.windowManager.dwm.enable = true;
+  services.xserver.displayManager.auto.enable = true;
+  services.xserver.displayManager.auto.user = "zazed";
 
-  # services.xrdp.enable = true;
-  # services.xrdp.defaultWindowManager = "dwm";
-  # services.xrdp.openFirewall = true;
-  #
   services.tailscale.enable = true;
 
   systemd.services.tailscale-autoconnect = {
