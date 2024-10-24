@@ -66,12 +66,23 @@ in
 
   # rdp
   services.xserver.enable = true;
-  services.xserver.windowManager.dwm.enable = true;
+  services.xserver.displayManager.autoLogin = {
+    enable = true;
+    user = "zazed";
+  };
 
-  services.xrdp.enable = true;
-  services.xrdp.defaultWindowManager = "dwm";
-  services.xrdp.openFirewall = true;
+  services.xserver.displayManager.sessionCommands = ''
+    ${pkgs.x11vnc}/bin/x11vnc -rfbauth $HOME/.vnc/passwd &
+  '';
 
+  services.xserver.desktopManager.xfce = {
+    enable = true;
+  };
+
+  # services.xrdp.enable = true;
+  # services.xrdp.defaultWindowManager = "dwm";
+  # services.xrdp.openFirewall = true;
+  #
   services.tailscale.enable = true;
 
   systemd.services.tailscale-autoconnect = {
