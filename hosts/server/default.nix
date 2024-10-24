@@ -64,6 +64,14 @@ in
     '';
   };
 
+  # rdp
+  services.xserver.enable = true;
+  services.xserver.windowManager.dwm.enable = true;
+
+  services.xrdp.enable = true;
+  services.xrdp.defaultWindowManager = "startplasma-x11";
+  services.xrdp.openFirewall = true;
+
   services.tailscale.enable = true;
 
   systemd.services.tailscale-autoconnect = {
