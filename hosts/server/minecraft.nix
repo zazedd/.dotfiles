@@ -113,6 +113,11 @@ let
     hash = "sha256-0fLI28p4Sss2doV4KCM0K5rgQAKgFEub2fXMhX00bZQ=";
   };
 
+  wildloaders = fetchurl {
+    url = "https://hub.bg-software.com/job/WildLoaders%20-%20Stable%20Builds/5/artifact/target/WildLoaders-2024.3.jar";
+    hash = "sha256-0fLI28p4Sss2doV4KCM0K5rgQAKgFEub2fXMhX00bZQ=";
+  };
+
   memory = "8120";
   JVM_OPTS = lib.concatStringsSep " " [
     "-Xms${memory}M"
@@ -189,6 +194,7 @@ in
         "plugins/tree-capitator.jar" = tree-capitator;
         "plugins/autosaveworld.jar" = autosaveworld;
         "plugins/veinminer.jar" = veinminer;
+        "plugins/wildloaders.jar" = wildloaders;
 
         "plugins/AutoSaveWorld/config.yml" = ../../configs/minecraft/backup-config.yml;
 
