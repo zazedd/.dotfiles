@@ -115,7 +115,7 @@ let
 
   wildloaders = fetchurl {
     url = "https://hub.bg-software.com/job/WildLoaders%20-%20Stable%20Builds/5/artifact/target/WildLoaders-2024.3.jar";
-    hash = "sha256-0fLI28p4Sss2doV4KCM0K5rgQAKgFEub2fXMhX00bZQ=";
+    hash = "sha256-rwiYp+bdaUu96mufzh4EHQpZ43v08vFO5Ue/9Ilnv+w=";
   };
 
   memory = "8120";
