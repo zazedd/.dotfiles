@@ -152,6 +152,7 @@ in
 
     serverProperties = {
       online = "false";
+      online-mode = "false";
       gamemode = "survival";
       difficulty = "normal";
       simulation-distance = "12";
