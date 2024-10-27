@@ -786,8 +786,8 @@ world-settings:
         clerics-farm-warts: false
         cleric-wart-farmers-throw-warts-at-villagers: true
         spawn-iron-golem:
-          radius: 32
-          limit: 5
+          radius: 0
+          limit: 0
         lobotomize:
           enabled: false
           check-interval: 60
