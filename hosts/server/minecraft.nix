@@ -9,7 +9,7 @@ let
     name = "extract-vanilla-tweaks";
     src = fetchzip {
       url = "https://vanillatweaks.net/download/VanillaTweaks_d962586_UNZIP_ME.zip";
-      hash = "";
+      hash = "sha256-8IaVhEL635u0inpy+5cbmw0enbAVwzrZ9Qm+gIpWBkA=";
       stripRoot = false;
     };
 
