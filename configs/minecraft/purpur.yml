@@ -11,7 +11,7 @@
 verbose: false
 config-version: 22
 settings:
-  server-mod-name: §dOptimised Configs §f- §7goldenedit.dev
+  server-mod-name: zigzag made this hahahah
   tps-catchup: true
   lagging-threshold: 19.0
   dont-send-useless-entity-packets: true
@@ -789,7 +789,7 @@ world-settings:
           radius: 32
           limit: 5
         lobotomize:
-          enabled: true
+          enabled: false
           check-interval: 60
         attributes:
           max_health: 20.0
