@@ -8,8 +8,8 @@ let
   vanillatweaks = stdenv.mkDerivation {
     name = "extract-vanilla-tweaks";
     src = fetchzip {
-      url = "https://vanillatweaks.net/download/VanillaTweaks_d495683_UNZIP_ME.zip";
-      hash = "sha256-BcdTOdq8UmoglyhKRqEmO3lOvA19FhVD4+kfbyTChQc=";
+      url = "https://vanillatweaks.net/download/VanillaTweaks_d962586_UNZIP_ME.zip";
+      hash = "";
       stripRoot = false;
     };
 
