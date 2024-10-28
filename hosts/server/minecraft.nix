@@ -158,6 +158,7 @@ in
       simulation-distance = "12";
       server-port = "42069";
       level-seed = "199";
+      enable-command-block = "true";
     };
 
     files = {
