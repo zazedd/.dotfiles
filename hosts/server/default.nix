@@ -101,11 +101,10 @@ in
   };
 
   services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
-  environment.etc."nextcloud-admin-pass".text = builtins.readFile ../../env/nextcloud;
   services.nextcloud = {
     enable = true;
     hostName = "cloud.ricardogoncalves.burro-arctic.ts.net";
-    config.adminpassFile = "/etc/nextcloud-admin-pass";
+    config.adminpassFile = "/etc/nextcloud";
     https = true;
   };
 
