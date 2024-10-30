@@ -103,7 +103,7 @@ in
   services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
   services.nextcloud = {
     enable = true;
-    hostName = "cloud.ricardogoncalves.burro-arctic.ts.net";
+    hostName = "cloud.ricardogoncalves";
     config.adminpassFile = "/etc/nextcloud";
     https = true;
   };
