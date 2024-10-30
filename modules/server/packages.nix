@@ -6,5 +6,5 @@ let
 in
 shared-packages
 ++ [
-  tigervnc
+  dmenu
 ]
