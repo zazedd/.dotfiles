@@ -64,17 +64,6 @@ in
     '';
   };
 
-  # rdp
-  services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.windowManager.dwm.enable = true;
-
-  services.xrdp.enable = true;
-  services.xrdp.defaultWindowManager = "dwm";
-  services.xrdp.openFirewall = true;
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "zazed";
-
   services.tailscale.enable = true;
 
   systemd.services.tailscale-autoconnect = {
@@ -112,6 +101,25 @@ in
   };
 
   services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
+  environment.etc."nextcloud-admin-pass".text = builtins.readFile ../../env/nextcloud;
+  services.nextcloud = {
+    enable = true;
+    hostName = "cloud.ricardogoncalves.burro-arctic.ts.net";
+    config.adminpassFile = "/etc/nextcloud-admin-pass";
+    https = true;
+  };
+
+  services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
+    forceSSL = true;
+    enableACME = true;
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    certs = {
+      ${config.services.nextcloud.hostName}.email = "leomendesantos@gmail.com";
+    };
+  };
 
   # Load configuration that is shared across systems
   environment.systemPackages =
