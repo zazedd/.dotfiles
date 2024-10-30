@@ -72,6 +72,8 @@ in
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager = "startplasma-x11";
   services.xrdp.openFirewall = true;
+  services.displayManager.auto.enable = true;
+  services.displayManager.auto.user = "zazed";
 
   services.tailscale.enable = true;
 
