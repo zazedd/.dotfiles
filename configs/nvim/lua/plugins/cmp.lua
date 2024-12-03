@@ -1,49 +1,35 @@
 return {
 
   {
-    'saghen/blink.cmp',
+    "saghen/blink.cmp",
+    enabled = true,
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
-    dependencies = 'rafamadriz/friendly-snippets',
+    dependencies = "rafamadriz/friendly-snippets",
 
     -- use a release tag to download pre-built binaries
-    version = 'v0.*',
+    version = "v0.*",
     -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     -- build = 'cargo build --release',
 
     opts = {
       windows = {
         autocomplete = {
-          border = 'padded';
-          draw = 'reversed';
-        };
+          border = "padded",
+        },
 
         documentation = {
-          auto_show_delay = 50;
-        };
-      };
+          auto_show_delay = 50,
+        },
+      },
 
       trigger = {
         signature_help = {
-          enabled = true;
-        };
-      };
-
-      keymap = {
-        show = '<C-space>',
-        hide = '<C-e>',
-        accept = '<Enter>',
-        select_prev = { '<S-Tab>', '<C-k>' },
-        select_next = { '<Tab>', '<C-j>' },
-
-        show_documentation = {},
-        hide_documentation = {},
-        scroll_documentation_up = '<C-b>',
-        scroll_documentation_down = '<C-f>',
-
-        snippet_forward = '<Tab>',
-        snippet_backward = '<S-Tab>',
+          enabled = true,
+        },
       },
+
+      keymap = { preset = "enter" },
 
       highlight = {
         -- sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -53,14 +39,14 @@ return {
       },
       -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- adjusts spacing to ensure icons are aligned
-      nerd_font_variant = 'mono',
-      
+      nerd_font_variant = "mono",
+
       -- experimental auto-brackets support
       -- accept = { auto_brackets = { enabled = true } }
-      
+
       -- experimental signature help support
       -- trigger = { signature_help = { enabled = true } }
-    }
+    },
   },
 
   {
@@ -88,16 +74,15 @@ return {
       menu = {},
     },
     -- enabled = vim.g.icons_enabled,
-    enabled = false;
+    enabled = false,
     config = function(_, opts)
       require("lspkind").init(opts)
     end,
   },
 
-
   {
     "hrsh7th/nvim-cmp",
-    enabled = false;
+    enabled = false,
     opts = function()
       local cmp = require("cmp")
       local snip_status_ok, luasnip = pcall(require, "luasnip")

@@ -53,7 +53,6 @@ in
       peripheralFirmwareDirectory = ./firmware;
       useExperimentalGPUDriver = true;
       experimentalGPUInstallMode = "overlay";
-      withRust = true;
     };
     opengl = {
       enable = true;
