@@ -12,6 +12,15 @@ return {
     opts = {
       commentStyle = { italic = true },
       transparent = false,
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none",
+            },
+          },
+        },
+      },
       overrides = function(colors)
         local colors = colors.palette
         return {
