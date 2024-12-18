@@ -84,6 +84,15 @@ in
         };
         file = "autopair.zsh";
       }
+      {
+        name = "fzf";
+        src = pkgs.fetchFromGitHub {
+          owner = "unixorn";
+          repo = "fzf-zsh-plugin";
+          rev = "06e2946913500c34486764589b4bfb3e9d8c2058";
+          sha256 = "Ubxakc8DwJoy49o3B5L+t5vZw3KA2VWvlAPGWER8J2A=";
+        };
+      }
     ];
     initExtraFirst = builtins.readFile ../../configs/zsh/.zshrc;
   };

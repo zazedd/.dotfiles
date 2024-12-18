@@ -14,7 +14,6 @@ with pkgs;
   fastfetch
   wget
   zip
-  comma
   gcc
   gnumake
   pkg-config

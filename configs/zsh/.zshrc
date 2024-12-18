@@ -35,3 +35,4 @@ source ~/.zsh/keys.zsh
 source ~/.zsh/vimode.zsh
 source ~/.zsh/functions.zsh
 source ~/.zsh/prompt.zsh
+source <(fzf --zsh)
