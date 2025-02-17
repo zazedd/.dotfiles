@@ -155,8 +155,8 @@ in
       simulation-distance = "12";
       server-port = "42069";
       enable-rcon = "true";
-      rcon.port = "42068";
-      rcon.password = builtins.readFile "/etc/minecraft/rcon";
+      rcon-port = "42068";
+      rcon-password = builtins.readFile "/etc/minecraft/rcon";
       level-seed = "199";
       enable-command-block = "true";
     };
