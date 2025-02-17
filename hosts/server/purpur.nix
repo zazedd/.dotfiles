@@ -8,7 +8,7 @@ with pkgs;
 
 stdenv.mkDerivation rec {
   pname = "purpur";
-  version = "1.21.1r2308";
+  version = "1.24.4r2394";
 
   src = fetchurl {
     url = "https://api.purpurmc.org/v2/purpur/${
