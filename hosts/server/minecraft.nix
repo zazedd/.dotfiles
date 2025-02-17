@@ -11,8 +11,9 @@ let
 
     nativeBuildInputs = [ unzip ];
 
-    buildPhase = ''
-      ls $src
+    unpackPhase = ''
+      mkdir -p $out
+      unzip $src -d $out
     '';
 
     installPhase = ''
