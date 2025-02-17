@@ -156,7 +156,7 @@ in
       server-port = "42069";
       enable-rcon = "true";
       "rcon.port" = "42068";
-      "rcon.password" = builtins.readFile "/etc/minecraft/rcon";
+      "rcon.password" = "test";
       level-seed = "199";
       enable-command-block = "true";
     };
