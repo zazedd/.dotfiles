@@ -13,39 +13,23 @@ return {
     -- build = 'cargo build --release',
 
     opts = {
-      windows = {
-        autocomplete = {
-          border = "padded",
-        },
-
-        documentation = {
-          auto_show_delay = 50,
-        },
+      completion = {
+        menu = { border = "single" },
+        documentation = { window = { border = "single" } },
       },
 
-      trigger = {
-        signature_help = {
-          enabled = true,
-        },
-      },
+      signature = { enabled = true },
 
       keymap = { preset = "enter" },
 
-      highlight = {
-        -- sets the fallback highlight groups to nvim-cmp's highlight groups
-        -- useful for when your theme doesn't support blink.cmp
-        -- will be removed in a future release, assuming themes add support
-        use_nvim_cmp_as_default = false,
-      },
       -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- adjusts spacing to ensure icons are aligned
-      nerd_font_variant = "mono",
+      appearance = {
+        nerd_font_variant = "mono",
+      },
 
       -- experimental auto-brackets support
       -- accept = { auto_brackets = { enabled = true } }
-
-      -- experimental signature help support
-      -- trigger = { signature_help = { enabled = true } }
     },
   },
 

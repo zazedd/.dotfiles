@@ -7,11 +7,7 @@ let
   # DATAPACKS
   vanillatweaks = stdenv.mkDerivation {
     name = "extract-vanilla-tweaks";
-    src = fetchzip {
-      url = "https://vanillatweaks.net/download/VanillaTweaks_d962586_UNZIP_ME.zip";
-      hash = "sha256-8IaVhEL635u0inpy+5cbmw0enbAVwzrZ9Qm+gIpWBkA=";
-      stripRoot = false;
-    };
+    src = ../../configs/minecraft/vanillatweaks.zip;
 
     nativeBuildInputs = [ unzip ];
 
@@ -152,7 +148,7 @@ in
 
     serverProperties = {
       online = "false";
-      online-mode = "true";
+      online-mode = "false";
       gamemode = "survival";
       difficulty = "normal";
       simulation-distance = "12";

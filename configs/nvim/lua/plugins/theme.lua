@@ -44,17 +44,6 @@ return {
   },
 
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      close_if_last_window = true,
-      window = {
-        position = "left",
-        width = 25,
-      },
-    },
-  },
-
-  {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "meuter/lualine-so-fancy.nvim",
@@ -62,8 +51,8 @@ return {
     opts = {
       options = {
         theme = "codedark",
-        component_separators = { left = "│", right = "│" },
-        section_separators = { left = "", right = "" },
+        component_separators = { left = "│ ", right = " │" },
+        section_separators = { left = " ", right = " " },
         globalstatus = true,
         refresh = {
           statusline = 100,
@@ -87,7 +76,7 @@ return {
           { "fancy_location" },
         },
         lualine_y = {
-          { "fancy_filetype", ts_icon = "" },
+          { "fancy_filetype", ts_icon = "󰐆" },
         },
         lualine_z = {
           { "fancy_lsp_servers" },

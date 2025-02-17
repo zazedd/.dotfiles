@@ -10,11 +10,14 @@ shared-packages
   firefox
   zathura
   tigervnc
+  deluge
+  mpv
 
   # programming
   alacritty
   bubblewrap
-  mcrl2
+  libev
+  libevent
 
   ## nix
   nixfmt-rfc-style
