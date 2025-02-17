@@ -134,6 +134,7 @@ in
     allowedUDPPorts = [ config.services.tailscale.port ];
     allowedTCPPorts = [
       42069
+      42068
       5900
       5901
     ];
