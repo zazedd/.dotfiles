@@ -76,7 +76,7 @@ let
   };
 
   restoreskin = fetchurl {
-    url = "https://www.spigotmc.org/resources/skinsrestorer.2124/download?version=574476";
+    url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.5.2/SkinsRestorer.jar";
     hash = "";
   };
 
