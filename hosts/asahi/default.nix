@@ -32,7 +32,7 @@ in
       settings.General.EnableNetworkConfiguration = true;
     };
 
-    nameservers = [ "1.1.1.1" ];
+    nameservers = [ "9.9.9.9" ];
 
     interfaces.veth0.virtual = true;
     bridges.br0.interfaces = [ "veth0" ];
