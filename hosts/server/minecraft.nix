@@ -77,7 +77,7 @@ let
 
   restoreskin = fetchurl {
     url = "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/15.5.2/SkinsRestorer.jar";
-    hash = "";
+    hash = "sha256-uSqHok9e7bK2Gpct4rn61ZQzmb77bi5pQorycSfhQ0s=";
   };
 
   silkspawner = fetchurl {
