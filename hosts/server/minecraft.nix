@@ -75,9 +75,9 @@ let
     hash = "sha256-cE/SyKTJ8umoaQ5788fdpkZ5CNUNP0RPap5xI2e1Rwg=";
   };
 
-  changeskin = fetchurl {
-    url = "https://dev.bukkit.org/projects/changeskin/files/4226675/download";
-    hash = "sha256-e/zLN/wIG/GerHB9vksI6xnpDEkDfufW0mBHI8/5SVY=";
+  restoreskin = fetchurl {
+    url = "https://www.spigotmc.org/resources/skinsrestorer.2124/download?version=574476";
+    hash = "";
   };
 
   silkspawner = fetchurl {
@@ -185,7 +185,7 @@ in
 
         # plugins
         "plugins/marriage.jar" = marriage;
-        "plugins/changeskin.jar" = changeskin;
+        "plugins/changeskin.jar" = restoreskin;
         "plugins/silkspawner.jar" = silkspawner;
         "plugins/laggremover.jar" = laggremover;
         "plugins/tree-capitator.jar" = tree-capitator;
