@@ -20,6 +20,7 @@ with pkgs;
   gnused
   gnugrep
   gawk
+  dua
 
   # Encryption and security tools
   openssl

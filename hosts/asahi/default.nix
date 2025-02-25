@@ -32,19 +32,30 @@ in
       settings.General.EnableNetworkConfiguration = true;
     };
 
+    networkmanager.enable = true;
+    networkmanager.wifi.backend = "iwd";
+
+    interfaces.eth0 = {
+      ipv4.addresses = [
+        {
+          address = "192.168.1.150";
+          prefixLength = 24;
+        }
+      ];
+      name = "eth0";
+      useDHCP = false;
+    };
+
+    defaultGateway = {
+      address = "192.168.1.1";
+      interface = "eth0";
+    };
+
+    dhcpcd.enable = false;
     nameservers = [ "9.9.9.9" ];
-
-    interfaces.veth0.virtual = true;
-    bridges.br0.interfaces = [ "veth0" ];
-
-    nat.enable = true;
-    nat.internalInterfaces = [
-      "ve-machine1"
-      "vb-machine1"
-      "br0"
-    ];
-    nat.externalInterface = "wlan0";
   };
+
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   time.timeZone = "Portugal";
 

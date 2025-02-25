@@ -19,4 +19,9 @@ lsp.ocamllsp.setup({
   capabilities = c,
 })
 
+lsp.coq_lsp.setup({
+  filetypes = { "coq" },
+  capabilities = c,
+})
+
 lsp.nixd.setup({})

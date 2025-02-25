@@ -23,6 +23,7 @@ in
       "wheel"
       "video"
       "vboxusers"
+      "networkmanager"
     ];
     shell = pkgs.zsh;
     isNormalUser = true;
