@@ -120,6 +120,12 @@ in
     };
   };
 
+  services.firefly-iii = {
+    inherit user;
+    enable = true;
+    enableNginx = true;
+  };
+
   # Load configuration that is shared across systems
   environment.systemPackages =
     with pkgs;
