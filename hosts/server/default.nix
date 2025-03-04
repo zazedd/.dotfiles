@@ -104,7 +104,10 @@ in
   services.nextcloud = {
     enable = true;
     hostName = "ricardogoncalves";
-    config.adminpassFile = "/etc/nextcloud";
+    config = {
+      adminpassFile = "/etc/nextcloud";
+      dbtype = "sqlite";
+    };
     https = true;
   };
 
