@@ -127,6 +127,17 @@ in
     inherit user;
     enable = true;
     enableNginx = true;
+    settings = {
+      APP_ENV = "production";
+      APP_KEY_FILE = "/etc/nextcloud";
+      SITE_OWNER = "mail@example.com";
+      DB_CONNECTION = "mysql";
+      DB_HOST = "db";
+      DB_PORT = 3306;
+      DB_DATABASE = "firefly";
+      DB_USERNAME = "firefly";
+      DB_PASSWORD_FILE = "/etc/nextcloud";
+    };
   };
 
   # Load configuration that is shared across systems
