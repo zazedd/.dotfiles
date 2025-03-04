@@ -17,8 +17,7 @@
 
     asahi-audio = pkgs.asahi-audio; # the asahi-audio we use
 
-    # php override works around build failure: https://github.com/NixOS/nixpkgs/pull/330895
-    lsp-plugins = pkgs.lsp-plugins.override { php = pkgs.php82; }; # the lsp-plugins we use
+    lsp-plugins = pkgs.lsp-plugins;
 
     lsp-plugins-is-safe = (pkgs.lib.versionAtLeast lsp-plugins.version "1.2.14");
 
@@ -26,7 +25,7 @@
   in lib.mkIf (cfg.setupAsahiSound && cfg.enable) (lib.mkMerge [
     {
       # can't be used by Asahi sound infrastructure
-      hardware.pulseaudio.enable = false;
+      services.pulseaudio.enable = false;
       # enable pipewire to run real-time and avoid audible glitches
       security.rtkit.enable = true;
       # set up pipewire with the supported capabilities (instead of pulseaudio)

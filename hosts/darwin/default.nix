@@ -1,6 +1,13 @@
-{ agenix, config, pkgs, ... }@inputs:
+{
+  agenix,
+  config,
+  pkgs,
+  ...
+}@inputs:
 
-let user = "zazed"; in
+let
+  user = "zazed";
+in
 
 {
 
@@ -9,7 +16,7 @@ let user = "zazed"; in
     ../../modules/darwin/home-manager.nix
     ../../modules/shared
     ../../modules/shared/cachix
-     agenix.darwinModules.default
+    agenix.darwinModules.default
   ];
 
   # Auto upgrade nix package and the daemon service.
@@ -18,7 +25,10 @@ let user = "zazed"; in
   # Setup user, packages, programs
   nix = {
     # package = pkgs.nixVersions.git;
-    settings.trusted-users = [ "@admin" "${user}" ];
+    settings.trusted-users = [
+      "@admin"
+      "${user}"
+    ];
 
     linux-builder = {
       enable = true;
@@ -38,7 +48,11 @@ let user = "zazed"; in
     gc = {
       user = "root";
       automatic = true;
-      interval = { Weekday = 0; Hour = 2; Minute = 0; };
+      interval = {
+        Weekday = 0;
+        Hour = 2;
+        Minute = 0;
+      };
       options = "--delete-older-than 30d";
     };
 
@@ -60,20 +74,23 @@ let user = "zazed"; in
     skhdConfig = builtins.readFile ../../configs/skhd/skhdrc;
   };
 
-
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
-  environment.systemPackages = with pkgs; [
-    agenix.packages."${pkgs.system}".default
-  ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+  environment.systemPackages =
+    with pkgs;
+    [
+      agenix.packages."${pkgs.system}".default
+    ]
+    ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   # Enable fonts dir
   fonts = {
     fontDir.enable = true;
-    fonts = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" "Iosevka" ]; })
+    packages = with pkgs.nerd-fonts; [
+      fira-code
+      iosevka
     ];
   };
 

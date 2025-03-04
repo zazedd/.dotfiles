@@ -175,7 +175,7 @@
           system = "aarch64-linux";
           specialArgs = inputs;
           modules = [
-            nix-ld.nixosModules.nix-ld
+            # nix-ld.nixosModules.nix-ld
             home-manager.nixosModules.home-manager
             ./hosts/asahi
           ];

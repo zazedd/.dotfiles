@@ -24,6 +24,7 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
+  boot.m1n1CustomLogo = ./sillycat.png;
 
   networking = {
     hostName = "shitbook"; # Define your hostname.
@@ -35,23 +36,6 @@ in
     networkmanager.enable = true;
     networkmanager.wifi.backend = "iwd";
 
-    interfaces.eth0 = {
-      ipv4.addresses = [
-        {
-          address = "192.168.1.150";
-          prefixLength = 24;
-        }
-      ];
-      name = "eth0";
-      useDHCP = false;
-    };
-
-    defaultGateway = {
-      address = "192.168.1.1";
-      interface = "eth0";
-    };
-
-    dhcpcd.enable = false;
     nameservers = [ "9.9.9.9" ];
   };
 
@@ -65,7 +49,7 @@ in
       useExperimentalGPUDriver = true;
       experimentalGPUInstallMode = "overlay";
     };
-    opengl = {
+    graphics = {
       enable = true;
     };
   };
@@ -171,10 +155,10 @@ in
 
   fonts = {
     fontDir.enable = true;
-    packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    packages = with pkgs.nerd-fonts; [
+      iosevka
     ];
   };
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }
