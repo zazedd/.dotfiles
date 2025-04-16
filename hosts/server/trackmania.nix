@@ -28,7 +28,9 @@
   # Containers
   virtualisation.oci-containers.containers."trackmania_db" = {
     image = "mysql:5";
-    env_file = "/srv/trackmania/.env-mysql";
+    environmentFiles = [
+      "/srv/trackmania/.env-mysql"
+    ];
     volumes = [
       "tmnf_trackmania-db:/var/lib/mysql:rw"
     ];
@@ -93,7 +95,9 @@
   };
   virtualisation.oci-containers.containers."trackmania_tmserver" = {
     image = "fanyx/tmserver:2.2.3";
-    env_file = "/srv/trackmania/.env";
+    environmentFiles = [
+      "/srv/trackmania/.env"
+    ];
     volumes = [
       "/srv/trackmania/config:/var/lib/xaseco/config:rw"
       "/srv/trackmania/plugins:/var/lib/xaseco/plugins/custom:rw"

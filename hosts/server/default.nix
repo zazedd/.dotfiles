@@ -152,12 +152,17 @@ in
   networking.firewall = {
     enable = true;
     trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedUDPPorts = [
+      config.services.tailscale.port
+      2350
+      3450
+    ];
     allowedTCPPorts = [
       42069
       42068
       5900
       5901
+      2350
     ];
   };
 
