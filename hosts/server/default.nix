@@ -45,6 +45,8 @@ in
     };
   };
 
+  programs.nix-ld.enable = true;
+
   # Setup user, packages, programs
   nix = {
     # package = pkgs.nixVersions.git;
