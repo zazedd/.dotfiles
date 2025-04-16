@@ -102,6 +102,7 @@
       "/srv/trackmania/config:/var/lib/xaseco/config:rw"
       "/srv/trackmania/plugins:/var/lib/xaseco/plugins/custom:rw"
       "/srv/trackmania/tracks:/var/lib/tmserver/GameData/Tracks/Challenges/Custom:rw"
+      "/srv/trackmania/playlist.txt:/var/lib/tmserver/playlist.txt"
     ];
     ports = [
       "2350:2350/tcp"
