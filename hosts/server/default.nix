@@ -97,7 +97,7 @@ in
 
       # otherwise authenticate with tailscale
       # ( this key is a one time key, and it has expired :) )
-      ${tailscale}/bin/tailscale up -authkey tskey-auth-kD9RyWjmi911CNTRL-D6NvgtaP4FFrrodn9U1mFFJbTgSRKq5nF
+      ${tailscale}/bin/tailscale up -authkey tskey-auth-kkKFmMyGGE11CNTRL-SpP3kvAjJwdP7iQ2Qyd4wdKqqQXjMWGZW
     '';
   };
 
