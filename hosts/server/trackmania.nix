@@ -26,91 +26,18 @@
   virtualisation.oci-containers.backend = "podman";
 
   # Containers
-  virtualisation.oci-containers.containers."trackmania_db" = {
-    image = "mysql:5";
-    environmentFiles = [
-      "/srv/trackmania/.env-mysql"
-    ];
-    volumes = [
-      "tmnf_trackmania-db:/var/lib/mysql:rw"
-    ];
-    log-driver = "journald";
-    extraOptions = [
-      "--network-alias=db"
-      "--network=tmnf_default"
-    ];
-  };
-  systemd.services."podman-trackmania_db" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    after = [
-      "podman-network-tmnf_default.service"
-      "podman-volume-tmnf_trackmania-db.service"
-    ];
-    requires = [
-      "podman-network-tmnf_default.service"
-      "podman-volume-tmnf_trackmania-db.service"
-    ];
-    partOf = [
-      "podman-compose-tmnf-root.target"
-    ];
-    wantedBy = [
-      "podman-compose-tmnf-root.target"
-    ];
-  };
-  virtualisation.oci-containers.containers."trackmania_phpmyadmin" = {
-    image = "phpmyadmin/phpmyadmin";
+  virtualisation.oci-containers.containers."tm-server" = {
+    image = "lduriez/tmserver";
     environment = {
-      "PMA_HOST" = "db";
+      "SERVER_ADM_PASSWORD" = "caralho";
+      "SERVER_DESC" = "atrasados";
+      "SERVER_NAME" = "atrasados mentais";
+      "SERVER_SA_PASSWORD" = "caralho";
     };
-    ports = [
-      "8080:80/tcp"
-    ];
-    dependsOn = [
-      "trackmania_db"
-    ];
-    log-driver = "journald";
-    extraOptions = [
-      "--network-alias=pma"
-      "--network=tmnf_default"
-    ];
-  };
-  systemd.services."podman-trackmania_phpmyadmin" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    after = [
-      "podman-network-tmnf_default.service"
-    ];
-    requires = [
-      "podman-network-tmnf_default.service"
-    ];
-    partOf = [
-      "podman-compose-tmnf-root.target"
-    ];
-    wantedBy = [
-      "podman-compose-tmnf-root.target"
-    ];
-  };
-  virtualisation.oci-containers.containers."trackmania_tmserver" = {
-    image = "fanyx/tmserver:2.2.3";
-    environmentFiles = [
-      "/srv/trackmania/.env"
-    ];
-    volumes = [
-      "/srv/trackmania/config:/var/lib/xaseco/config:rw"
-      "/srv/trackmania/plugins:/var/lib/xaseco/plugins/custom:rw"
-      "/srv/trackmania/tracks:/var/lib/tmserver/GameData/Tracks/Challenges/Custom:rw"
-      "/srv/trackmania/playlist.txt:/var/lib/tmserver/playlist.txt"
-    ];
     ports = [
       "2350:2350/tcp"
-      "2350:2350/udp"
-      "3450:3450/udp"
-    ];
-    dependsOn = [
-      "trackmania_db"
+      "3450:3450/tcp"
+      "8008:80/tcp"
     ];
     log-driver = "journald";
     extraOptions = [
@@ -118,7 +45,7 @@
       "--network=tmnf_default"
     ];
   };
-  systemd.services."podman-trackmania_tmserver" = {
+  systemd.services."podman-tm-server" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
     };
@@ -146,20 +73,6 @@
     };
     script = ''
       podman network inspect tmnf_default || podman network create tmnf_default
-    '';
-    partOf = [ "podman-compose-tmnf-root.target" ];
-    wantedBy = [ "podman-compose-tmnf-root.target" ];
-  };
-
-  # Volumes
-  systemd.services."podman-volume-tmnf_trackmania-db" = {
-    path = [ pkgs.podman ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    script = ''
-      podman volume inspect tmnf_trackmania-db || podman volume create tmnf_trackmania-db
     '';
     partOf = [ "podman-compose-tmnf-root.target" ];
     wantedBy = [ "podman-compose-tmnf-root.target" ];
