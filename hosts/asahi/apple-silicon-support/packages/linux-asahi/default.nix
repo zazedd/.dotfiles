@@ -1,10 +1,8 @@
 { lib
-, pkgs
 , callPackage
-, writeShellScriptBin
 , writeText
 , linuxPackagesFor
-, withRust ? false
+, withRust ? true
 , _kernelPatches ? [ ]
 }:
 
@@ -48,13 +46,14 @@ let
   origConfigfile = ./config;
 
   linux-asahi-pkg = { stdenv, lib, fetchFromGitHub, fetchpatch, linuxKernel,
-      rustPlatform, rustc, rustfmt, rust-bindgen, ... } @ args:
+      rustc, rust-bindgen, ... } @ args:
     let
       origConfigText = builtins.readFile origConfigfile;
 
       # extraConfig from all patches in order
       extraConfig =
-        lib.fold (patch: ex: ex ++ (parsePatchConfig patch)) [] _kernelPatches;
+        lib.fold (patch: ex: ex ++ (parsePatchConfig patch)) [] _kernelPatches
+        ++ (lib.optional withRust [ "CONFIG_RUST" "y" ]);
       # config file text for above
       extraConfigText = let
         text = k: v: if (v == "y") || (v == "m") || (v == "n")
@@ -83,19 +82,19 @@ let
       rustAtLeast = version: withRust && (lib.versionAtLeast rustc.version version);
       bindgenAtLeast = version: withRust && (lib.versionAtLeast rust-bindgen.unwrapped.version version);
     in
-    (linuxKernel.manualConfig rec {
+    linuxKernel.manualConfig rec {
       inherit stdenv lib;
 
-      version = "6.12.12-asahi";
+      version = "6.14.2-asahi";
       modDirVersion = version;
-      extraMeta.branch = "6.12";
+      extraMeta.branch = "6.14";
 
       src = fetchFromGitHub {
         # tracking: https://github.com/AsahiLinux/linux/tree/asahi-wip (w/ fedora verification)
         owner = "AsahiLinux";
         repo = "linux";
-        rev = "asahi-6.12.12-1";
-        hash = "sha256-910TiROccEleI/qB34DWh3M3bgP3SSCjEP9z7lD9BjM=";
+        rev = "asahi-6.14.2-2";
+        hash = "sha256-Zqrzj+8rF0aDqIpu8lgB2juEfJZEhosj1icyI2/JiwE=";
       };
 
       kernelPatches = [
@@ -105,18 +104,8 @@ let
       ] ++ _kernelPatches;
 
       inherit configfile;
-      # hide Rust support from the nixpkgs infra to avoid it re-adding the rust packages.
-      # we can't use it until it's in stable and until we've evaluated the cross-compilation impact.
-      config = configAttrs // { "CONFIG_RUST" = "n"; };
-    } // (args.argsOverride or {})).overrideAttrs (old: if withRust then {
-      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
-        rust-bindgen
-        rustfmt
-        rustc
-      ];
-      RUST_LIB_SRC = rustPlatform.rustLibSrc;
-    } else {});
+      config = configAttrs;
+    };
 
   linux-asahi = (callPackage linux-asahi-pkg { });
 in lib.recurseIntoAttrs (linuxPackagesFor linux-asahi)
-

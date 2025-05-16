@@ -40,5 +40,4 @@ shared-packages
 
   ## others
   libsForQt5.qt5.qtwayland
-  tidal-hifi
 ]
