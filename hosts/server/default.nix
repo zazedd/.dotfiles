@@ -20,7 +20,6 @@ in
     ../../modules/shared/cachix
     ./hardware-configuration.nix
     inputs.nix-minecraft.nixosModules.minecraft-servers
-    ./trackmania.nix
   ];
 
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
