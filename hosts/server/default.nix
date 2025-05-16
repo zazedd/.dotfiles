@@ -134,7 +134,7 @@ in
         };
         rewrites = [
           {
-            domain = "nc.ricardogoncalves";
+            domain = "nc.ricardogoncalves.com";
             answer = "A ricardogoncalves";
           }
         ];
