@@ -19,6 +19,8 @@ in
     ../../modules/shared/cachix
     ./hardware-configuration.nix
     ./apple-silicon-support/default.nix
+
+    ../../modules/shared/default.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

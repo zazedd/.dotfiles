@@ -12,6 +12,7 @@ shared-packages
   tigervnc
   deluge
   mpv
+  usbutils
 
   # programming
   alacritty
