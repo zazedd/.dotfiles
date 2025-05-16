@@ -106,7 +106,7 @@ in
   services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
   services.nextcloud = {
     enable = true;
-    hostName = "nginx.ricardogoncalves";
+    hostName = "localhost";
     config = {
       adminpassFile = "/etc/nextcloud";
       dbtype = "sqlite";
@@ -114,9 +114,23 @@ in
     https = true;
   };
 
-  services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
-    forceSSL = true;
-    enableACME = true;
+  services.nginx.virtualHosts = {
+    ${config.services.nextcloud.hostName} = {
+      # forceSSL = true;
+      # enableACME = true;
+      listen = [
+        {
+          addr = "127.0.0.1";
+          port = 5252;
+        }
+      ];
+    };
+
+    "nc.ricardogoncalves.ts.net" = {
+      # forceSSL = true;
+      # enableACME = true;
+      locations."/".proxyPass = "http://localhost:5252";
+    };
   };
 
   security.acme = {
@@ -160,6 +174,7 @@ in
       3450
     ];
     allowedTCPPorts = [
+      5252 # nextcloud
       42069
       42068
       5900
