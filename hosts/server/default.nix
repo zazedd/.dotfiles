@@ -206,6 +206,7 @@ in
     trustedInterfaces = [ "tailscale0" ];
     allowedUDPPorts = [
       config.services.tailscale.port
+      53 # adguard dns
       2350
       3450
     ];
