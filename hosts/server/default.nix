@@ -121,7 +121,7 @@ in
       };
       dns = {
         upstream_dns = [
-          "1.1.1.1#dns.quad9.net"
+          "1.1.1.1"
         ];
       };
       filtering = {
@@ -132,6 +132,12 @@ in
         safe_search = {
           enabled = false;
         };
+        rewrites = [
+          {
+            domain = "nc.ricardogoncalves";
+            answer = "A ricardogoncalves";
+          }
+        ];
       };
       filters =
         map
