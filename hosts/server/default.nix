@@ -111,7 +111,7 @@ in
       adminpassFile = "/etc/nextcloud";
       dbtype = "sqlite";
     };
-    https = true;
+    # https = true;
   };
 
   services.nginx.virtualHosts = {
@@ -136,12 +136,12 @@ in
     };
   };
 
-  security.acme = {
-    acceptTerms = true;
-    certs = {
-      ${config.services.nextcloud.hostName}.email = "leomendesantos@gmail.com";
-    };
-  };
+  # security.acme = {
+  #   acceptTerms = true;
+  #   certs = {
+  #     ${config.services.nextcloud.hostName}.email = "leomendesantos@gmail.com";
+  #   };
+  # };
 
   services.firefly-iii = {
     inherit user;
