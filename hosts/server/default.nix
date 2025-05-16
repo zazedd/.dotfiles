@@ -25,11 +25,10 @@ in
 
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
-  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
-  networking.hostName = "xinho"; # Define your hostname.
+  networking.hostName = "xinho";
   networking.wireless.iwd = {
     enable = true;
     settings.General.EnableNetworkConfiguration = true;
@@ -112,6 +111,39 @@ in
       dbtype = "sqlite";
     };
     # https = true;
+  };
+
+  services.adguardhome = {
+    enable = true;
+    settings = {
+      http = {
+        address = "0.0.0.0:3003";
+      };
+      dns = {
+        upstream_dns = [
+          "1.1.1.1#dns.quad9.net"
+        ];
+      };
+      filtering = {
+        protection_enabled = true;
+        filtering_enabled = true;
+
+        parental_enabled = false;
+        safe_search = {
+          enabled = false;
+        };
+      };
+      filters =
+        map
+          (url: {
+            enabled = true;
+            url = url;
+          })
+          [
+            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_9.txt" # the Big List of Hacked Malware Web Sites
+            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt" # malicious url blocklist
+          ];
+    };
   };
 
   services.nginx.virtualHosts = {
