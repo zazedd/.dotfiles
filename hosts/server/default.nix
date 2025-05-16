@@ -126,7 +126,10 @@ in
       ];
     };
 
-    "nc.ricardogoncalves.ts.net" = {
+    "nc.ricardogoncalves" = {
+      locations."/".proxyPass = "http://localhost:5252";
+    };
+    "nc.ricardogoncalves.burro-arctic.ts.net" = {
       # forceSSL = true;
       # enableACME = true;
       locations."/".proxyPass = "http://localhost:5252";
