@@ -106,7 +106,7 @@ in
   services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
   services.nextcloud = {
     enable = true;
-    hostName = "ricardogoncalves";
+    hostName = "nginx.ricardogoncalves";
     config = {
       adminpassFile = "/etc/nextcloud";
       dbtype = "sqlite";
