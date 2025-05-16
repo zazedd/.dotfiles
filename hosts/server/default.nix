@@ -212,6 +212,7 @@ in
     ];
     allowedTCPPorts = [
       5252 # nextcloud
+      3003 # adguard
       42069
       42068
       5900
