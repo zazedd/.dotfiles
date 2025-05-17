@@ -156,6 +156,26 @@ in
     };
   };
 
+  services.postgresql = {
+    enable = true;
+    enableTCPIP = true;
+    ensureDatabases = [ "firefly" ];
+    settings = {
+      ssl = true;
+    };
+    authentication = pkgs.lib.mkOverride 10 ''
+      #type database  DBuser  auth-method
+      local all       all     trust
+      host  firefly    all     127.0.0.1/32 scram-sha-256
+      host  firefly    all     ::1/128 scram-sha-256
+    '';
+    initialScript = pkgs.writeText "backend-initScript" ''
+      CREATE ROLE firefly WITH LOGIN PASSWORD 'test' CREATEDB;
+      CREATE DATABASE firefly;
+      GRANT ALL PRIVILEGES ON DATABASE firefly TO firefly;
+    '';
+  };
+
   services.firefly-iii = {
     inherit user;
     enable = true;
@@ -165,7 +185,7 @@ in
       APP_ENV = "production";
       APP_KEY_FILE = "/etc/firefly";
       SITE_OWNER = email;
-      DB_CONNECTION = "mysql";
+      DB_CONNECTION = "pgsql";
       DB_HOST = "db";
       DB_PORT = 3306;
       DB_DATABASE = "firefly";
