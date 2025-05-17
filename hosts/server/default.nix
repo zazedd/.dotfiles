@@ -113,7 +113,7 @@ in
   };
 
   services.adguardhome = {
-    enable = true;
+    enable = false;
     port = 3003;
     settings = {
       http = {
@@ -154,8 +154,8 @@ in
 
   services.nginx.virtualHosts = {
     ${config.services.nextcloud.hostName} = {
-      # forceSSL = true;
-      # enableACME = true;
+      forceSSL = true;
+      enableACME = true;
       listen = [
         {
           addr = "127.0.0.1";
@@ -164,23 +164,23 @@ in
       ];
     };
 
-    "ricardogoncalves.burro-arctic.ts.net" = {
-      locations."/".proxyPass = "http://localhost:5252";
-    };
-
-    "nc.ricardogoncalves.burro-arctic.ts.net" = {
-      # forceSSL = true;
-      # enableACME = true;
+    "nc.leoms.dev" = {
+      forceSSL = true;
+      enableACME = true;
       locations."/".proxyPass = "http://localhost:5252";
     };
   };
 
-  # security.acme = {
-  #   acceptTerms = true;
-  #   certs = {
-  #     ${config.services.nextcloud.hostName}.email = "leomendesantos@gmail.com";
-  #   };
-  # };
+  security.acme =
+    let
+      email = "leomendesantos@gmail.com";
+    in
+    {
+      acceptTerms = true;
+      certs = {
+        "nc.leoms.dev" = { inherit email; };
+      };
+    };
 
   # services.firefly-iii = {
   #   inherit user;
