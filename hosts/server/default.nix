@@ -106,7 +106,7 @@ in
 
   services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
   services.nextcloud = {
-    enable = false;
+    enable = true;
     package = pkgs.nextcloud31;
     hostName = "localhost";
     config = {
