@@ -178,7 +178,7 @@ in
     {
       acceptTerms = true;
       certs = {
-        "nc.leoms.dev" = { inherit email; };
+        "nc.leoms.dev".email = email;
       };
     };
 
