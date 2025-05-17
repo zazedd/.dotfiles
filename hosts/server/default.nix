@@ -105,60 +105,45 @@ in
   };
 
   services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
-  services.seafile = {
+
+  services.syncthing = {
     enable = true;
-
-    adminEmail = email;
-    initialAdminPassword = "test";
-
-    ccnetSettings.General.SERVICE_URL = "https://cloud.${domain}";
-
-    seafileSettings = {
-      fileserver = {
-        host = "unix:/run/seafile/server.sock";
-      };
+    openDefaultPorts = true;
+    settings.gui = {
+      user = "myuser";
+      password = "mypassword";
     };
   };
 
-  services.firefly-iii = {
-    inherit user;
-    enable = false;
-    enableNginx = true;
-    virtualHost = "ff.${domain}";
-    settings = {
-      APP_ENV = "production";
-      APP_KEY_FILE = "/etc/firefly";
-      SITE_OWNER = email;
-      DB_CONNECTION = "mysql";
-      DB_HOST = "db";
-      DB_PORT = 3306;
-      DB_DATABASE = "firefly";
-      DB_USERNAME = "firefly";
-      DB_PASSWORD_FILE = "/etc/nextcloud";
-    };
-  };
-
-  # TODO: add this to a config.os
-  # options.services.nginx.virtualHosts = lib.mkOption {
-  #   type = lib.types.attrsOf (
-  #     lib.types.submodule (_: {
-  #       sslCertificate = lib.mkDefault "/var/lib/acme/_.${domain}/fullchain.pem";
-  #       sslCertificateKey = lib.mkDefault "/var/lib/acme/_.${domain}/key.pem";
-  #     })
-  #   );
+  # services.firefly-iii = {
+  #   inherit user;
+  #   enable = true;
+  #   enableNginx = true;
+  #   virtualHost = "ff.${domain}";
+  #   settings = {
+  #     APP_ENV = "production";
+  #     APP_KEY_FILE = "/etc/firefly";
+  #     SITE_OWNER = email;
+  #     DB_CONNECTION = "mysql";
+  #     DB_HOST = "db";
+  #     DB_PORT = 3306;
+  #     DB_DATABASE = "firefly";
+  #     DB_USERNAME = "firefly";
+  #     DB_PASSWORD_FILE = "/etc/nextcloud";
+  #   };
   # };
 
   services.nginx.virtualHosts = {
-    # "cloud.${domain}" = {
-    #   forceSSL = true;
-    #   enableACME = true;
-    #   locations."/".proxyPass = "http://127.0.0.1:5252";
-    # };
-
-    "ff.${domain}" = {
+    "cloud.${domain}" = {
       forceSSL = true;
       enableACME = true;
+      locations."/".proxyPass = "http://127.0.0.1:8384";
     };
+
+    # "ff.${domain}" = {
+    #   forceSSL = true;
+    #   enableACME = true;
+    # };
   };
 
   security.acme = {
@@ -171,15 +156,15 @@ in
     };
     acceptTerms = true;
     certs = {
-      "nc.${domain}" = {
+      "cloud.${domain}" = {
         domain = "*.${domain}";
         group = "nginx";
       };
 
-      "ff.${domain}" = {
-        domain = "*.${domain}";
-        group = "nginx";
-      };
+      # "ff.${domain}" = {
+      #   domain = "*.${domain}";
+      #   group = "nginx";
+      # };
     };
   };
 
@@ -196,19 +181,10 @@ in
     trustedInterfaces = [ "tailscale0" ];
     allowedUDPPorts = [
       config.services.tailscale.port
-      53 # adguard dns
-      2350
-      3450
     ];
     allowedTCPPorts = [
-      5252 # nextcloud
-      3003 # adguard
-      42069
-      42068
-      5900
-      5901
-      2350
-      8008
+      42069 # minecraft
+      42068 # rcon minecraft
     ];
   };
 
