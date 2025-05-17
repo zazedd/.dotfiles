@@ -174,7 +174,7 @@ in
       email = "leomendesantos@gmail.com";
     in
     {
-      defailts = {
+      defaults = {
         inherit email;
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
