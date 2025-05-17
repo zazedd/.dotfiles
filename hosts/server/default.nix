@@ -163,8 +163,7 @@ in
     };
 
     "nc.leoms.dev" = {
-      forceSSL = true;
-      enableACME = true;
+      addSSL = true;
       locations."/".proxyPass = "http://localhost:5252";
     };
   };
