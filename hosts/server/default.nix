@@ -184,8 +184,8 @@ in
     "nc.${domain}" = {
       addSSL = true;
       locations."/".proxyPass = "https://${server_name}:5252";
-      sslCertificate = "/var/lib/acme/_.${domain}/fullchain.pem";
-      sslCertificateKey = "/var/lib/acme/_.${domain}/key.pem";
+      sslCertificate = "/var/lib/acme/nc.${domain}/fullchain.pem";
+      sslCertificateKey = "/var/lib/acme/nc.${domain}/key.pem";
     };
   };
 
@@ -199,9 +199,7 @@ in
     };
     acceptTerms = true;
     certs = {
-      ${domain} = { inherit domain; };
-
-      "_.${domain}" = {
+      "nc.${domain}" = {
         domain = "*.${domain}";
         group = "nginx";
       };
