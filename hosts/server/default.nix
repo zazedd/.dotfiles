@@ -120,7 +120,7 @@ in
         domain
       ];
     };
-    https = false;
+    https = true;
   };
 
   services.firefly-iii = {
