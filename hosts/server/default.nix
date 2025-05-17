@@ -157,7 +157,7 @@ in
   # };
 
   services.nginx.virtualHosts = {
-    ${config.services.nextcloud.hostName} = {
+    "nc.${domain}" = {
       forceSSL = true;
       enableACME = true;
       locations."/".proxyPass = "http://127.0.0.1:5252";
