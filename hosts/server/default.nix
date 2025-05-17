@@ -179,7 +179,14 @@ in
     };
     acceptTerms = true;
     certs = {
-      "nc.leoms.dev" = { };
+      "leoms.dev" = {
+        domain = "leoms.dev";
+      };
+
+      "_.leoms.dev" = {
+        domain = "*.leoms.dev";
+        group = "nginx";
+      };
     };
   };
 
