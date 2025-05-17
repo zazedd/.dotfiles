@@ -168,7 +168,7 @@ in
     ${config.services.nextcloud.hostName} = {
       listen = [
         {
-          addr = "127.0.0.1";
+          addr = "0.0.0.0";
           port = 5252;
         }
       ];
@@ -176,7 +176,7 @@ in
 
     "nc.${domain}" = {
       addSSL = true;
-      locations."/".proxyPass = "http://${server_name}:5252";
+      locations."/".proxyPass = "https://${server_name}:5252";
       sslCertificate = "/var/lib/acme/_.${domain}/fullchain.pem";
       sslCertificateKey = "/var/lib/acme/_.${domain}/key.pem";
     };
