@@ -183,7 +183,7 @@ in
 
     "nc.${domain}" = {
       enableACME = true;
-      locations."/".proxyPass = "http://${server_name}:5252";
+      locations."/".proxyPass = "http://127.0.0.1:5252";
     };
   };
 
