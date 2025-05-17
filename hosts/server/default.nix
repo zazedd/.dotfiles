@@ -182,14 +182,14 @@ in
     virtualHost = "ff.${domain}";
     settings = {
       APP_ENV = "production";
-      APP_KEY_FILE = "/etc/firefly";
+      APP_KEY_FILE = "/etc/firefly/api";
       SITE_OWNER = email;
       DB_CONNECTION = "pgsql";
-      DB_HOST = "db";
-      DB_PORT = 3306;
+      DB_HOST = "127.0.0.1";
+      DB_PORT = 5432;
       DB_DATABASE = "firefly";
       DB_USERNAME = "firefly";
-      DB_PASSWORD_FILE = "/etc/nextcloud";
+      DB_PASSWORD_FILE = "/etc/firefly/pwd";
     };
   };
 
