@@ -8,6 +8,7 @@
 
 let
   user = "zazed";
+  domain = "leoms.dev";
 in
 
 {
@@ -152,6 +153,15 @@ in
     };
   };
 
+  options.services.nginx.virtualHosts = lib.mkOption {
+    type = lib.types.attrsOf (
+      lib.types.submodule (_: {
+        sslCertificate = lib.mkDefault "/var/lib/acme/_.${domain}/fullchain.pem";
+        sslCertificateKey = lib.mkDefault "/var/lib/acme/_.${domain}/key.pem";
+      })
+    );
+  };
+
   services.nginx.virtualHosts = {
     ${config.services.nextcloud.hostName} = {
       listen = [
@@ -162,7 +172,7 @@ in
       ];
     };
 
-    "nc.leoms.dev" = {
+    "nc.${domain}" = {
       addSSL = true;
       locations."/".proxyPass = "http://localhost:5252";
     };
@@ -178,12 +188,10 @@ in
     };
     acceptTerms = true;
     certs = {
-      "leoms.dev" = {
-        domain = "leoms.dev";
-      };
+      ${domain} = { inherit domain; };
 
-      "_.leoms.dev" = {
-        domain = "*.leoms.dev";
+      "_.${domain}" = {
+        domain = "*.${domain}";
         group = "nginx";
       };
     };
