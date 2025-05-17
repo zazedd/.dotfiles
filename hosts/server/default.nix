@@ -184,8 +184,6 @@ in
       APP_ENV = "production";
       APP_KEY_FILE = "/etc/firefly/api";
       SITE_OWNER = email;
-      DB_CONNECTION = "sqlite";
-      DB_DATABASE = "/var/lib/firefly-iii/firefly.sqlite";
     };
   };
 
