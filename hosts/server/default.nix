@@ -109,7 +109,7 @@ in
       adminpassFile = "/etc/nextcloud";
       dbtype = "sqlite";
     };
-    # https = true;
+    https = true;
   };
 
   services.adguardhome = {
@@ -154,8 +154,6 @@ in
 
   services.nginx.virtualHosts = {
     ${config.services.nextcloud.hostName} = {
-      forceSSL = true;
-      enableACME = true;
       listen = [
         {
           addr = "127.0.0.1";
@@ -178,7 +176,7 @@ in
     {
       acceptTerms = true;
       certs = {
-        "nc.leoms.dev".email = email;
+        "nc.leoms.dev" = { inherit email; };
       };
     };
 
