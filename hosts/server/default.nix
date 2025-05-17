@@ -153,14 +153,15 @@ in
     };
   };
 
-  options.services.nginx.virtualHosts = lib.mkOption {
-    type = lib.types.attrsOf (
-      lib.types.submodule (_: {
-        sslCertificate = lib.mkDefault "/var/lib/acme/_.${domain}/fullchain.pem";
-        sslCertificateKey = lib.mkDefault "/var/lib/acme/_.${domain}/key.pem";
-      })
-    );
-  };
+  # TODO: add this to a config.os
+  # options.services.nginx.virtualHosts = lib.mkOption {
+  #   type = lib.types.attrsOf (
+  #     lib.types.submodule (_: {
+  #       sslCertificate = lib.mkDefault "/var/lib/acme/_.${domain}/fullchain.pem";
+  #       sslCertificateKey = lib.mkDefault "/var/lib/acme/_.${domain}/key.pem";
+  #     })
+  #   );
+  # };
 
   services.nginx.virtualHosts = {
     ${config.services.nextcloud.hostName} = {
@@ -175,6 +176,8 @@ in
     "nc.${domain}" = {
       addSSL = true;
       locations."/".proxyPass = "http://localhost:5252";
+      sslCertificate = "/var/lib/acme/_.${domain}/fullchain.pem";
+      sslCertificateKey = "/var/lib/acme/_.${domain}/key.pem";
     };
   };
 
