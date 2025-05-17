@@ -165,7 +165,7 @@ in
       locations."/".proxyPass = "http://127.0.0.1:5252";
     };
 
-    "nc.${domain}" = {
+    "ff.${domain}" = {
       forceSSL = true;
       enableACME = true;
     };
