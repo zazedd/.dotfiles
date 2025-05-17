@@ -186,7 +186,7 @@ in
     certs = {
       "cloud.${domain}" = {
         domain = "*.${domain}";
-        #group = "nginx";
+        group = "nginx";
       };
 
       # "ff.${domain}" = {
