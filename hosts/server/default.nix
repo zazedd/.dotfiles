@@ -118,7 +118,7 @@ in
         domain
       ];
     };
-    https = true;
+    https = false;
   };
 
   services.adguardhome = {
@@ -199,7 +199,7 @@ in
     acceptTerms = true;
     certs = {
       "nc.${domain}" = {
-        domain = "nc.${domain}";
+        domain = "*.${domain}";
         group = "nginx";
       };
     };
