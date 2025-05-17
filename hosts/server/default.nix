@@ -9,6 +9,7 @@
 let
   user = "zazed";
   domain = "leoms.dev";
+  server_name = "ricardogoncalves";
 in
 
 {
@@ -175,7 +176,7 @@ in
 
     "nc.${domain}" = {
       addSSL = true;
-      locations."/".proxyPass = "http://localhost:5252";
+      locations."/".proxyPass = "http://${server_name}:5252";
       sslCertificate = "/var/lib/acme/_.${domain}/fullchain.pem";
       sslCertificateKey = "/var/lib/acme/_.${domain}/key.pem";
     };
