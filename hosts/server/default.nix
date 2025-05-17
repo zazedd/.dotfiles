@@ -178,13 +178,11 @@ in
         inherit email;
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
-        credentialFiles = {
-          "CF_DNS_API_TOKEN_FILE" = "/etc/cloudflare/api.token";
-        };
+        environmentFile = "/etc/cloudflare/env";
       };
       acceptTerms = true;
       certs = {
-        "nc.leoms.dev" = { inherit email; };
+        "nc.leoms.dev" = { };
       };
     };
 
