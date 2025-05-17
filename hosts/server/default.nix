@@ -108,7 +108,7 @@ in
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud31;
-    hostName = "localhost";
+    hostName = "nc.${domain}";
     config = {
       adminpassFile = "/etc/nextcloud";
       dbtype = "sqlite";
@@ -120,7 +120,12 @@ in
         domain
       ];
     };
-    https = true;
+    phpOptions = {
+      "overwrite.cli.url" = "https://nc.${domain}";
+      overwritehost = "nc.${domain}";
+      overwriteprotocol = "https";
+    };
+    https = false;
   };
 
   services.firefly-iii = {
@@ -153,18 +158,15 @@ in
 
   services.nginx.virtualHosts = {
     ${config.services.nextcloud.hostName} = {
+      forceSSL = true;
+      enableACME = true;
+      locations."/".proxyPass = "http://127.0.0.1:5252";
       listen = [
         {
           addr = "0.0.0.0";
           port = 5252;
         }
       ];
-    };
-
-    "nc.${domain}" = {
-      forceSSL = true;
-      enableACME = true;
-      locations."/".proxyPass = "http://127.0.0.1:5252";
     };
 
     "ff.${domain}" = {
