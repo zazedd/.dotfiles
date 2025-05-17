@@ -140,17 +140,20 @@ in
     };
   };
 
-  services.nginx.virtualHosts = {
-    "cloud.${domain}" = {
-      forceSSL = true;
-      enableACME = true;
-      locations."/".proxyPass = "http://127.0.0.1:8384";
-    };
+  services.nginx = {
+    enable = true;
+    virtualHosts = {
+      "cloud.${domain}" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/".proxyPass = "http://127.0.0.1:8384";
+      };
 
-    # "ff.${domain}" = {
-    #   forceSSL = true;
-    #   enableACME = true;
-    # };
+      # "ff.${domain}" = {
+      #   forceSSL = true;
+      #   enableACME = true;
+      # };
+    };
   };
 
   # services.firefly-iii = {
