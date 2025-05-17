@@ -106,73 +106,73 @@ in
 
   services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
 
-  services.ocis = {
-    enable = true;
-    address = "127.0.0.1";
-    port = 8384;
-    url = "http://0.0.0.0:8384";
-    environment = {
-      CS3_ALLOW_INSECURE = "true";
-      GATEWAY_STORAGE_USERS_MOUNT_ID = "123";
-      GRAPH_APPLICATION_ID = "1234";
-      IDM_IDPSVC_PASSWORD = "password";
-      IDM_REVASVC_PASSWORD = "password";
-      IDM_SVC_PASSWORD = "password";
-      IDP_ISS = "https://0.0.0.0:8385";
-      IDP_TLS = "false";
-      OCIS_INSECURE = "true";
-      OCIS_INSECURE_BACKENDS = "true";
-      OCIS_JWT_SECRET = "super_secret";
-      OCIS_LDAP_BIND_PASSWORD = "password";
-      OCIS_LOG_LEVEL = "error";
-      OCIS_MACHINE_AUTH_API_KEY = "foo";
-      OCIS_MOUNT_ID = "123";
-      OCIS_SERVICE_ACCOUNT_ID = "foo";
-      OCIS_SERVICE_ACCOUNT_SECRET = "foo";
-      OCIS_STORAGE_USERS_MOUNT_ID = "123";
-      OCIS_SYSTEM_USER_API_KEY = "foo";
-      OCIS_SYSTEM_USER_ID = "123";
-      OCIS_TRANSFER_SECRET = "foo";
-      STORAGE_USERS_MOUNT_ID = "123";
-      TLS_INSECURE = "true";
-      TLS_SKIP_VERIFY_CLIENT_CERT = "true";
-      WEBDAV_ALLOW_INSECURE = "true";
-    };
-  };
+  # services.ocis = {
+  #   enable = true;
+  #   address = "127.0.0.1";
+  #   port = 8384;
+  #   url = "http://0.0.0.0:8384";
+  #   environment = {
+  #     CS3_ALLOW_INSECURE = "true";
+  #     GATEWAY_STORAGE_USERS_MOUNT_ID = "123";
+  #     GRAPH_APPLICATION_ID = "1234";
+  #     IDM_IDPSVC_PASSWORD = "password";
+  #     IDM_REVASVC_PASSWORD = "password";
+  #     IDM_SVC_PASSWORD = "password";
+  #     IDP_ISS = "https://0.0.0.0:8385";
+  #     IDP_TLS = "false";
+  #     OCIS_INSECURE = "true";
+  #     OCIS_INSECURE_BACKENDS = "true";
+  #     OCIS_JWT_SECRET = "super_secret";
+  #     OCIS_LDAP_BIND_PASSWORD = "password";
+  #     OCIS_LOG_LEVEL = "error";
+  #     OCIS_MACHINE_AUTH_API_KEY = "foo";
+  #     OCIS_MOUNT_ID = "123";
+  #     OCIS_SERVICE_ACCOUNT_ID = "foo";
+  #     OCIS_SERVICE_ACCOUNT_SECRET = "foo";
+  #     OCIS_STORAGE_USERS_MOUNT_ID = "123";
+  #     OCIS_SYSTEM_USER_API_KEY = "foo";
+  #     OCIS_SYSTEM_USER_ID = "123";
+  #     OCIS_TRANSFER_SECRET = "foo";
+  #     STORAGE_USERS_MOUNT_ID = "123";
+  #     TLS_INSECURE = "true";
+  #     TLS_SKIP_VERIFY_CLIENT_CERT = "true";
+  #     WEBDAV_ALLOW_INSECURE = "true";
+  #   };
+  # };
 
   services.nginx = {
     enable = true;
     virtualHosts = {
-      "cloud.${domain}" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/".proxyPass = "http://127.0.0.1:8384";
-      };
-
-      # "ff.${domain}" = {
+      # "cloud.${domain}" = {
       #   forceSSL = true;
       #   enableACME = true;
+      #   locations."/".proxyPass = "http://127.0.0.1:8384";
       # };
+
+      "ff.${domain}" = {
+        forceSSL = true;
+        enableACME = true;
+      };
     };
   };
 
-  # services.firefly-iii = {
-  #   inherit user;
-  #   enable = true;
-  #   enableNginx = true;
-  #   virtualHost = "ff.${domain}";
-  #   settings = {
-  #     APP_ENV = "production";
-  #     APP_KEY_FILE = "/etc/firefly";
-  #     SITE_OWNER = email;
-  #     DB_CONNECTION = "mysql";
-  #     DB_HOST = "db";
-  #     DB_PORT = 3306;
-  #     DB_DATABASE = "firefly";
-  #     DB_USERNAME = "firefly";
-  #     DB_PASSWORD_FILE = "/etc/nextcloud";
-  #   };
-  # };
+  services.firefly-iii = {
+    inherit user;
+    enable = true;
+    enableNginx = true;
+    virtualHost = "ff.${domain}";
+    settings = {
+      APP_ENV = "production";
+      APP_KEY_FILE = "/etc/firefly";
+      SITE_OWNER = email;
+      DB_CONNECTION = "mysql";
+      DB_HOST = "db";
+      DB_PORT = 3306;
+      DB_DATABASE = "firefly";
+      DB_USERNAME = "firefly";
+      DB_PASSWORD_FILE = "/etc/nextcloud";
+    };
+  };
 
   security.acme = {
     defaults = {
@@ -184,15 +184,15 @@ in
     };
     acceptTerms = true;
     certs = {
-      "cloud.${domain}" = {
-        domain = "*.${domain}";
-        group = "nginx";
-      };
-
-      # "ff.${domain}" = {
+      # "cloud.${domain}" = {
       #   domain = "*.${domain}";
       #   group = "nginx";
       # };
+
+      "ff.${domain}" = {
+        domain = "*.${domain}";
+        group = "nginx";
+      };
     };
   };
 
