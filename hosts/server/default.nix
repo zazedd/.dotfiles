@@ -130,7 +130,7 @@ in
 
   services.firefly-iii = {
     inherit user;
-    enable = true;
+    enable = false;
     enableNginx = true;
     virtualHost = "ff.${domain}";
     settings = {
