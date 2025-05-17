@@ -185,7 +185,7 @@ in
     acceptTerms = true;
     certs = {
       "cloud.${domain}" = {
-        inherit domain;
+        domain = "cloud.${domain}";
         group = "nginx";
       };
 
