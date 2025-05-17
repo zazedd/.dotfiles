@@ -105,27 +105,19 @@ in
   };
 
   services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
-  services.nextcloud = {
+  services.seafile = {
     enable = true;
-    package = pkgs.nextcloud31;
-    hostName = "localhost";
-    config = {
-      adminpassFile = "/etc/nextcloud";
-      dbtype = "sqlite";
-    };
 
-    settings = {
-      trusted_domains = [
-        server_name
-        domain
-      ];
+    adminEmail = email;
+    initialAdminPassword = "test";
+
+    ccnetSettings.General.SERVICE_URL = "https://cloud.${domain}";
+
+    seafileSettings = {
+      fileserver = {
+        host = "unix:/run/seafile/server.sock";
+      };
     };
-    phpOptions = {
-      "overwrite.cli.url" = "https://nc.${domain}";
-      overwritehost = "nc.${domain}";
-      overwriteprotocol = "https";
-    };
-    https = false;
   };
 
   services.firefly-iii = {
@@ -157,20 +149,11 @@ in
   # };
 
   services.nginx.virtualHosts = {
-    ${config.services.nextcloud.hostName} = {
-      listen = [
-        {
-          addr = "0.0.0.0";
-          port = 5252;
-        }
-      ];
-    };
-
-    "nc.${domain}" = {
-      forceSSL = true;
-      enableACME = true;
-      locations."/".proxyPass = "http://127.0.0.1:5252";
-    };
+    # "cloud.${domain}" = {
+    #   forceSSL = true;
+    #   enableACME = true;
+    #   locations."/".proxyPass = "http://127.0.0.1:5252";
+    # };
 
     "ff.${domain}" = {
       forceSSL = true;
