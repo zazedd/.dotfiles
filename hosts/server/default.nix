@@ -108,7 +108,7 @@ in
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud31;
-    hostName = "nc.${domain}";
+    hostName = "localhost";
     config = {
       adminpassFile = "/etc/nextcloud";
       dbtype = "sqlite";
