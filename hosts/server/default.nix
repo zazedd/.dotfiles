@@ -169,22 +169,19 @@ in
     };
   };
 
-  security.acme =
-    let
+  security.acme = {
+    defaults = {
       email = "leomendesantos@gmail.com";
-    in
-    {
-      defaults = {
-        inherit email;
-        dnsProvider = "cloudflare";
-        dnsResolver = "1.1.1.1:53";
-        environmentFile = "/etc/cloudflare/env";
-      };
-      acceptTerms = true;
-      certs = {
-        "nc.leoms.dev" = { };
-      };
+      dnsProvider = "cloudflare";
+      dnsResolver = "1.1.1.1:53";
+      environmentFile = "/etc/cloudflare/env";
+      webroot = null;
     };
+    acceptTerms = true;
+    certs = {
+      "nc.leoms.dev" = { };
+    };
+  };
 
   # services.firefly-iii = {
   #   inherit user;
