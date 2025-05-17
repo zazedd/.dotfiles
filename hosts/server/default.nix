@@ -111,6 +111,13 @@ in
       adminpassFile = "/etc/nextcloud";
       dbtype = "sqlite";
     };
+
+    settings = {
+      trusted_domains = [
+        server_name
+        domain
+      ];
+    };
     https = true;
   };
 
