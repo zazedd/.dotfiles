@@ -108,9 +108,9 @@ in
 
   services.ocis = {
     enable = true;
-    address = "0.0.0.0";
+    address = "127.0.0.1";
     port = 8384;
-    url = "https://0.0.0.0:8384";
+    url = "http://0.0.0.0:8384";
     environment = {
       CS3_ALLOW_INSECURE = "true";
       GATEWAY_STORAGE_USERS_MOUNT_ID = "123";
@@ -120,7 +120,7 @@ in
       IDM_SVC_PASSWORD = "password";
       IDP_ISS = "https://0.0.0.0:8385";
       IDP_TLS = "false";
-      OCIS_INSECURE = "false";
+      OCIS_INSECURE = "true";
       OCIS_INSECURE_BACKENDS = "true";
       OCIS_JWT_SECRET = "super_secret";
       OCIS_LDAP_BIND_PASSWORD = "password";
@@ -140,6 +140,19 @@ in
     };
   };
 
+  services.nginx.virtualHosts = {
+    "cloud.${domain}" = {
+      forceSSL = true;
+      enableACME = true;
+      locations."/".proxyPass = "http://127.0.0.1:8384";
+    };
+
+    # "ff.${domain}" = {
+    #   forceSSL = true;
+    #   enableACME = true;
+    # };
+  };
+
   # services.firefly-iii = {
   #   inherit user;
   #   enable = true;
@@ -157,19 +170,6 @@ in
   #     DB_PASSWORD_FILE = "/etc/nextcloud";
   #   };
   # };
-
-  services.nginx.virtualHosts = {
-    "cloud.${domain}" = {
-      forceSSL = true;
-      enableACME = true;
-      locations."/".proxyPass = "http://127.0.0.1:8384";
-    };
-
-    # "ff.${domain}" = {
-    #   forceSSL = true;
-    #   enableACME = true;
-    # };
-  };
 
   security.acme = {
     defaults = {
