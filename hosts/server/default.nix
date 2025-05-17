@@ -174,6 +174,14 @@ in
       email = "leomendesantos@gmail.com";
     in
     {
+      defailts = {
+        inherit email;
+        dnsProvider = "cloudflare";
+        dnsResolver = "1.1.1.1:53";
+        credentialFiles = {
+          "CF_DNS_API_TOKEN_FILE" = "/etc/cloudflare/api.token";
+        };
+      };
       acceptTerms = true;
       certs = {
         "nc.leoms.dev" = { inherit email; };
