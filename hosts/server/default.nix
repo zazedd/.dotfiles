@@ -199,7 +199,7 @@ in
     acceptTerms = true;
     certs = {
       "nc.${domain}" = {
-        domain = "*.${domain}";
+        domain = "nc.${domain}";
         group = "nginx";
       };
     };
