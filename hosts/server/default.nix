@@ -182,10 +182,10 @@ in
     };
 
     "nc.${domain}" = {
-      addSSL = true;
+      enableACME = true;
       locations."/".proxyPass = "https://${server_name}:5252";
-      sslCertificate = "/var/lib/acme/nc.${domain}/fullchain.pem";
-      sslCertificateKey = "/var/lib/acme/nc.${domain}/key.pem";
+      #sslCertificate = "/var/lib/acme/nc.${domain}/fullchain.pem";
+      #sslCertificateKey = "/var/lib/acme/nc.${domain}/key.pem";
     };
   };
 
