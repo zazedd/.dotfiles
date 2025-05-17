@@ -8,6 +8,7 @@
 
 let
   user = "zazed";
+  email = "leomendesantos@gmail.com";
   domain = "leoms.dev";
   server_name = "ricardogoncalves";
 in
@@ -128,8 +129,8 @@ in
     virtualHost = "ff.${domain}";
     settings = {
       APP_ENV = "production";
-      APP_KEY_FILE = "/etc/nextcloud";
-      SITE_OWNER = "mail@example.com";
+      APP_KEY_FILE = "/etc/firefly";
+      SITE_OWNER = email;
       DB_CONNECTION = "mysql";
       DB_HOST = "db";
       DB_PORT = 3306;
@@ -173,7 +174,7 @@ in
 
   security.acme = {
     defaults = {
-      email = "leomendesantos@gmail.com";
+      inherit email;
       dnsProvider = "cloudflare";
       dnsResolver = "1.1.1.1:53";
       environmentFile = "/etc/cloudflare/env";
