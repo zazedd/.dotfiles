@@ -121,43 +121,21 @@ in
     https = false;
   };
 
-  services.adguardhome = {
-    enable = false;
-    port = 3003;
+  services.firefly-iii = {
+    inherit user;
+    enable = true;
+    enableNginx = true;
+    virtualHost = "ff.${domain}";
     settings = {
-      http = {
-        address = "0.0.0.0:3003";
-      };
-      dns = {
-        upstream_dns = [
-          "1.1.1.1"
-        ];
-      };
-      filtering = {
-        protection_enabled = true;
-        filtering_enabled = true;
-
-        parental_enabled = false;
-        safe_search = {
-          enabled = false;
-        };
-        rewrites = [
-          {
-            domain = "nc.ricardogoncalves.com";
-            answer = "A ricardogoncalves";
-          }
-        ];
-      };
-      filters =
-        map
-          (url: {
-            enabled = true;
-            url = url;
-          })
-          [
-            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_9.txt" # the Big List of Hacked Malware Web Sites
-            "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt" # malicious url blocklist
-          ];
+      APP_ENV = "production";
+      APP_KEY_FILE = "/etc/nextcloud";
+      SITE_OWNER = "mail@example.com";
+      DB_CONNECTION = "mysql";
+      DB_HOST = "db";
+      DB_PORT = 3306;
+      DB_DATABASE = "firefly";
+      DB_USERNAME = "firefly";
+      DB_PASSWORD_FILE = "/etc/nextcloud";
     };
   };
 
@@ -186,6 +164,11 @@ in
       enableACME = true;
       locations."/".proxyPass = "http://127.0.0.1:5252";
     };
+
+    "nc.${domain}" = {
+      forceSSL = true;
+      enableACME = true;
+    };
   };
 
   security.acme = {
@@ -202,25 +185,13 @@ in
         domain = "*.${domain}";
         group = "nginx";
       };
+
+      "ff.${domain}" = {
+        domain = "*.${domain}";
+        group = "nginx";
+      };
     };
   };
-
-  # services.firefly-iii = {
-  #   inherit user;
-  #   enable = true;
-  #   enableNginx = true;
-  #   settings = {
-  #     APP_ENV = "production";
-  #     APP_KEY_FILE = "/etc/nextcloud";
-  #     SITE_OWNER = "mail@example.com";
-  #     DB_CONNECTION = "mysql";
-  #     DB_HOST = "db";
-  #     DB_PORT = 3306;
-  #     DB_DATABASE = "firefly";
-  #     DB_USERNAME = "firefly";
-  #     DB_PASSWORD_FILE = "/etc/nextcloud";
-  #   };
-  # };
 
   # Load configuration that is shared across systems
   environment.systemPackages =
