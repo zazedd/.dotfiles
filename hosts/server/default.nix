@@ -130,7 +130,7 @@ in
 
   services.firefly-iii = {
     inherit user;
-    enable = false;
+    enable = true;
     enableNginx = true;
     virtualHost = "ff.${domain}";
     settings = {
@@ -157,16 +157,19 @@ in
   # };
 
   services.nginx.virtualHosts = {
-    "nc.${domain}" = {
-      forceSSL = true;
-      enableACME = true;
-      locations."/".proxyPass = "http://127.0.0.1:5252";
+    ${config.services.nextcloud.hostName} = {
       listen = [
         {
           addr = "0.0.0.0";
           port = 5252;
         }
       ];
+    };
+
+    "nc.${domain}" = {
+      forceSSL = true;
+      enableACME = true;
+      locations."/".proxyPass = "http://127.0.0.1:5252";
     };
 
     "ff.${domain}" = {
