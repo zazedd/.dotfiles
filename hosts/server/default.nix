@@ -156,24 +156,24 @@ in
     };
   };
 
-  services.postgresql = {
-    enable = true;
-    enableTCPIP = true;
-    ensureDatabases = [ "firefly" ];
-    authentication = pkgs.lib.mkOverride 10 ''
-      #type database  DBuser  auth-method
-      local all       all     trust
-      # ipv4
-      host  all      all     127.0.0.1/32   trust
-      # ipv6
-      host all       all     ::1/128        trust
-    '';
-    initialScript = pkgs.writeText "backend-initScript" ''
-      CREATE ROLE firefly WITH LOGIN PASSWORD 'test' CREATEDB;
-      CREATE DATABASE firefly;
-      GRANT ALL PRIVILEGES ON DATABASE firefly TO firefly;
-    '';
-  };
+  # services.postgresql = {
+  #   enable = true;
+  #   enableTCPIP = true;
+  #   ensureDatabases = [ "firefly" ];
+  #   authentication = pkgs.lib.mkOverride 10 ''
+  #     #type database  DBuser  auth-method
+  #     local all       all     trust
+  #     # ipv4
+  #     host  all      all     127.0.0.1/32   trust
+  #     # ipv6
+  #     host all       all     ::1/128        trust
+  #   '';
+  #   initialScript = pkgs.writeText "backend-initScript" ''
+  #     CREATE ROLE firefly WITH LOGIN PASSWORD 'test' CREATEDB;
+  #     CREATE DATABASE firefly;
+  #     GRANT ALL PRIVILEGES ON DATABASE firefly TO firefly;
+  #   '';
+  # };
 
   services.firefly-iii = {
     inherit user;
@@ -182,11 +182,9 @@ in
     virtualHost = "ff.${domain}";
     settings = {
       APP_ENV = "production";
-      APP_KEY_FILE = "/etc/firefly/api";
+      APP_KEY_FeLE = "/etc/firefly/api";
       SITE_OWNER = email;
-      DB_CONNECTION = "pgsql";
-      DB_HOST = "127.0.0.1";
-      DB_PORT = 5432;
+      DB_CONNECTION = "sqlite";
       DB_DATABASE = "firefly";
       DB_USERNAME = "firefly";
       DB_PASSWORD_FILE = "/etc/firefly/pwd";
