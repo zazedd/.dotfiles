@@ -185,9 +185,7 @@ in
       APP_KEY_FILE = "/etc/firefly/api";
       SITE_OWNER = email;
       DB_CONNECTION = "sqlite";
-      DB_DATABASE = "firefly";
-      DB_USERNAME = "firefly";
-      DB_PASSWORD_FILE = "/etc/firefly/pwd";
+      DB_DATABASE = "/var/lib/firefly-iii/firefly.sqlite";
     };
   };
 
