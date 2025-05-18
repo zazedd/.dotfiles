@@ -155,10 +155,10 @@ in
     };
     acceptTerms = true;
     certs = {
-      # "cloud.${domain}" = {
-      #   domain = "*.${domain}";
-      #   group = "nginx";
-      # };
+      "cloud.${domain}" = {
+        domain = "*.${domain}";
+        group = "nginx";
+      };
 
       "ff.${domain}" = {
         domain = "*.${domain}";
