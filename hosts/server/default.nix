@@ -127,28 +127,56 @@ in
     '';
   };
 
-  services.nginx = {
-    enable = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-    virtualHosts = {
-      "cloud.${domain}" = {
-        forceSSL = true;
-        # enableACME = true;
-        sslCertificate = "/var/lib/acme/ff.${domain}/fullchain.pem";
-        sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
-        locations = {
-          "/".proxyPass = "http://unix:/run/seahub/gunicorn.sock";
-          "/seafhttp".proxyPass = "http://127.0.0.1:8082/";
-        };
-      };
+  services.nginx =
 
-      "ff.${domain}" = {
-        forceSSL = true;
-        enableACME = true;
-      };
+    let
+      mkProxy =
+        name:
+        let
+          port = ports.${name};
+        in
+        {
+          "${name}.${domain}" = {
+            forceSSL = true;
+            sslCertificate = "/var/lib/acme/ff.${domain}/fullchain.pem";
+            sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
+            locations."/".proxyPass = "http://127.0.0.1:${port}/";
+          };
+        };
+    in
+    {
+      enable = true;
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
+      virtualHosts =
+        {
+          "cloud.${domain}" = {
+            forceSSL = true;
+            # enableACME = true;
+            sslCertificate = "/var/lib/acme/ff.${domain}/fullchain.pem";
+            sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
+            locations = {
+              "/".proxyPass = "http://unix:/run/seahub/gunicorn.sock";
+              "/seafhttp".proxyPass = "http://127.0.0.1:8082/";
+            };
+          };
+
+          "ff.${domain}" = {
+            forceSSL = true;
+            enableACME = true;
+          };
+
+        }
+        // builtins.listToAttrs [
+          (mkProxy "radarr")
+          (mkProxy "sonarr")
+          (mkProxy "prowlarr")
+          (mkProxy "deluge")
+          (mkProxy "jellyfin")
+          (mkProxy "jellyseer")
+          (mkProxy "bazarr")
+        ];
     };
-  };
 
   services.firefly-iii = {
     inherit user;
