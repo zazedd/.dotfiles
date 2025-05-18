@@ -179,7 +179,7 @@ in
     inherit user;
     enable = true;
     enableNginx = true;
-    virtualHost = "ff.${domain}";
+    virtualHost = "locahost";
     settings = {
       APP_ENV = "production";
       APP_KEY_FILE = "/etc/firefly/api";
