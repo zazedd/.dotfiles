@@ -151,9 +151,17 @@ in
         locations."/".return = "444";
       };
 
+      ${config.services.firefly-iii.virtualHost}.listen = [
+        {
+          addr = "127.0.0.1";
+          port = 9080;
+        }
+      ];
+
       "ff.${domain}" = {
         forceSSL = true;
         enableACME = true;
+        locations."/".proxyPass = "http://127.0.0.1:9080";
       };
     };
   };
@@ -162,7 +170,7 @@ in
     inherit user;
     enable = true;
     enableNginx = true;
-    virtualHost = "ff.${domain}";
+    virtualHost = "localhost";
     settings = {
       APP_ENV = "production";
       APP_KEY_FILE = "/etc/firefly/api";
