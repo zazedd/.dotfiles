@@ -122,8 +122,10 @@ in
     virtualHosts = {
       "cloud.${domain}" = {
         forceSSL = true;
-        enableACME = true;
+        # enableACME = true;
         locations."/".proxyPass = "http://127.0.0.1:8384";
+        sslCertificate = "/var/lib/acme/ff.${domain}/fullchain.pem";
+        sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
       };
 
       "ff.${domain}" = {
@@ -155,10 +157,10 @@ in
     };
     acceptTerms = true;
     certs = {
-      "cloud.${domain}" = {
-        domain = "*.${domain}";
-        group = "nginx";
-      };
+      # "cloud.${domain}" = {
+      #   domain = "*.${domain}";
+      #   group = "nginx";
+      # };
 
       "ff.${domain}" = {
         domain = "*.${domain}";
