@@ -112,9 +112,13 @@ in
     adminEmail = "admin@example.com";
     initialAdminPassword = "change this later!";
 
-    ccnetSettings.General.SERVICE_URL = "http://127.0.0.1:8082";
-    seafileSettings.fileserver.host = "127.0.0.1";
-    seafileSettings.fileserver.port = 8082;
+    ccnetSettings.General.SERVICE_URL = "http://cloud.${domain}";
+    seafileSettings = {
+      history.keep_days = "14"; # Remove deleted files after 14 days
+      fileserver = {
+        host = "unix:/run/seafile/server.sock";
+      };
+    };
   };
 
   services.nginx = {
@@ -125,9 +129,33 @@ in
       "cloud.${domain}" = {
         forceSSL = true;
         # enableACME = true;
-        locations."/".proxyPass = "http://127.0.0.1:8082";
         sslCertificate = "/var/lib/acme/ff.${domain}/fullchain.pem";
         sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
+        locations = {
+          "/" = {
+            proxyPass = "http://unix:/run/seahub/gunicorn.sock";
+            extraConfig = ''
+              proxy_set_header   Host $host;
+              proxy_set_header   X-Real-IP $remote_addr;
+              proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header   X-Forwarded-Host $server_name;
+              proxy_read_timeout  1200s;
+              client_max_body_size 0;
+            '';
+          };
+          "/seafhttp" = {
+            proxyPass = "http://unix:/run/seafile/server.sock";
+            extraConfig = ''
+              rewrite ^/seafhttp(.*)$ $1 break;
+              client_max_body_size 0;
+              proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_connect_timeout  36000s;
+              proxy_read_timeout  36000s;
+              proxy_send_timeout  36000s;
+              send_timeout  36000s;
+            '';
+          };
+        };
       };
 
       "ff.${domain}" = {
