@@ -143,10 +143,11 @@ in
   services.nginx = {
     enable = true;
     virtualHosts = {
-      "cloud.${domain}" = {
+      "_" = {
         # forceSSL = true;
         # enableACME = true;
         # locations."/".proxyPass = "http://127.0.0.1:8384";
+        default = true;
         locations."/".return = "444";
       };
 
