@@ -133,7 +133,7 @@ in
       mkProxy =
         name:
         let
-          port = ports.${name};
+          port = toString ports.${name};
         in
         {
           name = "${name}.${domain}";
