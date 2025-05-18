@@ -136,7 +136,8 @@ in
           port = ports.${name};
         in
         {
-          "${name}.${domain}" = {
+          name = "${name}.${domain}";
+          value = {
             forceSSL = true;
             sslCertificate = "/var/lib/acme/ff.${domain}/fullchain.pem";
             sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
