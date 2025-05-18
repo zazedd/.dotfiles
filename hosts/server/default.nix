@@ -114,7 +114,7 @@ in
 
     ccnetSettings.General.SERVICE_URL = "http://127.0.0.1:8082";
     seafileSettings.fileserver.host = "127.0.0.1";
-    seafileSettings.fileserver.port = "8082";
+    seafileSettings.fileserver.port = 8082;
   };
 
   services.nginx = {
