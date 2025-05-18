@@ -11,6 +11,7 @@ let
   email = "leomendesantos@gmail.com";
   domain = "leoms.dev";
   server_name = "ricardogoncalves";
+  ports = import ./ports.nix;
 in
 
 {
@@ -117,7 +118,7 @@ in
       history.keep_days = "14";
       fileserver = {
         host = "127.0.0.1";
-        port = 8082;
+        port = ports.seafile;
       };
     };
     seahubExtraConf = ''

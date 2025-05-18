@@ -27,7 +27,8 @@ in
       "${opt}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
       "${opt}+Shift+q" = "kill";
       "${opt}+d" = "exec ${pkgs.bemenu}/bin/bemenu-run";
-      "${opt}+Shift+s" = "exec '${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -d)\" - | ${pkgs.wl-clipboard}/bin/wl-copy'";
+      "${opt}+Shift+s" =
+        "exec '${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -d)\" - | ${pkgs.wl-clipboard}/bin/wl-copy'";
       "${opt}+space" = "floating toggle";
 
       # mac style copying
@@ -57,7 +58,7 @@ in
     bars = [
       {
         position = "top";
-        command = "waybar";
+        command = "${pkgs.waybar}/bin/waybar";
       }
     ];
     gaps = {
