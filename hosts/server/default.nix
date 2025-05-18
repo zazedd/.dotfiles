@@ -110,7 +110,7 @@ in
     enable = true;
 
     adminEmail = "admin@example.com";
-    initialAdminPassword = "change this later!";
+    initialAdminPassword = "test";
 
     ccnetSettings.General.SERVICE_URL = "http://cloud.${domain}";
     seafileSettings = {
@@ -151,7 +151,7 @@ in
 
   services.firefly-iii = {
     inherit user;
-    enable = false;
+    enable = true;
     enableNginx = true;
     virtualHost = "ff.${domain}";
     settings = {
