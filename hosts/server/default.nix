@@ -112,7 +112,9 @@ in
     adminEmail = "admin@example.com";
     initialAdminPassword = "change this later!";
 
-    ccnetSettings.General.SERVICE_URL = "http://127.0.0.1:8384";
+    ccnetSettings.General.SERVICE_URL = "http://127.0.0.1:8082";
+    seafileSettings.fileserver.host = "127.0.0.1";
+    seafileSettings.fileserver.port = "8082";
   };
 
   services.nginx = {
@@ -123,7 +125,7 @@ in
       "cloud.${domain}" = {
         forceSSL = true;
         # enableACME = true;
-        locations."/".proxyPass = "http://127.0.0.1:8384";
+        locations."/".proxyPass = "http://127.0.0.1:8082";
         sslCertificate = "/var/lib/acme/ff.${domain}/fullchain.pem";
         sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
       };
@@ -184,8 +186,7 @@ in
       config.services.tailscale.port
     ];
     allowedTCPPorts = [
-      8384
-      8385
+      8082
       42069 # minecraft
       42068 # rcon minecraft
     ];
