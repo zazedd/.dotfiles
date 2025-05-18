@@ -109,8 +109,8 @@ in
   services.seafile = {
     enable = true;
 
-    adminEmail = "admin@example.com";
-    initialAdminPassword = "test";
+    adminEmail = email;
+    initialAdminPassword = "pass";
 
     ccnetSettings.General.SERVICE_URL = "http://cloud.${domain}";
     seafileSettings = {
