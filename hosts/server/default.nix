@@ -174,7 +174,7 @@ in
           (mkProxy "prowlarr")
           (mkProxy "deluge")
           (mkProxy "jellyfin")
-          (mkProxy "jellyseer")
+          (mkProxy "jellyseerr")
           (mkProxy "bazarr")
         ];
     };
