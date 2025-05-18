@@ -122,7 +122,7 @@ in
     };
     seahubExtraConf = ''
       DEBUG = True
-      CSRF_TRUSTED_ORIGINS = ["cloud.${domain}"]
+      CSRF_TRUSTED_ORIGINS = ["http://cloud.${domain}"]
     '';
   };
 
