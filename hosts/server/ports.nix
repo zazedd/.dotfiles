@@ -7,7 +7,7 @@
 
   prowlarr = 9696;
   deluge = 5000;
-  sabnzbd = 9000;
+  sabnzbd = 8080;
   flaresolverr = 8191;
 
   jellyseerr = 5055;
