@@ -3,6 +3,8 @@
   seafile_webdav = 8083;
 
   jellyfin = 8096;
+  watch = 8096;
+
   sonarr = 8989;
   radarr = 7878;
 

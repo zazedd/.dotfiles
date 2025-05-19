@@ -174,6 +174,7 @@ in
             "sabnzbd"
             "flaresolverr"
             "jellyfin"
+            "watch" # also points to jellyfin
             "jellyseerr"
             "request" # also points to jellyseerr
             "bazarr"
