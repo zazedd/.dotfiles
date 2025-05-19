@@ -1,4 +1,4 @@
-{ pkgs }:
+{ }:
 {
   services.jellyfin.enable = true;
   services.sonarr.enable = true;
