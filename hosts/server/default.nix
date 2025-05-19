@@ -13,9 +13,7 @@ let
   server_name = "ricardogoncalves";
   ports = import ./ports.nix;
 in
-
 {
-
   imports = [
     # agenix.darwinModules.default
     # ../../modules/asahi/secrets.nix
@@ -23,6 +21,7 @@ in
     ../../modules/shared
     ../../modules/shared/cachix
     ./hardware-configuration.nix
+    ./arr.nix
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
@@ -128,7 +127,6 @@ in
   };
 
   services.nginx =
-
     let
       mkProxy =
         name:
@@ -166,17 +164,18 @@ in
             forceSSL = true;
             enableACME = true;
           };
-
         }
-        // builtins.listToAttrs [
-          (mkProxy "radarr")
-          (mkProxy "sonarr")
-          (mkProxy "prowlarr")
-          (mkProxy "deluge")
-          (mkProxy "jellyfin")
-          (mkProxy "jellyseerr")
-          (mkProxy "bazarr")
-        ];
+        // builtins.listToAttrs (
+          map mkProxy [
+            "radarr"
+            "sonarr"
+            "prowlarr"
+            "deluge"
+            "jellyfin"
+            "jellyseerr"
+            "bazarr"
+          ]
+        );
     };
 
   services.firefly-iii = {
