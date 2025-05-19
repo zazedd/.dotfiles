@@ -161,10 +161,10 @@ in
             sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
             locations = {
               "/".proxyPass = "http://unix:/run/seahub/gunicorn.sock";
-              "/seafhttp".proxyPass = "http://127.0.0.1:${ports.seafile}/";
-              "/seafdav".proxyPass = "http://127.0.0.1:${ports.seafile_webdav}/seafdav/";
-              "/seafdav/".proxyPass = "http://127.0.0.1:${ports.seafile_webdav}/seafdav/";
-              "/:dir_browser".proxyPass = "http://127.0.0.1:${ports.seafile_webdav}/:dir_browser";
+              "/seafhttp".proxyPass = "http://127.0.0.1:${toString ports.seafile}/";
+              "/seafdav".proxyPass = "http://127.0.0.1:${toString ports.seafile_webdav}/seafdav/";
+              "/seafdav/".proxyPass = "http://127.0.0.1:${toString ports.seafile_webdav}/seafdav/";
+              "/:dir_browser".proxyPass = "http://127.0.0.1:${toString ports.seafile_webdav}/:dir_browser";
             };
           };
 
