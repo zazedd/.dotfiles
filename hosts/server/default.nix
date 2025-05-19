@@ -129,7 +129,7 @@ in
   services.nginx =
     let
       mkProxy =
-        name: extra:
+        name:
         let
           port = toString ports.${name};
         in
