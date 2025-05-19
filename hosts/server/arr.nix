@@ -3,27 +3,28 @@
   ...
 }:
 
+let
+  mediaDefaults = {
+    enable = true;
+    user = "media";
+    group = "media";
+  };
+in
 {
+  users.users.media = {
+    description = "media user for arr services";
+    group = "media";
+  };
+
   users.groups.media = { };
 
-  services.jellyfin = {
-    enable = true;
-    group = "media";
-  };
-  services.sonarr = {
-    enable = true;
-    group = "media";
-  };
-  services.radarr = {
-    enable = true;
-    group = "media";
-  };
+  services.jellyfin = mediaDefaults;
+  services.sonarr = mediaDefaults;
+  services.radarr = mediaDefaults;
 
   services.prowlarr.enable = true;
 
-  services.deluge = {
-    enable = true;
-    group = "media";
+  services.deluge = mediaDefaults // {
     openFirewall = true;
     web = {
       enable = true;
@@ -31,16 +32,10 @@
       port = 5000;
     };
   };
-  services.sabnzbd = {
-    enable = true;
-    group = "media";
-  };
+  services.sabnzbd = mediaDefaults;
 
   services.flaresolverr.enable = true;
 
   services.jellyseerr.enable = true;
-  services.bazarr = {
-    enable = true;
-    group = "media";
-  };
+  services.bazarr = mediaDefaults;
 }
