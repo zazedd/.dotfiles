@@ -119,6 +119,11 @@ in
         host = "127.0.0.1";
         port = ports.seafile;
       };
+      webdav = {
+        enabled = true;
+        port = ports.seafile_webdav;
+        share_name = "/seafdav";
+      };
     };
     seahubExtraConf = ''
       DEBUG = True
@@ -156,7 +161,10 @@ in
             sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
             locations = {
               "/".proxyPass = "http://unix:/run/seahub/gunicorn.sock";
-              "/seafhttp".proxyPass = "http://127.0.0.1:8082/";
+              "/seafhttp".proxyPass = "http://127.0.0.1:${ports.seafile}/";
+              "/seafdav".rewrite = "^/seafdav$ /seafdav/ permanent";
+              "/seafdav/".proxyPass = "http://127.0.0.1:${ports.seafile_webdav}/seafdav/";
+              "/:dir_browser".proxyPass = "http://127.0.0.1:${ports.seafile_webdav}/:dir_browser";
             };
           };
 

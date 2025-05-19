@@ -1,5 +1,6 @@
 {
   seafile = 8082;
+  seafile_webdav = 8083;
 
   jellyfin = 8096;
   sonarr = 8989;
