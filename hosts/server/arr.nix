@@ -38,12 +38,6 @@
     configFile = pkgs.writeText "sabnzbd.ini" (builtins.readFile ../../configs/sabnzbd/sabnzbd.ini);
   };
 
-  systemd.services.sabnzbd = {
-    serviceConfig = {
-      WorkingDirectory = "/var/lib/sabnzbd";
-    };
-  };
-
   services.flaresolverr.enable = true;
 
   services.jellyseerr.enable = true;
