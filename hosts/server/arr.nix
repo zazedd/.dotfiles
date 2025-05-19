@@ -12,6 +12,7 @@ let
 in
 {
   users.users.media = {
+    isSystemUser = true;
     description = "media user for arr services";
     group = "media";
   };
