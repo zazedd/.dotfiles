@@ -162,7 +162,7 @@ in
             locations = {
               "/".proxyPass = "http://unix:/run/seahub/gunicorn.sock";
               "/seafhttp".proxyPass = "http://127.0.0.1:${ports.seafile}/";
-              "/seafdav".rewrite = "^/seafdav$ /seafdav/ permanent";
+              "/seafdav".proxyPass = "http://127.0.0.1:${ports.seafile_webdav}/seafdav/";
               "/seafdav/".proxyPass = "http://127.0.0.1:${ports.seafile_webdav}/seafdav/";
               "/:dir_browser".proxyPass = "http://127.0.0.1:${ports.seafile_webdav}/:dir_browser";
             };
