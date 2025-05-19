@@ -129,7 +129,7 @@ in
   services.nginx =
     let
       mkProxy =
-        name:
+        name: extra:
         let
           port = toString ports.${name};
         in
@@ -175,6 +175,7 @@ in
             "flaresolverr"
             "jellyfin"
             "jellyseerr"
+            "request" # also points to jellyseerr
             "bazarr"
           ]
         );

@@ -12,5 +12,7 @@
   flaresolverr = 8191;
 
   jellyseerr = 5055;
+  request = 5055;
+
   bazarr = 6767;
 }
