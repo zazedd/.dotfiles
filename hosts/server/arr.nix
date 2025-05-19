@@ -25,7 +25,9 @@ in
 
   services.prowlarr.enable = true;
 
-  services.deluge = mediaDefaults // {
+  services.deluge = {
+    enable = true;
+    group = "media";
     openFirewall = true;
     web = {
       enable = true;
