@@ -6,7 +6,7 @@
   radarr = 7878;
 
   prowlarr = 9696;
-  deluge = 8112;
+  deluge = 5000;
 
   jellyseerr = 5055;
   bazarr = 6767;
