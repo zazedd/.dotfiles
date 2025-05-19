@@ -172,6 +172,7 @@ in
             "prowlarr"
             "deluge"
             "sabnzbd"
+            "flaresolverr"
             "jellyfin"
             "jellyseerr"
             "bazarr"
