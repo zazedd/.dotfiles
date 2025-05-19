@@ -17,6 +17,7 @@
       port = 5000;
     };
   };
+  services.sabnzbd.enable = true;
 
   services.jellyseerr.enable = true;
   services.bazarr.enable = true;

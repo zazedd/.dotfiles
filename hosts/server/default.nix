@@ -171,6 +171,7 @@ in
             "sonarr"
             "prowlarr"
             "deluge"
+            "sabnzbd"
             "jellyfin"
             "jellyseerr"
             "bazarr"
