@@ -24,6 +24,7 @@ in
     extraGroups = [
       "wheel"
       "video"
+      "media"
     ];
     shell = pkgs.zsh;
     isNormalUser = true;
