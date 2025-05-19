@@ -34,8 +34,6 @@
   services.sabnzbd = {
     enable = true;
     group = "media";
-    # TODO: not a very good idea to have the api keys exposed in this ini file. might write a small module to change the host whitelists
-    configFile = pkgs.writeText "sabnzbd.ini" (builtins.readFile ../../configs/sabnzbd/sabnzbd.ini);
   };
 
   services.flaresolverr.enable = true;
