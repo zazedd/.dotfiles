@@ -19,7 +19,10 @@ in
 
   users.groups.media = { };
 
-  services.jellyfin = mediaDefaults;
+  services.jellyfin = {
+    enable = true;
+    group = "media";
+  };
   services.sonarr = mediaDefaults;
   services.radarr = mediaDefaults;
 
