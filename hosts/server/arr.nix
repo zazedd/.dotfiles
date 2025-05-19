@@ -18,6 +18,7 @@
     };
   };
   services.sabnzbd.enable = true;
+  services.flaresolverr.enable = true;
 
   services.jellyseerr.enable = true;
   services.bazarr.enable = true;
