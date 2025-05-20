@@ -122,6 +122,7 @@ in
                       }
                     ];
                   }
+
                 ];
               }
 
@@ -168,11 +169,6 @@ in
 
                   }
                   {
-                    type = "calendar";
-                    first-day-of-week = "sunday";
-                  }
-
-                  {
                     type = "bookmarks";
                     groups = [
                       {
@@ -210,6 +206,42 @@ in
                             url = "https://reddit.com/";
                           }
                         ];
+                      }
+                    ];
+                  }
+
+                  {
+                    type = "markets";
+                    hide-header = true;
+                    markets = [
+                      # {
+                      #   symbol = "VWCE";
+                      #   name = "VWCE";
+                      # }
+
+                      {
+                        symbol = "SPY";
+                        name = "S&P 500";
+                      }
+
+                      {
+                        symbol = "BTC-USD";
+                        name = "Bitcoin";
+                      }
+
+                      {
+                        symbol = "NVDA";
+                        name = "NVIDIA";
+                      }
+
+                      {
+                        symbol = "AAPL";
+                        name = "Apple";
+                      }
+
+                      {
+                        symbol = "MSFT";
+                        name = "Microsoft";
                       }
                     ];
                   }
