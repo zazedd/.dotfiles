@@ -27,6 +27,12 @@ in
 
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
+  hardware.graphics.enable = true;
+  hardware.graphics.amdgpu = {
+    amdvlk.enable = true;
+    initrd.enable = true;
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
