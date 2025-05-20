@@ -146,12 +146,6 @@ in
                       "nix"
                     ];
                     limit = 30;
-                    collapse-after = 10;
-                  }
-
-                  {
-                    type = "hacker-news";
-                    limit = 15;
                     collapse-after = 5;
                   }
 
@@ -161,27 +155,33 @@ in
                       {
                         type = "reddit";
                         subreddit = "homelab";
-                        horizontal-cards = true;
+                        style = "horizontal-cards";
                       }
 
                       {
                         type = "reddit";
                         subreddit = "usenetinvites";
-                        horizontal-cards = true;
+                        style = "horizontal-cards";
                       }
 
                       {
                         type = "reddit";
                         subreddit = "selfhosted";
-                        horizontal-cards = true;
+                        style = "horizontal-cards";
                       }
 
                       {
                         type = "reddit";
                         subreddit = "ocaml";
-                        horizontal-cards = true;
+                        style = "horizontal-cards";
                       }
                     ];
+                  }
+
+                  {
+                    type = "hacker-news";
+                    limit = 15;
+                    collapse-after = 5;
                   }
                 ];
               }
@@ -240,7 +240,7 @@ in
                     hide-header = true;
                     markets = [
                       {
-                        symbol = "VWCE";
+                        symbol = "VWCE.DE";
                         name = "VWCE";
                       }
 
