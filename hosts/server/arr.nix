@@ -43,48 +43,162 @@ in
   services.jellyseerr.enable = true;
   services.bazarr = mediaDefaults;
 
-  services.glance = {
-    enable = true;
-    settings = {
-      server = {
-        port = ports.home;
+  services.glance =
+    let
+      mkSite = name: {
+        title = name;
+        url = "https://${name}.leoms.dev";
+        icon = "si:${name}";
       };
-      pages = [
-        {
-          name = "Home";
-          head-widgets = [
-            {
-              type = "markets";
-              hide-header = true;
-              markets = [
-                {
-                  symbol = "VWCE";
-                  name = "VWCE";
-                }
 
-                {
-                  symbol = "BTC-USD";
-                  name = "Bitcoin";
-                }
-              ];
-            }
-          ];
-          columns = [
-            {
-              size = "small";
-              widgets = [
-                {
-                  type = "calendar";
-                }
-                {
-                  type = "weather";
-                  location = "Porto, Portugal";
-                }
-              ];
-            }
-          ];
-        }
-      ];
+      mkSiteNoIcon = name: {
+        title = name;
+        url = "https://${name}.leoms.dev";
+      };
+    in
+    {
+      enable = true;
+      settings = {
+        server = {
+          port = ports.home;
+        };
+        pages = [
+          {
+            name = "Home";
+            head-widgets = [
+              {
+                type = "markets";
+                hide-header = true;
+                markets = [
+                  {
+                    symbol = "VWCE";
+                    name = "VWCE";
+                  }
+
+                  {
+                    symbol = "BTC-USD";
+                    name = "Bitcoin";
+                  }
+                ];
+              }
+            ];
+            columns = [
+              {
+                size = "small";
+                widgets = [
+                  {
+                    type = "calendar";
+                  }
+                  {
+                    type = "weather";
+                    location = "Porto, Portugal";
+                  }
+                  {
+                    type = "server-stats";
+                    servers = [
+                      {
+
+                        type = "local";
+                        name = "xinho";
+                      }
+                    ];
+                  }
+                ];
+              }
+
+              {
+                size = "full";
+                widgets = [
+                  {
+                    type = "monitor";
+                    cache = "1m";
+                    title = "Services";
+                    sites =
+                      builtins.map mkSite [
+                        "jellyfin"
+                        "radarr"
+                        "sonarr"
+                      ]
+                      // builtins.map mkSiteNoIcon [
+                        "jellyseerr"
+                        "prowlarr"
+                        "cloud"
+                        "sabnzbd"
+                      ];
+                  }
+                ];
+              }
+
+              {
+                size = "small";
+                widgets = [
+                  {
+                    type = "clock";
+                    hour-format = "24h";
+                    timezones = [
+                      {
+
+                        timezone = "Europe/Lisbon";
+                        label = "Portugal";
+                      }
+                      {
+                        timezone = "Asia/Singapore";
+                        label = "Singapore";
+                      }
+                    ];
+
+                  }
+                  {
+                    type = "calendar";
+                    first-day-of-week = "sunday";
+                  }
+
+                  {
+                    type = "bookmarks";
+                    groups = [
+                      {
+                        title = "Work/School";
+                        color = "10 70 50";
+                        links = [
+                          {
+                            title = "Gmail";
+                            url = "https://mail.google.com/mail/u/0/";
+                          }
+
+                          {
+                            title = "Github";
+                            url = "https://github.com/";
+                          }
+
+                          {
+                            title = "Moodle";
+                            url = "https://moodle2425.up.pt/";
+                          }
+                        ];
+                      }
+
+                      {
+                        title = "Entertainment/Social";
+                        color = "200 50 50";
+                        links = [
+                          {
+                            title = "Youtube";
+                            url = "https://youtube.com/";
+                          }
+
+                          {
+                            title = "Reddit";
+                            url = "https://reddit.com/";
+                          }
+                        ];
+                      }
+                    ];
+                  }
+                ];
+              }
+            ];
+          }
+        ];
+      };
     };
-  };
 }
