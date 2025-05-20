@@ -107,6 +107,10 @@ in
                 size = "full";
                 widgets = [
                   {
+                    type = "search";
+                    search-engine = "google";
+                  }
+                  {
                     type = "monitor";
                     cache = "1m";
                     title = "Services";
@@ -124,6 +128,60 @@ in
                         "sabnzbd"
                         "deluge"
                       ];
+                  }
+
+                  {
+                    type = "lobsters";
+                    sort-by = "hot";
+                    tags = [
+                      "linux"
+                      "ml"
+                      "haskell"
+                      "vim"
+                      "programming"
+                      "formalmethods"
+                      "compsci"
+                      "math"
+                      "plt"
+                      "nix"
+                    ];
+                    limit = 30;
+                    collapse-after = 10;
+                  }
+
+                  {
+                    type = "hacker-news";
+                    limit = 15;
+                    collapse-after = 5;
+                  }
+
+                  {
+                    type = "group";
+                    widgets = [
+                      {
+                        type = "reddit";
+                        subreddit = "homelab";
+                        horizontal-cards = true;
+                      }
+
+                      {
+                        type = "reddit";
+                        subreddit = "usenetinvites";
+                        horizontal-cards = true;
+                      }
+
+                      {
+                        type = "reddit";
+                        subreddit = "selfhosted";
+                        horizontal-cards = true;
+                      }
+
+                      {
+                        type = "reddit";
+                        subreddit = "ocaml";
+                        horizontal-cards = true;
+                      }
+                    ];
                   }
                 ];
               }
