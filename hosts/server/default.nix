@@ -184,6 +184,7 @@ in
             "jellyseerr"
             "request" # also points to jellyseerr
             "bazarr"
+            "home"
           ]
         );
     };

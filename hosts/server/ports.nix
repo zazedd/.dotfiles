@@ -17,4 +17,6 @@
   request = 5055;
 
   bazarr = 6767;
+
+  homepage = 5050;
 }

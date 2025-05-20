@@ -9,6 +9,7 @@ let
     user = "media";
     group = "media";
   };
+  ports = import ./ports.nix;
 in
 {
   users.users.media = {
@@ -32,7 +33,7 @@ in
     web = {
       enable = true;
       openFirewall = true;
-      port = 5000;
+      port = ports.deluge;
     };
   };
   services.sabnzbd = mediaDefaults;
@@ -41,4 +42,49 @@ in
 
   services.jellyseerr.enable = true;
   services.bazarr = mediaDefaults;
+
+  services.glance = {
+    enable = true;
+    settings = {
+      server = {
+        port = ports.homepage;
+      };
+      pages = [
+        {
+          name = "Home";
+          head-widgets = [
+            {
+              type = "markets";
+              hide-header = true;
+              markets = [
+                {
+                  symbol = "VWCE";
+                  name = "VWCE";
+                }
+
+                {
+                  symbol = "BTC-USD";
+                  name = "Bitcoin";
+                }
+              ];
+            }
+          ];
+          columns = [
+            {
+              size = "small";
+              widgets = [
+                {
+                  type = "calendar";
+                }
+                {
+                  type = "weather";
+                  location = "Porto, Portugal";
+                }
+              ];
+            }
+          ];
+        }
+      ];
+    };
+  };
 }
