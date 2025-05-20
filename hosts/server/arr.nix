@@ -70,14 +70,34 @@ in
                 type = "markets";
                 hide-header = true;
                 markets = [
+                  # {
+                  #   symbol = "VWCE";
+                  #   name = "VWCE";
+                  # }
+
                   {
-                    symbol = "VWCE";
-                    name = "VWCE";
+                    symbol = "SPY";
+                    name = "S&P 500";
                   }
 
                   {
                     symbol = "BTC-USD";
                     name = "Bitcoin";
+                  }
+
+                  {
+                    symbol = "NVDA";
+                    name = "NVIDIA";
+                  }
+
+                  {
+                    symbol = "AAPL";
+                    name = "Apple";
+                  }
+
+                  {
+                    symbol = "MSFT";
+                    name = "Microsoft";
                   }
                 ];
               }
