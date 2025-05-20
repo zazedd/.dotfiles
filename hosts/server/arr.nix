@@ -54,7 +54,7 @@ in
       mkSiteNoIcon = name: {
         title = name;
         url = "https://${name}.leoms.dev";
-        icon = "si:NixOS";
+        icon = "si:onnx";
       };
     in
     {
@@ -115,9 +115,9 @@ in
                         "jellyfin"
                         "radarr"
                         "sonarr"
-                        "bazarr"
                       ]
                       ++ map mkSiteNoIcon [
+                        "bazarr"
                         "jellyseerr"
                         "prowlarr"
                         "cloud"
