@@ -114,17 +114,21 @@ in
                     cache = "1m";
                     title = "Services";
                     sites =
-                      builtins.map mkSite [
-                        "jellyfin"
-                        "radarr"
-                        "sonarr"
-                      ]
-                      // builtins.map mkSiteNoIcon [
-                        "jellyseerr"
-                        "prowlarr"
-                        "cloud"
-                        "sabnzbd"
-                      ];
+                      builtins.listToAttrs (
+                        map mkSite [
+                          "jellyfin"
+                          "radarr"
+                          "sonarr"
+                        ]
+                      )
+                      // builtins.listToAttrs (
+                        map mkSiteNoIcon [
+                          "jellyseerr"
+                          "prowlarr"
+                          "cloud"
+                          "sabnzbd"
+                        ]
+                      );
                   }
                 ];
               }
