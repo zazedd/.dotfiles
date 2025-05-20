@@ -28,7 +28,7 @@ in
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
   hardware.graphics.enable = true;
-  hardware.graphics.amdgpu = {
+  hardware.amdgpu = {
     amdvlk.enable = true;
     initrd.enable = true;
   };
