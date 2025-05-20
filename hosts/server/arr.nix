@@ -54,6 +54,7 @@ in
       mkSiteNoIcon = name: {
         title = name;
         url = "https://${name}.leoms.dev";
+        icon = "si:NixOS";
       };
     in
     {
@@ -65,53 +66,29 @@ in
         pages = [
           {
             name = "Home";
-            head-widgets = [
-              {
-                type = "markets";
-                hide-header = true;
-                markets = [
-                  # {
-                  #   symbol = "VWCE";
-                  #   name = "VWCE";
-                  # }
-
-                  {
-                    symbol = "SPY";
-                    name = "S&P 500";
-                  }
-
-                  {
-                    symbol = "BTC-USD";
-                    name = "Bitcoin";
-                  }
-
-                  {
-                    symbol = "NVDA";
-                    name = "NVIDIA";
-                  }
-
-                  {
-                    symbol = "AAPL";
-                    name = "Apple";
-                  }
-
-                  {
-                    symbol = "MSFT";
-                    name = "Microsoft";
-                  }
-                ];
-              }
-            ];
             columns = [
               {
                 size = "small";
                 widgets = [
                   {
-                    type = "calendar";
+                    type = "clock";
+                    hour-format = "24h";
+                    timezones = [
+                      {
+
+                        timezone = "Europe/Lisbon";
+                        label = "Portugal";
+                      }
+                      {
+                        timezone = "Asia/Singapore";
+                        label = "Singapore";
+                      }
+                    ];
+
                   }
                   {
-                    type = "weather";
-                    location = "Porto, Portugal";
+                    type = "calendar";
+                    first-day-of-week = "sunday";
                   }
                   {
                     type = "server-stats";
@@ -138,12 +115,14 @@ in
                         "jellyfin"
                         "radarr"
                         "sonarr"
+                        "bazarr"
                       ]
                       ++ map mkSiteNoIcon [
                         "jellyseerr"
                         "prowlarr"
                         "cloud"
                         "sabnzbd"
+                        "deluge"
                       ];
                   }
                 ];
@@ -153,20 +132,8 @@ in
                 size = "small";
                 widgets = [
                   {
-                    type = "clock";
-                    hour-format = "24h";
-                    timezones = [
-                      {
-
-                        timezone = "Europe/Lisbon";
-                        label = "Portugal";
-                      }
-                      {
-                        timezone = "Asia/Singapore";
-                        label = "Singapore";
-                      }
-                    ];
-
+                    type = "weather";
+                    location = "Porto, Portugal";
                   }
                   {
                     type = "bookmarks";
@@ -214,14 +181,9 @@ in
                     type = "markets";
                     hide-header = true;
                     markets = [
-                      # {
-                      #   symbol = "VWCE";
-                      #   name = "VWCE";
-                      # }
-
                       {
-                        symbol = "SPY";
-                        name = "S&P 500";
+                        symbol = "VWCE";
+                        name = "VWCE";
                       }
 
                       {
@@ -230,18 +192,8 @@ in
                       }
 
                       {
-                        symbol = "NVDA";
-                        name = "NVIDIA";
-                      }
-
-                      {
-                        symbol = "AAPL";
-                        name = "Apple";
-                      }
-
-                      {
-                        symbol = "MSFT";
-                        name = "Microsoft";
+                        symbol = "ADA-USD";
+                        name = "Cardano";
                       }
                     ];
                   }
