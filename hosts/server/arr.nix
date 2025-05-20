@@ -97,7 +97,6 @@ in
                     type = "server-stats";
                     servers = [
                       {
-
                         type = "local";
                         name = "xinho";
                       }
@@ -114,21 +113,17 @@ in
                     cache = "1m";
                     title = "Services";
                     sites =
-                      builtins.listToAttrs (
-                        map mkSite [
-                          "jellyfin"
-                          "radarr"
-                          "sonarr"
-                        ]
-                      )
-                      // builtins.listToAttrs (
-                        map mkSiteNoIcon [
-                          "jellyseerr"
-                          "prowlarr"
-                          "cloud"
-                          "sabnzbd"
-                        ]
-                      );
+                      map mkSite [
+                        "jellyfin"
+                        "radarr"
+                        "sonarr"
+                      ]
+                      ++ map mkSiteNoIcon [
+                        "jellyseerr"
+                        "prowlarr"
+                        "cloud"
+                        "sabnzbd"
+                      ];
                   }
                 ];
               }
