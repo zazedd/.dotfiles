@@ -18,5 +18,5 @@
 
   bazarr = 6767;
 
-  homepage = 5050;
+  home = 5050;
 }

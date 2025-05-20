@@ -47,7 +47,7 @@ in
     enable = true;
     settings = {
       server = {
-        port = ports.homepage;
+        port = ports.home;
       };
       pages = [
         {
