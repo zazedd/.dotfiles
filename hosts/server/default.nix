@@ -198,7 +198,7 @@ in
   sops.secrets."firefly-api" = {
     owner = "firefly-iii";
     group = "firefly-iii";
-    mode = "774";
+    mode = "777";
   };
 
   services.firefly-iii = {
