@@ -2,6 +2,7 @@
   email,
   domain,
   ports,
+  ...
 }:
 {
   enable = true;

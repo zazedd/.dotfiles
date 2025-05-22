@@ -1,4 +1,4 @@
-{ ports, domain }:
+{ ports, domain, ... }:
 let
   mkProxy =
     name:

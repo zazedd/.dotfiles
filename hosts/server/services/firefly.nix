@@ -2,6 +2,7 @@
   config,
   email,
   domain,
+  ...
 }:
 {
   enable = true;
