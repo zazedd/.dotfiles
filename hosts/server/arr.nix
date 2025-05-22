@@ -44,6 +44,14 @@ in
   services.jellyseerr.enable = true;
   services.bazarr = mediaDefaults;
 
+  systemd.services.glance = {
+    serviceConfig = {
+      ExecStartPre = ''
+        export SABNZBD_API_KEY=$(cat ${config.sops-nix."sabnzbd-api".path})
+      '';
+    };
+  };
+
   services.glance =
     let
       mkSite = name: {
@@ -106,9 +114,7 @@ in
                     type = "custom-api";
                     title = "SABnzbd Status";
                     cache = "30s";
-                    url = "https://sabnzbd.leoms.dev/api?output=json&apikey=${
-                      builtins.readFile config.sops.secrets."sabnzbd-api".path
-                    }&mode=queue";
+                    url = "https://sabnzbd.leoms.dev/api?output=json&apikey=$SABNZBD_API_KEY&mode=queue";
                     headers = [
                       {
                         Accept = "application/json";
