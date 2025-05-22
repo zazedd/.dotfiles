@@ -47,7 +47,7 @@ in
   systemd.services.glance = {
     serviceConfig = {
       ExecStartPre = ''
-        export SABNZBD_API_KEY=$(cat ${config.sops-nix."sabnzbd-api".path})
+        export SABNZBD_API_KEY=$(cat ${config.sops.secrets."sabnzbd-api".path})
       '';
     };
   };
