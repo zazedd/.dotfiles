@@ -45,7 +45,10 @@ in
   sops.defaultSopsFile = ../../secrets/server.yaml;
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.age.generateKey = true;
-  sops.secrets."sabnzbd-api" = { };
+  sops.secrets."sabnzbd-api-env" = {
+    format = "binary";
+    owner = "glance";
+  };
 
   services.openssh = {
     enable = true;

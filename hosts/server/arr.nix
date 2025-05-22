@@ -46,9 +46,7 @@ in
 
   systemd.services.glance = {
     serviceConfig = {
-      ExecStartPre = ''
-        export SABNZBD_API_KEY=$(cat ${config.sops.secrets."sabnzbd-api".path})
-      '';
+      environmentFiles = [ config.sops.secrets."sabnzbd-api-env".path ];
     };
   };
 
@@ -114,7 +112,7 @@ in
                     type = "custom-api";
                     title = "SABnzbd Status";
                     cache = "30s";
-                    url = "https://sabnzbd.leoms.dev/api?output=json&apikey=$SABNZBD_API_KEY&mode=queue";
+                    url = "https://sabnzbd.leoms.dev/api?output=json&apikey=$SABNZBD_API&mode=queue";
                     headers = [
                       {
                         Accept = "application/json";
