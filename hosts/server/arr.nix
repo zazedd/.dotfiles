@@ -44,11 +44,7 @@ in
   services.jellyseerr.enable = true;
   services.bazarr = mediaDefaults;
 
-  systemd.services.glance = {
-    serviceConfig = {
-      environmentFiles = [ config.sops.secrets."sabnzbd-api-env".path ];
-    };
-  };
+  systemd.services.glance.serviceConfig.EnvironmentFile = config.sops.secrets."sabnzbd-api-env".path;
 
   services.glance =
     let
