@@ -202,7 +202,7 @@ in
                         };
                       };
                     };
-                    template = builtins.readFile ../../configs/glance/template_jellyfin.go;
+                    template = builtins.readFile ../../../configs/glance/template_jellyfin.go;
                   }
 
                   {
