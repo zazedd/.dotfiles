@@ -183,7 +183,6 @@ in
                     type = "custom-api";
                     frameless = true;
                     title = "jellyfin history";
-                    isCompact = true;
                     cache = "5m";
                     url = "https://jellyfin.${domain}/Users/\${JELLYFIN_USER_ID}/Items";
                     parameters = {
@@ -210,10 +209,10 @@ in
                       {{ $isSmallColumn := false }}
 
                       {{/* Set to true to use a short hand display of Series information */}}
-                      {{ $isCompact := false }}
+                      {{ $isCompact := true }}
 
                       {{/* Set to true to show thumbnails */}}
-                      {{ $showThumbnail := false }}
+                      {{ $showThumbnail := true }}
 
                       {{/* Depends on $showThumbnail */}}
                       {{/* Set to "square" to have an aspect ratio of 1 */}}
