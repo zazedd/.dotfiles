@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 
@@ -105,7 +106,9 @@ in
                     type = "custom-api";
                     title = "SABnzbd Status";
                     cache = "30s";
-                    url = "https://sabnzbd.leoms.dev/api?output=json&apikey=${builtins.readFile "/run/secrets/sabnzbd-api"}&mode=queue";
+                    url = "https://sabnzbd.leoms.dev/api?output=json&apikey=${
+                      builtins.readFile config.sops.secrets."sabnzbd-api".path
+                    }&mode=queue";
                     headers = [
                       {
                         Accept = "application/json";
