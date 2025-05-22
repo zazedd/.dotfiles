@@ -44,7 +44,8 @@ in
 
   sops.defaultSopsFile = ../../secrets/server.yaml;
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  sops.age.generateKey = true;
+  sops.age.keyFile = "/var/lib/sops-nix/keys.txt";
+  sops.age.generateKey = false;
   sops.secrets."sabnzbd-api-env" = { };
 
   services.openssh = {
