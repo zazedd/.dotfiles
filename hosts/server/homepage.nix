@@ -262,7 +262,7 @@ in
                                 {{ if $isShows }}
                                   {{ $thumbID = $item.String "SeasonId" }}
                                 {{ end }}
-                                {{ $thumbURL := concat "$\{JELLYFIN_URL}/Items/" $thumbID "/Images/Primary?api_key=$\{JELLYFIN_KEY}" }}
+                                {{ $thumbURL := concat "$${JELLYFIN_URL}/Items/" $thumbID "/Images/Primary?api_key=$${JELLYFIN_KEY}" }}
 
                                 {{ $playedAt := $item.String "UserData.LastPlayedDate" | parseRelativeTime "rfc3339" }}
                                 {{ if $timeAbsolute }}
