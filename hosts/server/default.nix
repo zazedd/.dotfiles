@@ -1,5 +1,4 @@
 {
-  agenix,
   config,
   pkgs,
   lib,
@@ -15,7 +14,6 @@ let
 in
 {
   imports = [
-    # agenix.darwinModules.default
     # ../../modules/asahi/secrets.nix
     ../../modules/server/home-manager.nix
     ../../modules/shared
@@ -43,6 +41,11 @@ in
   };
 
   time.timeZone = "Portugal";
+
+  sops.defaultSopsFile = ./secrets/server.yaml;
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  sops.age.generateKey = true;
+  sops.secrets."sabnzbd-api" = { };
 
   services.openssh = {
     enable = true;
@@ -224,12 +227,7 @@ in
   };
 
   # Load configuration that is shared across systems
-  environment.systemPackages =
-    with pkgs;
-    [
-      agenix.packages."${pkgs.system}".default
-    ]
-    ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+  environment.systemPackages = (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   networking.firewall = {
     enable = true;

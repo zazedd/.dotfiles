@@ -1,5 +1,4 @@
 {
-  agenix,
   config,
   pkgs,
   ...
@@ -12,7 +11,6 @@ in
 {
 
   imports = [
-    # agenix.darwinModules.default
     # ../../modules/asahi/secrets.nix
     ../../modules/asahi/home-manager.nix
     ../../modules/shared
@@ -145,12 +143,7 @@ in
   };
 
   # Load configuration that is shared across systems
-  environment.systemPackages =
-    with pkgs;
-    [
-      agenix.packages."${pkgs.system}".default
-    ]
-    ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+  environment.systemPackages = (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   services.tailscale.enable = true;
   programs.extra-container.enable = true;

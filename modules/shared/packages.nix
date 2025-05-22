@@ -3,6 +3,9 @@
 with pkgs;
 [
 
+  # secrets
+  sops
+
   # General packages for development and system management
   zoxide
   starship

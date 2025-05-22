@@ -1,8 +1,12 @@
 {
-  description = "Starter Configuration with secrets for MacOS and NixOS";
+  description = "a (never) good enough config";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    agenix.url = "github:ryantm/agenix";
+    # agenix.url = "github:ryantm/agenix";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager.url = "github:nix-community/home-manager";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nix-ld = {
@@ -49,15 +53,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    secrets = {
-      url = "git+ssh://git@github.com/zazedd/nix-secrets.git";
-      flake = false;
-    };
   };
   outputs =
     {
       self,
-      secrets,
       darwin,
       nix-homebrew,
       nix-ld,
@@ -73,7 +72,7 @@
       home-manager,
       nixpkgs,
       disko,
-      agenix,
+      sops-nix,
     }@inputs:
     let
       user = "zazed";
@@ -93,12 +92,9 @@
             with pkgs;
             mkShell {
               nativeBuildInputs = with pkgs; [
-                bashInteractive
                 git
-                age
-                age-plugin-yubikey
               ];
-              shellHook = with pkgs; ''
+              shellHook = ''
                 export EDITOR=vim
               '';
             };
@@ -175,7 +171,7 @@
           system = "aarch64-linux";
           specialArgs = inputs;
           modules = [
-            # nix-ld.nixosModules.nix-ld
+            sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             ./hosts/asahi
           ];
@@ -185,28 +181,9 @@
           system = "x86_64-linux";
           specialArgs = inputs;
           modules = [
+            sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             ./hosts/server
-          ];
-        };
-
-        simple-vm = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = inputs;
-          modules = [
-            {
-              virtualisation = {
-                vmVariant.virtualisation = {
-                  graphics = false;
-                  resolution = {
-                    x = 1900;
-                    y = 1200;
-                  };
-                  host.pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-                };
-              };
-            }
-            ./hosts/simple-vm
           ];
         };
       };
