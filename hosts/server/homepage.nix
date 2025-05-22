@@ -184,6 +184,7 @@ in
                     type = "custom-api";
                     frameless = true;
                     title = "jellyfin history";
+                    isCompact = true;
                     cache = "5m";
                     url = "https://jellyfin.${domain}/Users/\${JELLYFIN_USER_ID}/Items";
                     parameters = {
