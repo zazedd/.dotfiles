@@ -596,7 +596,6 @@
         "nix-ld": "nix-ld",
         "nix-minecraft": "nix-minecraft",
         "nixpkgs": "nixpkgs_6",
-        "secrets": "secrets",
         "sops-nix": "sops-nix"
       }
     },
@@ -615,22 +614,6 @@
         "ref": "nightly",
         "repo": "rust-analyzer",
         "type": "github"
-      }
-    },
-    "secrets": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1709507339,
-        "narHash": "sha256-09ZmHcFbbE3eQyvZw04v1BSj1iyWjAqtMmuLwQkFY8M=",
-        "ref": "refs/heads/main",
-        "rev": "e5766b723f87be1c6f2fbf67d85536b8d6c93e5c",
-        "revCount": 4,
-        "type": "git",
-        "url": "ssh://git@github.com/zazedd/nix-secrets.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/zazedd/nix-secrets.git"
       }
     },
     "sops-nix": {

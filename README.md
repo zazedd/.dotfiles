@@ -1,45 +1,27 @@
-# Nix Config for macOS and NixOS
+# NixOS Config for most of my systems (Asahi Linux, macOS, NixOS server)
 
 ## Overview
-This repository contains my configuration for my systems, specifically Nix on macOS, a NixOS VM, and my Gaming rig and Server in the future.
+This repository contains the configurations for my systems. Currently, an Asahi Linux + macOS nix-darwin M1 macbook, and a homelab server.
 
 ## Table of Contents
 - [Overview](#overview)
 - [Layout](#layout)
-- [Features](#features)
 - [Building and Deploying](#building-and-deploying)
   - [For macOS (Feb 2024)](#for-macos-february-2024)
     - [Build check](#1-build-check)
     - [Make changes](#2-make-changes)
   - [Other systems](#other-systems)
-    - [X86_64 machine](#x86_64-machine)
-    - [VM](#vm)
-  - [Updating Dependencies](#updating-dependencies)
-- [Compatibility and Testing](#compatibility-and-testing)
 
 ## Layout
 ```
 .
 ├── apps         # Nix commands used to bootstrap and build configuration
-├── configs      # Normal .config/ configurations I call inside of Nix
+├── configs      # Normal .config/ configurations I call inside of Nix (set as XDG_CONFIG_DIR)
 ├── hosts        # Host-specific configuration
-├── modules      # macOS and nix-darwin, NixOS, and shared configuration
-├── nix-secrets  # Secrets handling with agenix
+├── modules      # NixOS, nix-darwin, and shared configuration
+├── secrets      # Secrets handling with sops-nix
 └── overlays     # Drop an overlay file in this dir, and it runs. So far, mainly patches.
 ```
-
-## Features
-- **Nix Flakes**: 100% flake driven, no `configuration.nix`, [no Nix channels](#why-nix-flakes)─ just `flake.nix`
-- **Same Environment Everywhere**: Easily share config across Linux and macOS (both Nix and Home Manager)
-- **macOS Setup**: Fully declarative macOS w/ UI, dock and macOS App Store apps, homebrew taps, casks, and brews
-- **Simple Bootstrap**: Simple Nix commands to start from zero, both x86 and macOS platforms
-- **Managed Homebrew**: Zero maintenance homebrew environment with `nix-darwin` and `nix-homebrew`
-- **Disk Management**: Declarative disk management with `disko`, no more disk utils
-- **Secrets Management**: Declarative secrets with `agenix` for SSH, PGP, syncthing, and other tools
-- **Built In Home Manager**: `home-manager` module for seamless configuration (no extra clunky CLI steps)
-- **Declarative Sync**: No-fuss Syncthing: managed keys, certs, and configuration across all platforms
-- **Simplicity and Readability**: Optimized for simplicity and readability in all cases, not small files everywhere
-- **Backed by Continuous Integration**: Flake auto updates weekly if changes don't break starter build
 
 # Building and Deploying
 ## For macOS (March 2024)
@@ -74,26 +56,9 @@ Alter your system with this command:
 ```sh
 nix run .#build-switch
 ```
-> [!CAUTION]
-> `~/.zshrc` will be replaced with the [`zsh` configuration](https://github.com/dustinlyons/nixos-config/blob/main/templates/starter/modules/shared/home-manager.nix#L8) from this repository. Make edits here first if you'd like.
 
-## Other systems
-
-### x86_64 machine
+## Other Systems
+They work as normal NixOS systems, so for instance, for my Asahi system:
 ```sh
-nix run .#build-switch
+nixos-rebuild switch --flake .#asahi
 ```
-
-### VM
-```sh
-sudo nixos-rebuild switch --flake .#vm
-```
-## Updating dependencies
-```sh
-nix flake update
-```
-## Compatibility and Testing
-I have personally tested this configuration on an:
-- M1 Apple Silicon Mac
-- Bare metal x86_64 PC
-- aarch64 NixOS VM inside QEMU on macOS
