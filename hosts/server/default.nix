@@ -20,6 +20,7 @@ in
     ../../modules/shared/cachix
     ./hardware-configuration.nix
     ./arr.nix
+    ./homepage.nix
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
