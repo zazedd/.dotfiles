@@ -197,12 +197,12 @@ in
 
   sops.secrets."firefly-api" = {
     owner = "firefly-iii";
-    group = "firefly-iii";
+    group = "nginx";
     mode = "777";
   };
 
   services.firefly-iii = {
-    inherit user;
+    # inherit user;
     enable = true;
     enableNginx = true;
     virtualHost = "ff.${domain}";
