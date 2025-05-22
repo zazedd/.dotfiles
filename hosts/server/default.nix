@@ -47,7 +47,6 @@ in
   sops.age.generateKey = true;
   sops.secrets."sabnzbd-api-env" = {
     format = "binary";
-    owner = "glance";
   };
 
   services.openssh = {
