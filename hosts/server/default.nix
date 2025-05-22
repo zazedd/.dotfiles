@@ -46,7 +46,6 @@ in
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.age.keyFile = "/var/lib/sops-nix/keys.txt";
   sops.age.generateKey = false;
-  sops.secrets."sabnzbd-api-env" = { };
 
   services.openssh = {
     enable = true;
@@ -114,6 +113,9 @@ in
     '';
   };
 
+  sops.secrets."minecraft-rcon" = { };
+  systemd.services."minecraft-server-estupidos".serviceConfig.EnvironmentFile =
+    config.sops.secrets."minecraft-rcon".path;
   services.minecraft-servers = import ./minecraft.nix { inherit pkgs; };
 
   services.seafile = {
