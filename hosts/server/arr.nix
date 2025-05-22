@@ -108,16 +108,14 @@ in
                   }
 
                   {
-
                     type = "custom-api";
                     title = "SABnzbd Status";
                     cache = "30s";
-                    url = "https://sabnzbd.leoms.dev/api?output=json&apikey=$SABNZBD_API&mode=queue";
+                    url = "https://sabnzbd.leoms.dev/api?output=json&apikey=\${SABNZBD_API}&mode=queue";
                     headers = [
                       {
                         Accept = "application/json";
                       }
-
                     ];
                     template = ''
                       <div class="p-2">
@@ -144,7 +142,6 @@ in
                       </div>
                     '';
                   }
-
                 ];
               }
 
