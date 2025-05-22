@@ -195,6 +195,7 @@ in
         );
     };
 
+  sops.secrets."firefly-api" = { };
   services.firefly-iii = {
     inherit user;
     enable = true;
@@ -202,17 +203,18 @@ in
     virtualHost = "ff.${domain}";
     settings = {
       APP_ENV = "production";
-      APP_KEY_FILE = "/etc/firefly/api";
+      APP_KEY_FILE = config.sops.secrets."firefly-api".path;
       SITE_OWNER = email;
     };
   };
 
+  sops.secrets."cloudflare-api" = { };
   security.acme = {
     defaults = {
       inherit email;
       dnsProvider = "cloudflare";
       dnsResolver = "1.1.1.1:53";
-      environmentFile = "/etc/cloudflare/env";
+      environmentFile = config.sops.secrets."cloudflare-api".path;
       webroot = null;
     };
     acceptTerms = true;
