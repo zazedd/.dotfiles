@@ -20,7 +20,7 @@ in
     ../../modules/shared/cachix
     ./hardware-configuration.nix
     ./arr.nix
-    (import ./homepage.nix { inherit pkgs domain; })
+    (import ./homepage.nix { inherit domain; })
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
