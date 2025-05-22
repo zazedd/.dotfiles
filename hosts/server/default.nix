@@ -196,8 +196,6 @@ in
     };
 
   sops.secrets."firefly-api" = { };
-  systemd.services."firefly-iii-setup".serviceConfig.EnvironmentFile =
-    config.sops.secrets."firefly-api".path;
   services.firefly-iii = {
     inherit user;
     enable = true;
@@ -205,7 +203,7 @@ in
     virtualHost = "ff.${domain}";
     settings = {
       APP_ENV = "production";
-      APP_KEY = "\${FIREFLY_API}";
+      APP_KEY_FILE = config.sops.secrets."firefly-api".path;
       SITE_OWNER = email;
     };
   };
