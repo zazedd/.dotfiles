@@ -125,7 +125,7 @@ in
     adminEmail = email;
     initialAdminPassword = "pass";
 
-    ccnetSettings.General.SERVICE_URL = "http://cloud.${domain}";
+    ccnetSettings.General.SERVICE_URL = "https://cloud.${domain}";
     seafileSettings = {
       history.keep_days = "14";
       fileserver = {
@@ -135,7 +135,7 @@ in
     };
     seahubExtraConf = ''
       DEBUG = True
-      CSRF_TRUSTED_ORIGINS = ["http://cloud.${domain}"]
+      CSRF_TRUSTED_ORIGINS = ["https://cloud.${domain}"]
     '';
   };
 
