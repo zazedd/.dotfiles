@@ -1,6 +1,6 @@
 keys:
   - &asahi_zazed age13nkmhuwt8zcfu8d73es8z04lxep6vh29efzk7z0fmwufdsymzcvsx5kxq6
-  - &server_zazed age1hr56vj6vf2kvreucw0k4t509tas36ed73ugjc4w6p90xtk7nxc9slm234q
+  - &server_zazed age15766rhqx4547pmhh2u722skr4qdngmqap0g2sw629llt6sg9jaas527lmr
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
