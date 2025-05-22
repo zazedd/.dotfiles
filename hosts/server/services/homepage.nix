@@ -1,11 +1,9 @@
 {
   config,
   domain,
+  ports,
   ...
 }:
-let
-  ports = import ./ports.nix;
-in
 {
 
   sops.secrets."glance-env" = { };
