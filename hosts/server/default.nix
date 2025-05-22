@@ -195,9 +195,9 @@ in
         );
     };
 
-  sops.secrets."firefly-api" = { };
+  sops.secrets."firefly-api-env" = { };
   systemd.services."firefly-iii-setup".serviceConfig.EnvironmentFile =
-    config.sops.secrets."firefly-api".path;
+    config.sops.secrets."firefly-api-env".path;
   services.firefly-iii = {
     inherit user;
     enable = true;
