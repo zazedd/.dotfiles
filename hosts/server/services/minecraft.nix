@@ -7,7 +7,7 @@ let
   # DATAPACKS
   vanillatweaks = stdenv.mkDerivation {
     name = "extract-vanilla-tweaks";
-    src = ../../configs/minecraft/vanillatweaks.zip;
+    src = ../../../configs/minecraft/vanillatweaks.zip;
 
     nativeBuildInputs = [ unzip ];
 
@@ -172,16 +172,16 @@ in
       };
     };
 
-    files."config/paper-global.yml" = ../../configs/minecraft/paper-global.yml;
-    files."world/paper-world.yml" = ../../configs/minecraft/paper-world.yml;
-    files."bukkit.yml" = ../../configs/minecraft/bukkit.yml;
-    files."spigot.yml" = ../../configs/minecraft/spigot.yml;
-    files."purpur.yml" = ../../configs/minecraft/purpur.yml;
+    files."config/paper-global.yml" = ../../../configs/minecraft/paper-global.yml;
+    files."world/paper-world.yml" = ../../../configs/minecraft/paper-world.yml;
+    files."bukkit.yml" = ../../../configs/minecraft/bukkit.yml;
+    files."spigot.yml" = ../../../configs/minecraft/spigot.yml;
+    files."purpur.yml" = ../../../configs/minecraft/purpur.yml;
 
     symlinks =
       {
         "allowed_symlinks.txt" = pkgs.writeText "allowed_symlinks.txt" "/nix/store";
-        "server-icon.png" = ../../configs/minecraft/server-icon.png;
+        "server-icon.png" = ../../../configs/minecraft/server-icon.png;
 
         # plugins
         "plugins/marriage.jar" = marriage;
@@ -193,7 +193,7 @@ in
         "plugins/veinminer.jar" = veinminer;
         "plugins/wildloaders.jar" = wildloaders;
 
-        "plugins/AutoSaveWorld/config.yml" = ../../configs/minecraft/backup-config.yml;
+        "plugins/AutoSaveWorld/config.yml" = ../../../configs/minecraft/backup-config.yml;
 
         # datapacks
         "world/datapacks/infinity_mending.zip" = infinity_mending;

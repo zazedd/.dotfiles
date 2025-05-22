@@ -1,6 +1,5 @@
 {
-  pkgs,
-  config,
+  ports,
   ...
 }:
 
@@ -10,7 +9,6 @@ let
     user = "media";
     group = "media";
   };
-  ports = import ./ports.nix;
 in
 {
   users.users.media = {
