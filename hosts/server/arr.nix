@@ -108,11 +108,9 @@ in
                     title = "SABnzbd Status";
                     cache = "30s";
                     url = "https://sabnzbd.leoms.dev/api?output=json&apikey=\${SABNZBD_API}&mode=queue";
-                    headers = [
-                      {
-                        Accept = "application/json";
-                      }
-                    ];
+                    headers = {
+                      Accept = "application/json";
+                    };
                     template = ''
                       <div class="p-2">
                         <div class="flex justify-between mb-2">
