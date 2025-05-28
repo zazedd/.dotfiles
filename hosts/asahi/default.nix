@@ -11,8 +11,7 @@ in
 {
 
   imports = [
-    # ../../modules/asahi/secrets.nix
-    ../../modules/asahi/home-manager.nix
+    ../../modules/dev/home-manager.nix
     ../../modules/shared
     ../../modules/shared/cachix
     ./hardware-configuration.nix

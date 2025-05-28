@@ -59,6 +59,7 @@ in
       {
         position = "top";
         command = "${pkgs.waybar}/bin/waybar";
+        mode = "hide";
       }
     ];
     gaps = {

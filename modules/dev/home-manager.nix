@@ -1,10 +1,7 @@
 {
   config,
   pkgs,
-  lib,
   neovim-nightly-overlay,
-  fenix,
-  home-manager,
   ...
 }@inputs:
 

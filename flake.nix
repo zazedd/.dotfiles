@@ -2,27 +2,23 @@
   description = "a (never) good enough config";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # agenix.url = "github:ryantm/agenix";
+    home-manager.url = "github:nix-community/home-manager";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nix-minecraft.url = "github:zazedd/nix-minecraft";
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager.url = "github:nix-community/home-manager";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nix-ld = {
       url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    fenix = {
-      url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
     };
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
@@ -48,7 +44,6 @@
       url = "github:koekeishiya/homebrew-formulae";
       flake = false;
     };
-    nix-minecraft.url = "github:zazedd/nix-minecraft";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,9 +54,9 @@
       self,
       darwin,
       nix-homebrew,
+      nixos-hardware,
       nix-ld,
       neovim-nightly-overlay,
-      fenix,
       homebrew-bundle,
       homebrew-core,
       homebrew-cask,
@@ -127,11 +122,6 @@
       };
     in
     {
-      packages.aarch64-darwin = {
-        default = fenix.packages.aarch64-linux.default.toolchain;
-        simple-vm = self.nixosConfigurations.simple-vm.config.system.build.vm;
-      };
-
       devShells = forAllSystems devShell;
       apps =
         nixpkgs.lib.genAttrs linuxSystems mkLinuxApps
@@ -174,6 +164,17 @@
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             ./hosts/asahi
+          ];
+        };
+
+        lenovo = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = inputs;
+          modules = [
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager
+            nixos-hardware.nixosModules.lenovo-legion-16ach6h-nvidia
+            ./hosts/lenovo
           ];
         };
 
