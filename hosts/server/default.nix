@@ -113,6 +113,8 @@ in
 
   services.nginx = import ./services/nginx.nix { inherit ports domain; };
 
+  services.factorio = import ./services/factorio.nix { inherit pkgs; };
+
   ## Rest
   environment.systemPackages = import ../../modules/shared/packages.nix { inherit pkgs; };
 
@@ -121,6 +123,7 @@ in
     trustedInterfaces = [ "tailscale0" ];
     allowedUDPPorts = [
       config.services.tailscale.port
+      34197 # factorio
     ];
     allowedTCPPorts = [
       8082

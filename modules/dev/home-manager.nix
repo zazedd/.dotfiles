@@ -55,7 +55,7 @@ in
           sessionVariables = {
             MOZ_ENABLE_WAYLAND = 1;
             XDG_CURRENT_DESKTOP = "sway";
-            XDG_CONFIG_HOME = "${xdg_home}/.dotfiles/configs";
+            # XDG_CONFIG_HOME = "${xdg_home}/.dotfiles/configs";
           };
 
           pointerCursor = {
