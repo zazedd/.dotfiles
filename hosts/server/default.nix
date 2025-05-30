@@ -11,7 +11,7 @@ let
   email = "leomendesantos@gmail.com";
   domain = "leoms.dev";
   ports = import ./ports.nix;
-  my_nixpkgs = import my_nixpkgs {
+  my_pkgs = import my_nixpkgs {
     system = "x86_64-linux";
     config.allowUnfree = true;
   };
@@ -124,7 +124,7 @@ in
 
   services.nginx = import ./services/nginx.nix { inherit ports domain; };
 
-  services.factorio = import ./services/factorio.nix { inherit my_nixpkgs; };
+  services.factorio = import ./services/factorio.nix { inherit my_pkgs; };
 
   ## Rest
   environment.systemPackages = import ../../modules/shared/packages.nix { inherit pkgs; };
