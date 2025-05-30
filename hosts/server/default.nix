@@ -11,6 +11,10 @@ let
   email = "leomendesantos@gmail.com";
   domain = "leoms.dev";
   ports = import ./ports.nix;
+  my_nixpkgs = import my_nixpkgs {
+    system = "x86_64-linux";
+    config.allowUnfree = true;
+  };
 in
 {
   imports = [
