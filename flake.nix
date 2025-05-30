@@ -2,6 +2,7 @@
   description = "a (never) good enough config";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    my_nixpkgs.url = "github:zazedd/nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -66,6 +67,7 @@
       koek,
       home-manager,
       nixpkgs,
+      my_nixpkgs,
       disko,
       sops-nix,
     }@inputs:

@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  my_nixpkgs,
   lib,
   ...
 }@inputs:
@@ -113,7 +114,7 @@ in
 
   services.nginx = import ./services/nginx.nix { inherit ports domain; };
 
-  services.factorio = import ./services/factorio.nix { inherit pkgs; };
+  services.factorio = import ./services/factorio.nix { inherit my_nixpkgs; };
 
   ## Rest
   environment.systemPackages = import ../../modules/shared/packages.nix { inherit pkgs; };

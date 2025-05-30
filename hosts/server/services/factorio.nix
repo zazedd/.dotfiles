@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ my_nixpkgs, ... }:
 {
   enable = true;
   admins = [ ];
@@ -6,4 +6,5 @@
   game-name = "idiots";
   lan = true;
   port = 34197;
+  package = my_nixpkgs.factorio-headless;
 }
