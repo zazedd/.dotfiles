@@ -69,7 +69,32 @@ in
         };
         programs =
           {
-            bemenu.enable = true;
+            bemenu = {
+              enable = true;
+              # settings = {
+              #   "ignore-case" = true;
+              #   "center" = true;
+              #   "counter" = "always";
+              #   "line-height" = 25;
+              #   "list" = 10;
+              #   "fixed-height" = true;
+              #   "width-factor" = 0.3;
+              #   "border" = 1;
+              #   "fn" = "Iosevka Nerd Font 15";
+              #   fb = "#181818";
+              #   ff = "#ebdbb2";
+              #   nb = "#181818";
+              #   nf = "#ebdbb2";
+              #   tb = "#181818";
+              #   hb = "#181818";
+              #   tf = "#fb4934";
+              #   hf = "#fabd2f";
+              #   af = "#ebdbb2";
+              #   ab = "#181818";
+              #   bdr = "#ebdbb2";
+              # };
+            };
+
             nnn.enable = true;
             waybar.enable = true;
 
@@ -79,6 +104,7 @@ in
             };
 
             tmux = import ./tmux.nix { inherit pkgs; };
+            qutebrowser = import ./qute.nix { inherit pkgs; };
           }
           // import ../shared/home-manager.nix {
             inherit

@@ -7,6 +7,7 @@
 let
   opt = "Mod1";
   cmd = "Mod4";
+  bemenu_opts = "-i -c --counter always -H 2 -l 10 --fixed-height -W 0.3 -B 1 --fn 'Iosevka Nerd Font 15' --fb \"#181818\" --ff \"#ebdbb2\" --nb \"#181818\" --nf \"#ebdbb2\" --tb \"#181818\" --hb \"#181818\" --tf \"#fb4934\" --hf \"#fabd2f\" --nf \"#ebdbb2\" --af \"#ebdbb2\" --ab \"#181818\" --bdr \"#ebdbb2\"";
 in
 {
   enable = true;
@@ -26,7 +27,7 @@ in
     keybindings = lib.mkOptionDefault {
       "${opt}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
       "${opt}+Shift+q" = "kill";
-      "${opt}+d" = "exec ${pkgs.bemenu}/bin/bemenu-run";
+      "${opt}+d" = "exec ${pkgs.bemenu}/bin/bemenu-run ${bemenu_opts}";
       "${opt}+Shift+s" =
         "exec '${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -d)\" - | ${pkgs.wl-clipboard}/bin/wl-copy'";
       "${opt}+space" = "floating toggle";
