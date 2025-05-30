@@ -25,7 +25,12 @@ in
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
-  nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+    overlays = [ inputs.nix-minecraft.overlay ];
+  };
 
   nix = {
     settings.trusted-users = [
