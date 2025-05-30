@@ -114,6 +114,7 @@ in
 
   services.nginx = import ./services/nginx.nix { inherit ports domain; };
 
+  my_nixpkgs.config.allowUnfree = true;
   services.factorio = import ./services/factorio.nix { inherit my_nixpkgs; };
 
   ## Rest
