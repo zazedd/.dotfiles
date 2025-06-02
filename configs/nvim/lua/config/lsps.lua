@@ -26,3 +26,4 @@ lsp.coq_lsp.setup({
 
 lsp.nixd.setup({})
 lsp.clangd.setup({})
+lsp.pyright.setup({})
