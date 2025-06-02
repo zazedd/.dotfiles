@@ -15,10 +15,23 @@ in
     ../../modules/shared/cachix
 
     ../../modules/shared/default.nix
+    ./hardware-configuration.nix
   ];
 
+  boot.loader = {
+    systemd-boot.enable = false;
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+      useOSProber = true;
+    };
+    efi.canTouchEfiVariables = true;
+  };
+  boot.supportedFilesystems = [ "ntfs" ];
+
   networking = {
-    hostName = "shitmachine"; # Define your hostname.
+    hostName = "shitmachine";
     wireless.iwd = {
       enable = true;
       settings.General.EnableNetworkConfiguration = true;
@@ -32,15 +45,18 @@ in
 
   time.timeZone = "Portugal";
 
-  hardware = {
-    graphics = {
-      enable = true;
-    };
+  hardware.graphics.enable = true;
 
-    opengl = {
-      enable = true;
-      nvidia = true;
-    };
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false;
+    nvidiaSettings = true;
+
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw

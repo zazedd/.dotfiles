@@ -18,7 +18,7 @@ in
     autosuggestion.enable = true;
     enableCompletion = true;
     shellAliases = {
-      v = "nvim";
+      v = "XDG_CONFIG_HOME='/home/${user}/.dotfiles/configs' nvim"; # set XDG_CONFIG_HOME here to update lock file correctly when updating
       t = "tmux new-session \; send-keys \"nvim\" C-m \; neww \; split-window -v \; selectp -t 1  \; selectw -t 1";
 
       # sudo alias hack
@@ -33,7 +33,7 @@ in
       l = "eza -l";
       la = "eza -la";
       ip = "ip --color=auto";
-      sw = "sway --config ~/.config/sway/config";
+      sw = "sway --config /home/${user}/.config/sway/config";
       du = "dua";
 
       gs = "git status";
@@ -94,7 +94,7 @@ in
         };
       }
     ];
-    initExtraFirst = builtins.readFile ../../configs/zsh/.zshrc;
+    initContent = lib.mkOrder 1500 (builtins.readFile ../../configs/zsh/.zshrc);
   };
 
   git = {
@@ -106,7 +106,7 @@ in
       enable = true;
     };
     extraConfig = {
-      commit.gpgsign = true;
+      commit.gpgsign = false; # for now
 
       init.defaultBranch = "main";
       core = {

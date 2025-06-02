@@ -2,6 +2,7 @@
   pkgs,
   lib,
   user,
+  external_monitor,
   ...
 }:
 let
@@ -70,11 +71,24 @@ in
       titlebar = false;
       hideEdgeBorders = "both";
     };
-    output = {
-      eDP-1 = {
-        scale = "1";
-        bg = "/home/${user}/Documents/walls/hasui.jpg fill";
-      };
-    };
+    output =
+      if external_monitor then
+        {
+          eDP-1 = {
+            disable = "";
+          };
+          HDMI-A-1 = {
+            scale = "1";
+            bg = "/home/${user}/Documents/walls/hasui.jpg fill";
+            resolution = "3840x2160@119.880Hz";
+          };
+        }
+      else
+        {
+          eDP-1 = {
+            scale = "1";
+            bg = "/home/${user}/Documents/walls/hasui.jpg fill";
+          };
+        };
   };
 }

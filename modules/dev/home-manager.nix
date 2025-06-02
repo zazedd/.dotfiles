@@ -2,6 +2,7 @@
   config,
   pkgs,
   neovim-nightly-overlay,
+  external_monitor,
   ...
 }@inputs:
 
@@ -65,7 +66,7 @@ in
             size = 24;
           };
 
-          stateVersion = "24.05";
+          stateVersion = "25.05";
         };
         programs =
           {
@@ -120,7 +121,14 @@ in
           recursive = true;
         };
 
-        wayland.windowManager.sway = import ./sway.nix { inherit pkgs user lib; };
+        wayland.windowManager.sway = import ./sway.nix {
+          inherit
+            pkgs
+            user
+            lib
+            external_monitor
+            ;
+        };
       };
   };
 }

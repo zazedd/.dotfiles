@@ -161,7 +161,9 @@
       nixosConfigurations = {
         asahi = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = inputs;
+          specialArgs = inputs // {
+            external_monitor = false;
+          };
           modules = [
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
@@ -171,7 +173,9 @@
 
         lenovo = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = inputs;
+          specialArgs = inputs // {
+            external_monitor = true;
+          };
           modules = [
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
