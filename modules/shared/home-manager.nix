@@ -3,6 +3,7 @@
   pkgs,
   lib,
   gpgid,
+  nvidia,
   ...
 }:
 
@@ -10,6 +11,7 @@ let
   name = "zazed";
   user = "zazed";
   email = "leomendesantos@gmail.com";
+  extra_sway = if nvidia then "--unsupported-gpu" else "";
 in
 {
   # Shared shell configuration
@@ -34,7 +36,7 @@ in
       l = "eza -l";
       la = "eza -la";
       ip = "ip --color=auto";
-      sw = "sway --config /home/${user}/.config/sway/config";
+      sw = "sway --config /home/${user}/.config/sway/config ${extra_sway}";
       du = "dua";
 
       gs = "git status";

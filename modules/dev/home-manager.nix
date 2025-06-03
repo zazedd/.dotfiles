@@ -2,8 +2,9 @@
   config,
   pkgs,
   neovim-nightly-overlay,
-  external_monitor,
+  external_monitor ? false,
   gpgid ? null,
+  nvidia ? false,
   ...
 }@inputs:
 
@@ -115,6 +116,7 @@ in
               lib
               neovim-nightly-overlay
               gpgid
+              nvidia
               ;
           };
 

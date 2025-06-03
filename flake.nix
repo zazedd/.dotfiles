@@ -161,9 +161,7 @@
       nixosConfigurations = {
         asahi = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = inputs // {
-            external_monitor = false;
-          };
+          specialArgs = inputs;
           modules = [
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
@@ -176,6 +174,7 @@
           specialArgs = inputs // {
             external_monitor = true;
             gpgid = "926022701E23A171";
+            nvidia = true;
           };
           modules = [
             sops-nix.nixosModules.sops
