@@ -2,7 +2,7 @@
   config,
   pkgs,
   lib,
-  gpgid ? null,
+  gpgid,
   ...
 }:
 

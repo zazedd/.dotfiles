@@ -3,6 +3,7 @@
   pkgs,
   neovim-nightly-overlay,
   external_monitor,
+  gpgid ? null,
   ...
 }@inputs:
 
@@ -113,8 +114,17 @@ in
               pkgs
               lib
               neovim-nightly-overlay
+              gpgid
               ;
           };
+
+        services.gpg-agent = {
+          enable = true;
+          pinentry = {
+            package = pkgs.pinentry;
+            program = "pinentry-curses";
+          };
+        };
 
         xdg.configFile.nvim = {
           source = ../../configs/nvim;
