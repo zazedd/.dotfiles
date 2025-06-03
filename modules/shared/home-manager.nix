@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  gpgid ? null,
   ...
 }:
 
@@ -102,11 +103,17 @@ in
     ignores = [ "*.swp" ];
     userName = "zazedd";
     userEmail = email;
+
+    signing = {
+      format = "openpgp";
+      key = gpgid;
+    };
+
     lfs = {
       enable = true;
     };
     extraConfig = {
-      commit.gpgsign = false; # for now
+      commit.gpgsign = gpgid != null;
 
       init.defaultBranch = "main";
       core = {

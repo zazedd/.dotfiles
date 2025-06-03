@@ -13,6 +13,7 @@ shared-packages
   deluge
   mpv
   usbutils
+  pinentry
 
   # programming
   alacritty

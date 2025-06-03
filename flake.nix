@@ -175,6 +175,7 @@
           system = "x86_64-linux";
           specialArgs = inputs // {
             external_monitor = true;
+            gpgid = "926022701E23A171";
           };
           modules = [
             sops-nix.nixosModules.sops
