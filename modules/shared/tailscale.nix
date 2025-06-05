@@ -35,7 +35,6 @@
       fi
 
       # otherwise authenticate with tailscale
-      # ( this key is a one time key, and it has expired :) )
       ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale.path})"
     '';
   };
