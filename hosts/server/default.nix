@@ -23,7 +23,6 @@ in
     ./hardware-configuration.nix
 
     ../../modules/server/home-manager.nix
-    ./services/tailscale.nix
     (import ./services/arr.nix { inherit ports; })
     (import ./services/homepage.nix { inherit config domain ports; })
     inputs.nix-minecraft.nixosModules.minecraft-servers

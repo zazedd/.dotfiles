@@ -1,6 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   services.tailscale.enable = true;
+
+  sops.secrets.tailscale = {
+    sopsFile = ../../secrets/conn.yaml;
+  };
 
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
@@ -32,7 +36,7 @@
 
       # otherwise authenticate with tailscale
       # ( this key is a one time key, and it has expired :) )
-      ${tailscale}/bin/tailscale up -authkey tskey-auth-kkKFmMyGGE11CNTRL-SpP3kvAjJwdP7iQ2Qyd4wdKqqQXjMWGZW
+      ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale.path})"
     '';
   };
 

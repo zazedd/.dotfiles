@@ -30,6 +30,8 @@ in
   };
   boot.supportedFilesystems = [ "ntfs" ];
 
+  programs.nix-ld.enable = true;
+
   networking = {
     hostName = "shitmachine";
     wireless.iwd = {

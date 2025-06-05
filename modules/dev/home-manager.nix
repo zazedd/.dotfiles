@@ -36,6 +36,9 @@ in
     package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
   };
 
+  # setup sops
+  sops.age.keyFile = "${xdg_home}/.config/sops/age/keys.txt";
+
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
@@ -99,13 +102,12 @@ in
             };
 
             nnn.enable = true;
-            waybar.enable = true;
-
             opam = {
               enable = true;
               enableZshIntegration = true;
             };
 
+            waybar = import ./waybar.nix { inherit external_monitor; };
             tmux = import ./tmux.nix { inherit pkgs; };
             qutebrowser = import ./qute.nix { inherit pkgs; };
           }

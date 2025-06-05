@@ -24,6 +24,6 @@ let
 in
 mk [
   "/alacritty/alacritty.toml"
-  "/waybar/config"
-  "/waybar/style.css"
+  # "/waybar/config"
+  # "/waybar/style.css"
 ]

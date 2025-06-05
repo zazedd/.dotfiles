@@ -78,7 +78,7 @@ in
             disable = "";
           };
           HDMI-A-1 = {
-            scale = "1";
+            scale = "1.25";
             bg = "/home/${user}/Documents/walls/hasui.jpg fill";
             resolution = "3840x2160@119.880Hz";
           };
