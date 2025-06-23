@@ -14,6 +14,7 @@ shared-packages
   mpv
   usbutils
   pinentry
+  wireguard-tools
 
   # programming
   alacritty
@@ -38,6 +39,9 @@ shared-packages
   ## gaming
   prismlauncher
   moonlight-qt
+
+  ## entertainment
+  jellyfin-media-player
 
   ## others
   libsForQt5.qt5.qtwayland

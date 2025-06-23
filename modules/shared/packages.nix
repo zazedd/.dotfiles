@@ -7,6 +7,7 @@ with pkgs;
   sops
 
   # General packages for development and system management
+  nh
   zoxide
   starship
   bash-completion

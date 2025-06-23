@@ -9,6 +9,10 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     nix-minecraft.url = "github:zazedd/nix-minecraft";
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -70,6 +74,7 @@
       my_nixpkgs,
       disko,
       sops-nix,
+      lanzaboote,
     }@inputs:
     let
       user = "zazed";
@@ -180,6 +185,7 @@
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.lenovo-legion-16ach6h-nvidia
+            lanzaboote.nixosModules.lanzaboote
             ./hosts/lenovo
           ];
         };

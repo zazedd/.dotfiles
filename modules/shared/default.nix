@@ -2,11 +2,19 @@
 
 let
   # emacsOverlaySha256 = "06413w510jmld20i4lik9b36cfafm501864yq8k4vxl5r4hn0j0h";
+  user = "zazed";
 in
 {
   imports = [
     ./tailscale.nix
   ];
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 15d --keep 10";
+    flake = "/home/${user}/.dotfiles";
+  };
 
   nixpkgs = {
     config = {

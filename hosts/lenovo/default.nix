@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }@inputs:
 
@@ -19,14 +20,21 @@ in
   ];
 
   boot.loader = {
-    systemd-boot.enable = false;
+    # systemd-boot.enable = false;
     grub = {
-      enable = true;
+      enable = false;
       device = "nodev";
       efiSupport = true;
       useOSProber = true;
     };
-    efi.canTouchEfiVariables = true;
+    # efi.canTouchEfiVariables = true;
+  };
+
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
   };
   boot.supportedFilesystems = [ "ntfs" ];
 
@@ -38,6 +46,8 @@ in
       enable = true;
       settings.General.EnableNetworkConfiguration = true;
     };
+
+    wireguard.enable = true;
 
     networkmanager.enable = true;
     networkmanager.wifi.backend = "iwd";
@@ -106,7 +116,9 @@ in
   };
 
   # Load configuration that is shared across systems
-  environment.systemPackages = (import ../../modules/shared/packages.nix { inherit pkgs; });
+  environment.systemPackages = [
+    pkgs.sbctl
+  ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   fonts = {
     fontDir.enable = true;
