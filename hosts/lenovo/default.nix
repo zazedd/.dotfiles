@@ -30,12 +30,14 @@ in
     # efi.canTouchEfiVariables = true;
   };
 
-  boot.loader.systemd-boot.enable = lib.mkForce false;
+  # boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.loader.systemd-boot.enable = true;
 
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/var/lib/sbctl";
-  };
+  # boot.lanzaboote = {
+  #   enable = true;
+  #   pkiBundle = "/var/lib/sbctl";
+  # };
+
   boot.supportedFilesystems = [ "ntfs" ];
 
   programs.nix-ld.enable = true;
