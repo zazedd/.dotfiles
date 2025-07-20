@@ -32,11 +32,13 @@ in
       "${opt}+Shift+s" =
         "exec '${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp -d)\" - | ${pkgs.wl-clipboard}/bin/wl-copy'";
       "${opt}+space" = "floating toggle";
+      "${cmd}+0" = "input type:keyboard xkb_switch_layout next";
 
       # mac style copying
       "${cmd}+x" = "exec ${pkgs.wtype}/bin/wtype -P XF86Cut";
       "${cmd}+c" = "exec ${pkgs.wtype}/bin/wtype -P XF86Copy";
       "${cmd}+v" = "exec ${pkgs.wtype}/bin/wtype -P XF86Paste";
+
     };
     fonts = {
       names = [ "Iosevka" ];
@@ -55,6 +57,7 @@ in
       };
       "type:keyboard" = {
         repeat_delay = "350";
+        xkb_layout = "us,pt";
       };
     };
     bars = [

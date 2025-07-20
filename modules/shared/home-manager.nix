@@ -162,7 +162,36 @@ in
       (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
         IdentityFile /Users/${user}/.ssh/id_github
       '')
+
+      ''
+        Host git.ahrefs.dev
+          Hostname git.ahrefs.dev
+          IdentitiesOnly yes
+      ''
+      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
+        IdentityFile /home/${user}/.ssh/id_github
+      '')
+      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
+        IdentityFile /Users/${user}/.ssh/id_github
+      '')
+
+      ''
+        Match all
+          Include ~/.ssh/hop
+          Include ~/.ssh/ahrefs/config
+      ''
+
+      ''
+        Host nspawn
+          Include ~/.ssh/ahrefs/per-user/spawnbox-devbox-uk-leonardosantos
+      ''
+      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
+        IdentityFile /home/${user}/.ssh/id_github
+      '')
+      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
+        IdentityFile /Users/${user}/.ssh/id_github
+      '')
+
     ];
   };
-
 }

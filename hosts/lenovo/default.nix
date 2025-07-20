@@ -27,16 +27,19 @@ in
       efiSupport = true;
       useOSProber = true;
     };
-    # efi.canTouchEfiVariables = true;
+    systemd-boot = {
+      enable = lib.mkForce false;
+      edk2-uefi-shell.enable = true;
+      edk2-uefi-shell.sortKey = "z_edk2";
+    };
+    efi.canTouchEfiVariables = true;
+
   };
 
-  # boot.loader.systemd-boot.enable = lib.mkForce false;
-  boot.loader.systemd-boot.enable = true;
-
-  # boot.lanzaboote = {
-  #   enable = true;
-  #   pkiBundle = "/var/lib/sbctl";
-  # };
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+  };
 
   boot.supportedFilesystems = [ "ntfs" ];
 
