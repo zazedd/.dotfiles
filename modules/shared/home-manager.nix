@@ -2,8 +2,8 @@
   config,
   pkgs,
   lib,
-  gpgid,
-  nvidia,
+  gpgid ? null,
+  nvidia ? false,
   ...
 }:
 
