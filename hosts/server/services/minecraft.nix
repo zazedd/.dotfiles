@@ -153,6 +153,7 @@ in
       "rcon.port" = "42068";
       "rcon.password" = "\${MINECRAFT_RCON}";
       level-seed = "199";
+      spawn-protection = "0";
       enable-command-block = "true";
     };
 
