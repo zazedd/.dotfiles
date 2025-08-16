@@ -92,8 +92,6 @@ in
   security.acme = {
     defaults = {
       inherit email;
-      dnsProvider = "cloudflare";
-      dnsResolver = "1.1.1.1:53";
       environmentFile = config.sops.secrets."cloudflare-api".path;
       webroot = null;
     };
@@ -102,6 +100,8 @@ in
       "ff.${domain}" = {
         domain = "*.${domain}";
         group = "nginx";
+        dnsProvider = "cloudflare";
+        dnsResolver = "1.1.1.1:53";
       };
     };
   };

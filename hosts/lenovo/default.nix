@@ -44,6 +44,7 @@ in
   boot.supportedFilesystems = [ "ntfs" ];
 
   programs.nix-ld.enable = true;
+  programs.steam.enable = true;
 
   networking = {
     hostName = "shitmachine";
