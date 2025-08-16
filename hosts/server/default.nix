@@ -90,18 +90,16 @@ in
 
   sops.secrets."cloudflare-api" = { };
   security.acme = {
-    defaults = {
-      inherit email;
-      environmentFile = config.sops.secrets."cloudflare-api".path;
-      webroot = null;
-    };
     acceptTerms = true;
     certs = {
       "ff.${domain}" = {
+        inherit email;
         domain = "*.${domain}";
         group = "nginx";
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
+        environmentFile = config.sops.secrets."cloudflare-api".path;
+        webroot = null;
       };
     };
   };
