@@ -41,6 +41,57 @@
     ];
   };
 
+  fileSystems."/data/cloud" = {
+    device = "/dev/disk/by-uuid/410b5157-eb9c-43db-a2ab-226d5514b9f0";
+    fsType = "btrfs";
+    options = [ "compress=zstd" ];
+  };
+
+  fileSystems."/backup" = {
+    device = "/dev/disk/by-uuid/8fb3f49e-f849-43e1-9f61-2e1c8ffc181b";
+    fsType = "btrfs";
+    options = [ "compress=zstd" ];
+  };
+
+  fileSystems."/data/media" = {
+    device = "/dev/disk/by-uuid/458055bd-0927-486b-92d9-4f52739e8abb";
+    fsType = "ext4";
+  };
+
+  systemd.services."backup-cloud" = {
+    description = "rsync backup of /data/cloud to /backup/cloud";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.rsync}/bin/rsync -a --delete /data/cloud/ /backup/cloud/";
+    };
+  };
+
+  systemd.timers."backup-cloud" = {
+    description = "run backup-cloud daily";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+    };
+  };
+
+  systemd.services."backup-minecraft" = {
+    description = "rsync backup of /srv/minecraft/estupidos/backups to /backup/minecraft";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.rsync}/bin/rsync -a --delete /srv/minecraft/estupidos/backups/ /backup/minecraft/";
+    };
+  };
+
+  systemd.timers."backup-minecraft" = {
+    description = "run backup-minecraft daily";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+    };
+  };
+
   swapDevices = [
     { device = "/dev/disk/by-label/swap"; }
   ];
