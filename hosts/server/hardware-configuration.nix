@@ -9,6 +9,11 @@
   ...
 }:
 
+let
+  data_disk_uuid = "410b5157-eb9c-43db-a2ab-226d5514b9f0";
+  backup_disk_uuid = "8fb3f49e-f849-43e1-9f61-2e1c8ffc181b";
+  media_disk_uuid = "458055bd-0927-486b-92d9-4f52739e8abb";
+in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -42,20 +47,33 @@
   };
 
   fileSystems."/data/cloud" = {
-    device = "/dev/disk/by-uuid/410b5157-eb9c-43db-a2ab-226d5514b9f0";
+    device = "/dev/disk/by-label/cloud";
     fsType = "btrfs";
     options = [ "compress=zstd" ];
   };
 
   fileSystems."/backup" = {
-    device = "/dev/disk/by-uuid/8fb3f49e-f849-43e1-9f61-2e1c8ffc181b";
+    device = "/dev/disk/by-label/backup";
     fsType = "btrfs";
     options = [ "compress=zstd" ];
   };
 
   fileSystems."/data/media" = {
-    device = "/dev/disk/by-uuid/458055bd-0927-486b-92d9-4f52739e8abb";
+    device = "/dev/disk/by-label/media";
     fsType = "ext4";
+  };
+
+  # Systemd services relating to disks
+
+  systemd.services.hd-idle = {
+    description = "external HDD spin down daemon";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "forking";
+      ExecStart = ''
+        ${pkgs.hd-idle}/bin/hd-idle -i 0 -a /dev/disk/by-label/cloud -a /dev/disk/by-label/backup -a /dev/disk/by-label/media -i 600
+      '';
+    };
   };
 
   systemd.services."backup-cloud" = {
