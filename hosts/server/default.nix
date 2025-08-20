@@ -25,6 +25,7 @@ in
     ../../modules/server/home-manager.nix
     (import ./services/arr.nix { inherit ports; })
     (import ./services/homepage.nix { inherit config domain ports; })
+    (import ./services/immich.nix { inherit config ports; })
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 

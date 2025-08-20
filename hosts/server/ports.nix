@@ -2,6 +2,9 @@
   seafile = 8082;
   seafile_webdav = 8083;
 
+  immich = 2283;
+  photos = 2283;
+
   jellyfin = 8096;
   watch = 8096;
 
