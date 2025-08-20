@@ -69,11 +69,13 @@ in
     description = "external HDD spin down daemon";
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      Type = "forking";
+      Type = "simple";
       ExecStart = ''
-        ${pkgs.hd-idle}/bin/hd-idle -i 0 -a /dev/disk/by-label/cloud -i 600
-        ${pkgs.hd-idle}/bin/hd-idle -i 0 -a /dev/disk/by-label/backup -i 600
-        ${pkgs.hd-idle}/bin/hd-idle -i 0 -a /dev/disk/by-label/media -i 600
+        ${pkgs.hd-idle}/bin/hd-idle \
+          -i 0 \
+          -a /dev/disk/by-label/cloud -i 600 \
+          -a /dev/disk/by-label/backup -i 600 \
+          -a /dev/disk/by-label/media -i 600
       '';
     };
   };
