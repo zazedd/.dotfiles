@@ -23,9 +23,9 @@ in
     ./hardware-configuration.nix
 
     ../../modules/server/home-manager.nix
+    ../../modules/services/dufs.nix
     (import ./services/arr.nix { inherit ports; })
     (import ./services/homepage.nix { inherit config domain ports; })
-    (import ./services/immich.nix { inherit config ports; })
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
@@ -105,6 +105,10 @@ in
     };
   };
 
+  services.nginx = import ./services/nginx.nix { inherit ports domain; };
+
+  services.factorio = import ./services/factorio.nix { inherit my_pkgs; };
+
   sops.secrets."minecraft-rcon" = { };
   systemd.services."minecraft-server-estupidos" = {
     serviceConfig.EnvironmentFile = config.sops.secrets."minecraft-rcon".path;
@@ -118,11 +122,14 @@ in
   };
   services.firefly-iii = import ./services/firefly.nix { inherit config email domain; };
 
-  services.seafile = import ./services/seafile.nix { inherit email domain ports; };
+  users.groups.cloud = { };
+  # services.seafile = import ./services/seafile.nix { inherit email domain ports; };
 
-  services.nginx = import ./services/nginx.nix { inherit ports domain; };
+  sops.secrets."dufs-env" = { };
+  services.dufs = import ./services/dufs.nix { inherit config ports; };
 
-  services.factorio = import ./services/factorio.nix { inherit my_pkgs; };
+  sops.secrets."immich-secrets" = { };
+  services.immich = import ./services/immich.nix { inherit config ports; };
 
   ## Rest
   environment.systemPackages = import ../../modules/shared/packages.nix { inherit pkgs; };
@@ -136,6 +143,7 @@ in
     ];
     allowedTCPPorts = [
       8082
+      5005
       42069 # minecraft
       42068 # rcon minecraft
     ];

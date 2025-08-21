@@ -14,7 +14,6 @@ let
         locations."/" = {
           proxyPass = "http://127.0.0.1:${port}/";
           proxyWebsockets = true;
-          recommendedProxySettings = true;
           extraConfig = ''
             client_max_body_size 50000M;
             proxy_read_timeout   600s;
@@ -31,36 +30,36 @@ in
   recommendedTlsSettings = true;
   virtualHosts =
     {
-      "cloud.${domain}" = {
-        forceSSL = true;
-        # enableACME = true;
-        sslCertificate = "/var/lib/acme/ff.${domain}/fullchain.pem";
-        sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
-        locations = {
-          "/" = {
-            proxyPass = "http://unix:/run/seahub/gunicorn.sock";
-            extraConfig = ''
-              proxy_set_header   X-Real-IP $remote_addr;
-              proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_set_header   X-Forwarded-Host $server_name;
-              proxy_read_timeout  1200s;
-              client_max_body_size 0;
-            '';
-          };
-          "/seafhttp" = {
-            proxyPass = "http://127.0.0.1:8082/";
-            extraConfig = ''
-              rewrite ^/seafhttp(.*)$ $1 break;
-              client_max_body_size 0;
-              proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_connect_timeout  36000s;
-              proxy_read_timeout  36000s;
-              proxy_send_timeout  36000s;
-              send_timeout  36000s;
-            '';
-          };
-        };
-      };
+      # "cloud.${domain}" = {
+      #   forceSSL = true;
+      #   # enableACME = true;
+      #   sslCertificate = "/var/lib/acme/ff.${domain}/fullchain.pem";
+      #   sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
+      #   locations = {
+      #     "/" = {
+      #       proxyPass = "http://unix:/run/seahub/gunicorn.sock";
+      #       extraConfig = ''
+      #         proxy_set_header   X-Real-IP $remote_addr;
+      #         proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+      #         proxy_set_header   X-Forwarded-Host $server_name;
+      #         proxy_read_timeout  1200s;
+      #         client_max_body_size 0;
+      #       '';
+      #     };
+      #     "/seafhttp" = {
+      #       proxyPass = "http://127.0.0.1:8082/";
+      #       extraConfig = ''
+      #         rewrite ^/seafhttp(.*)$ $1 break;
+      #         client_max_body_size 0;
+      #         proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+      #         proxy_connect_timeout  36000s;
+      #         proxy_read_timeout  36000s;
+      #         proxy_send_timeout  36000s;
+      #         send_timeout  36000s;
+      #       '';
+      #     };
+      #   };
+      # };
 
       "ff.${domain}" = {
         forceSSL = true;
@@ -72,17 +71,19 @@ in
         "radarr"
         "sonarr"
         "prowlarr"
+        "bazarr"
+        "home"
         "deluge"
         "sabnzbd"
         "flaresolverr"
         "jellyfin"
         "watch" # also points to jellyfin
+        "dufs"
+        "cloud" # also points to dufs
         "immich"
         "photos" # also points to immich
         "jellyseerr"
         "request" # also points to jellyseerr
-        "bazarr"
-        "home"
       ]
     );
 }

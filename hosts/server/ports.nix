@@ -1,6 +1,8 @@
 {
-  seafile = 8082;
-  seafile_webdav = 8083;
+  # seafile = 8082;
+  # seafile_webdav = 8083;
+  dufs = 5005;
+  cloud = 5005;
 
   immich = 2283;
   photos = 2283;

@@ -25,6 +25,7 @@ in
       "wheel"
       "video"
       "media"
+      "cloud"
     ];
     shell = pkgs.zsh;
     isNormalUser = true;
