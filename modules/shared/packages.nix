@@ -25,6 +25,7 @@ with pkgs;
   gnugrep
   gawk
   dua
+  magic-wormhole-rs
 
   # Encryption and security tools
   openssl
