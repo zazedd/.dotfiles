@@ -31,7 +31,7 @@ button {
 }
 
 #workspaces button {
-    padding: 0 6px;
+    padding: 0 3px;
     background-color: @base;
     color: @text;
 }
@@ -75,9 +75,15 @@ button {
 
 #backlight-slider,
 #pulseaudio-slider {
-    min-width: 0px;
+    min-width: 10px;
+    margin-right: 7px;
     transition: min-width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     text-decoration: none;
+
+    -GtkScale-slider-length: 3px; /* knob length */
+    -GtkScale-slider-width: 3px;  /* knob thickness */
+    -GtkScale-trough-border: 0;
+    -GtkScale-trough-height: 6px; /* track thickness */
 }
 
 #backlight-slider:hover,

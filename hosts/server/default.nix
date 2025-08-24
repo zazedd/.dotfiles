@@ -25,7 +25,14 @@ in
     ../../modules/server/home-manager.nix
     ../../modules/services/dufs.nix
     (import ./services/arr.nix { inherit ports; })
-    (import ./services/homepage.nix { inherit config domain ports; })
+    (import ./services/homepage.nix {
+      inherit
+        config
+        domain
+        ports
+        lib
+        ;
+    })
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
@@ -34,7 +41,10 @@ in
       allowUnfree = true;
       allowUnfreePredicate = pkg: true;
     };
-    overlays = [ inputs.nix-minecraft.overlay ];
+    overlays = [
+      inputs.nix-minecraft.overlay
+      inputs.copyparty.overlays.default
+    ];
   };
 
   nix = {
@@ -125,8 +135,18 @@ in
   users.groups.cloud = { };
   # services.seafile = import ./services/seafile.nix { inherit email domain ports; };
 
-  sops.secrets."dufs-env" = { };
-  services.dufs = import ./services/dufs.nix { inherit config ports; };
+  # sops.secrets."dufs-env" = { };
+  # services.dufs = import ./services/dufs.nix { inherit config ports; };
+
+  users.users.copyparty = {
+    description = "Service user for copyparty";
+    group = "cloud";
+    isSystemUser = true;
+  };
+  sops.secrets."copyparty-${user}" = {
+    owner = "copyparty";
+  };
+  services.copyparty = import ./services/copyparty.nix { inherit user config ports; };
 
   sops.secrets."immich-secrets" = { };
   services.immich = import ./services/immich.nix { inherit config ports; };
@@ -144,6 +164,8 @@ in
     allowedTCPPorts = [
       8082
       5005
+      ports.copyparty
+      ports.copyparty_webdav
       42069 # minecraft
       42068 # rcon minecraft
     ];

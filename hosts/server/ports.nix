@@ -1,8 +1,12 @@
 {
   # seafile = 8082;
   # seafile_webdav = 8083;
-  dufs = 5005;
-  cloud = 5005;
+  # dufs = 5005;
+  # cloud = 5005;
+
+  copyparty = 3210;
+  copyparty_webdav = 3211;
+  cloud = 3210;
 
   immich = 2283;
   photos = 2283;

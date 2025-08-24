@@ -9,12 +9,20 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     nix-minecraft.url = "github:zazedd/nix-minecraft";
 
+    copyparty = {
+      url = "github:9001/copyparty";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix = {
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-ld = {
@@ -37,10 +45,6 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    homebrew-cask-fonts = {
-      url = "github:homebrew/homebrew-cask-fonts";
-      flake = false;
-    };
     homebrew-services = {
       url = "github:homebrew/homebrew-services";
       flake = false;
@@ -60,21 +64,18 @@
       darwin,
       nix-homebrew,
       nixos-hardware,
-      nix-ld,
-      neovim-nightly-overlay,
+      stylix,
+      copyparty,
       homebrew-bundle,
       homebrew-core,
       homebrew-cask,
       homebrew-services,
-      homebrew-cask-fonts,
-      nix-minecraft,
       koek,
       home-manager,
       nixpkgs,
-      my_nixpkgs,
-      disko,
       sops-nix,
       lanzaboote,
+      ...
     }@inputs:
     let
       user = "zazed";
@@ -131,8 +132,7 @@
     {
       devShells = forAllSystems devShell;
       apps =
-        nixpkgs.lib.genAttrs linuxSystems mkLinuxApps
-        // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
+        nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
 
       darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (
         system:
@@ -151,7 +151,6 @@
                   "homebrew/homebrew-cask" = homebrew-cask;
                   "homebrew/homebrew-bundle" = homebrew-bundle;
                   "homebrew/homebrew-services" = homebrew-services;
-                  "homebrew/homebrew-cask-fonts" = homebrew-cask-fonts;
                   "koekeishiya/formulae" = koek;
                 };
                 mutableTaps = true;
@@ -170,6 +169,7 @@
           modules = [
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
             ./hosts/asahi
           ];
         };
@@ -184,6 +184,7 @@
           modules = [
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
             nixos-hardware.nixosModules.lenovo-legion-16ach6h-nvidia
             lanzaboote.nixosModules.lanzaboote
             ./hosts/lenovo
@@ -196,6 +197,7 @@
           modules = [
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
+            copyparty.nixosModules.default
             ./hosts/server
           ];
         };

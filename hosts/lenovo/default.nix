@@ -124,7 +124,8 @@ in
   # Load configuration that is shared across systems
   environment.systemPackages = [
     pkgs.sbctl
-  ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+  ]
+  ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   fonts = {
     fontDir.enable = true;

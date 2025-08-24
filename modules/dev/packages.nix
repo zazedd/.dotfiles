@@ -15,6 +15,9 @@ shared-packages
   usbutils
   pinentry
   wireguard-tools
+  kdePackages.dolphin
+  kdePackages.plasma-desktop
+  rclone
 
   # programming
   alacritty
