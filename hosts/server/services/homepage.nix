@@ -2,12 +2,14 @@
   config,
   domain,
   ports,
+  lib,
   ...
 }:
 {
-
   sops.secrets."glance-env" = { };
-  systemd.services.glance.serviceConfig.EnvironmentFile = config.sops.secrets."glance-env".path;
+  systemd.services.glance.serviceConfig.EnvironmentFile =
+    lib.mkForce
+      config.sops.secrets."glance-env".path;
 
   services.glance =
     let
