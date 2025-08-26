@@ -3,6 +3,7 @@
   lib,
   user,
   external_monitor,
+  wallpaper,
   ...
 }:
 let
@@ -82,7 +83,7 @@ in
           };
           HDMI-A-1 = {
             scale = "1.25";
-            bg = "/home/${user}/Documents/walls/hasui.jpg fill";
+            bg = "${wallpaper} fill";
             resolution = "3840x2160@119.880Hz";
           };
         }
@@ -90,7 +91,7 @@ in
         {
           eDP-1 = {
             scale = "1";
-            bg = "/home/${user}/Documents/walls/hasui.jpg fill";
+            bg = "${wallpaper} fill";
           };
         };
   };

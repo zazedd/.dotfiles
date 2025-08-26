@@ -5,6 +5,7 @@
   external_monitor ? false,
   gpgid ? null,
   nvidia ? false,
+  wallpaper ? null,
   ...
 }@inputs:
 
@@ -32,20 +33,38 @@ in
 
   stylix = {
     enable = true;
-    image = ../../configs/wallpaper/hasui.jpg;
+    image = wallpaper;
     imageScalingMode = "fill";
     cursor = {
       package = pkgs.phinger-cursors;
       name = "phinger-cursors-dark";
       size = 24;
     };
-    fonts.sizes.desktop = 13;
+    fonts = {
+      sizes.desktop = 13;
+      serif = {
+        package = pkgs.nerd-fonts.noto;
+        name = "Noto Sans Nerd Font";
+      };
+      sansSerif = config.stylix.fonts.serif;
+
+      monospace = {
+        package = pkgs.nerd-fonts.iosevka;
+        name = "Iosevka Nerd Font";
+      };
+    };
+
     icons = {
       enable = true;
       dark = "gruvbox-dark-icons-gtk";
       package = pkgs.gruvbox-dark-icons-gtk;
     };
     polarity = "dark";
+
+    override = {
+      base00 = "181818";
+      base00-hex = "181818";
+    };
   };
 
   programs.zsh.enable = true;
@@ -60,13 +79,11 @@ in
 
   # setup sops
   sops.age.keyFile = "${xdg_home}/.config/sops/age/keys.txt";
-  sops.secrets."copyparty-${user}" = {
-    sopsFile = ../../secrets/server.yaml;
-  };
 
   # Enable home-manager
   home-manager = {
     sharedModules = [
+      inputs.sops-nix.homeManagerModule
       {
         stylix.targets = {
           sway.enable = false;
@@ -82,6 +99,11 @@ in
         ...
       }:
       {
+        sops.age.keyFile = "${xdg_home}/.config/sops/age/keys.txt";
+        sops.secrets."copyparty-${user}" = {
+          sopsFile = ../../secrets/server.yaml;
+        };
+
         home = {
           enableNixpkgsReleaseCheck = false;
           packages = pkgs.callPackage ./packages.nix { };
@@ -96,41 +118,10 @@ in
             # XDG_CONFIG_HOME = "${xdg_home}/.dotfiles/configs";
           };
 
-          # pointerCursor = {
-          #   gtk.enable = true;
-          #   package = pkgs.phinger-cursors;
-          #   name = "phinger-cursors-dark";
-          #   size = 24;
-          # };
-
           stateVersion = "25.05";
         };
         programs = {
-          bemenu = {
-            enable = true;
-            # settings = {
-            #   "ignore-case" = true;
-            #   "center" = true;
-            #   "counter" = "always";
-            #   "line-height" = 25;
-            #   "list" = 10;
-            #   "fixed-height" = true;
-            #   "width-factor" = 0.3;
-            #   "border" = 1;
-            #   "fn" = "Iosevka Nerd Font 15";
-            #   fb = "#181818";
-            #   ff = "#ebdbb2";
-            #   nb = "#181818";
-            #   nf = "#ebdbb2";
-            #   tb = "#181818";
-            #   hb = "#181818";
-            #   tf = "#fb4934";
-            #   hf = "#fabd2f";
-            #   af = "#ebdbb2";
-            #   ab = "#181818";
-            #   bdr = "#ebdbb2";
-            # };
-          };
+          bemenu.enable = true;
 
           nnn.enable = true;
           opam = {
@@ -143,25 +134,40 @@ in
           qutebrowser = import ./qute.nix { inherit pkgs; };
           mpv.enable = true;
 
-          rclone = {
-            enable = true;
-            remotes = {
-              "cloud" = {
-                mounts = {
-                  enable = true;
-                  mountPoint = "${xdg_home}/cloud";
+          rclone =
+            let
+              cfg = {
+                user = user;
+                type = "webdav";
+                hard_delete = true;
+                url = "https://cloud.leoms.dev/";
+                vendor = "owncloud";
+                pacer_min_sleep = "0.01ms";
+              };
+            in
+            {
+              enable = true;
+              remotes = {
+                "private" = {
+                  mounts."private" = {
+                    enable = true;
+                    mountPoint = "${xdg_home}/cloud/private";
+                  };
+                  config = cfg;
+                  secrets = {
+                    pass = config.sops.secrets."copyparty-${user}".path;
+                  };
                 };
-                config = {
-                  inherit user;
-                  type = "webdav";
-                  hard_delete = true;
-                };
-                secrets = {
-                  password = config.sops.secrets."copyparty-${user}".path;
+
+                "public" = {
+                  mounts."public" = {
+                    enable = true;
+                    mountPoint = "${xdg_home}/cloud/public";
+                  };
+                  config = cfg;
                 };
               };
             };
-          };
 
         }
         // import ../shared/home-manager.nix {
@@ -194,6 +200,7 @@ in
             user
             lib
             external_monitor
+            wallpaper
             ;
         };
       };

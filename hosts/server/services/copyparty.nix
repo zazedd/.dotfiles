@@ -28,12 +28,10 @@
   };
 
   volumes = {
-    "/" = {
+    "/private" = {
       path = "/data/cloud/private";
       access = {
-        rwmd = [
-          user
-        ];
+        rwmd = [ user ];
       };
       flags = {
         fk = 4;

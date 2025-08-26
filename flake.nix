@@ -165,7 +165,12 @@
       nixosConfigurations = {
         asahi = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = inputs;
+          specialArgs = inputs // {
+            external_monitor = false;
+            wallpaper = ./configs/wallpaper/hasui.jpg;
+            gpgid = "926022701E23A171";
+            nvidia = false;
+          };
           modules = [
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
@@ -178,6 +183,7 @@
           system = "x86_64-linux";
           specialArgs = inputs // {
             external_monitor = true;
+            wallpaper = ./configs/wallpaper/hasui-autumn2.jpg;
             gpgid = "926022701E23A171";
             nvidia = true;
           };
