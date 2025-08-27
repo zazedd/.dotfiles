@@ -16,6 +16,7 @@
 
   sonarr = 8989;
   radarr = 7878;
+  lidarr = 8686;
 
   prowlarr = 9696;
   deluge = 5000;

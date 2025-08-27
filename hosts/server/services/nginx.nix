@@ -38,6 +38,7 @@ in
     map mkProxy [
       "radarr"
       "sonarr"
+      "lidarr"
       "prowlarr"
       "bazarr"
       "home"

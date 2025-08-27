@@ -22,6 +22,7 @@ in
   services.jellyfin = mediaDefaults;
   services.sonarr = mediaDefaults;
   services.radarr = mediaDefaults;
+  services.lidarr = mediaDefaults;
 
   services.prowlarr.enable = true;
 
