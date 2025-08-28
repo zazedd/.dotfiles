@@ -36,22 +36,30 @@ in
   }
   // builtins.listToAttrs (
     map mkProxy [
+      "bitwarden"
+
       "radarr"
       "sonarr"
       "lidarr"
       "prowlarr"
       "bazarr"
+
       "home"
+
       "deluge"
       "sabnzbd"
       "flaresolverr"
+
       "jellyfin"
       "watch" # also points to jellyfin
+
       # "dufs"
-      "cloud" # also points to dufs
+      "cloud" # also points to copyparty
       "copyparty"
+
       "immich"
       "photos" # also points to immich
+
       "jellyseerr"
       "request" # also points to jellyseerr
     ]

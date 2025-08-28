@@ -4,6 +4,8 @@
   # dufs = 5005;
   # cloud = 5005;
 
+  bitwarden = 8222;
+
   copyparty = 3210;
   copyparty_webdav = 3211;
   cloud = 3210;

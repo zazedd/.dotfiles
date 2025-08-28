@@ -115,6 +115,9 @@ in
     };
   };
 
+  sops.secrets."vaultwarden-env" = { };
+  services.vaultwarden = import ./services/vaultwarden.nix { inherit ports config domain; };
+
   services.nginx = import ./services/nginx.nix { inherit ports domain; };
 
   services.factorio = import ./services/factorio.nix { inherit my_pkgs; };
