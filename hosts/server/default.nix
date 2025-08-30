@@ -24,7 +24,7 @@ in
 
     ../../modules/server/home-manager.nix
     ../../modules/services/dufs.nix
-    (import ./services/arr.nix { inherit ports; })
+    (import ./services/arr.nix { inherit my_pkgs ports; })
     (import ./services/homepage.nix {
       inherit
         config
@@ -120,7 +120,7 @@ in
 
   services.nginx = import ./services/nginx.nix { inherit ports domain; };
 
-  services.factorio = import ./services/factorio.nix { inherit my_pkgs; };
+  # services.factorio = import ./services/factorio.nix { inherit my_pkgs; };
 
   sops.secrets."minecraft-rcon" = { };
   systemd.services."minecraft-server-estupidos" = {
