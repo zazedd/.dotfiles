@@ -1,6 +1,5 @@
 {
   ports,
-  my_pkgs,
   ...
 }:
 
@@ -41,9 +40,6 @@ in
 
   services.flaresolverr.enable = true;
 
-  services.jellyseerr = {
-    enable = true;
-    package = my_pkgs.jellyseerr;
-  };
+  services.jellyseerr.enable = true;
   services.bazarr = mediaDefaults;
 }

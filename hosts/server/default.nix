@@ -24,7 +24,7 @@ in
 
     ../../modules/server/home-manager.nix
     ../../modules/services/dufs.nix
-    (import ./services/arr.nix { inherit my_pkgs ports; })
+    (import ./services/arr.nix { inherit ports; })
     (import ./services/homepage.nix {
       inherit
         config
@@ -150,6 +150,16 @@ in
     owner = "copyparty";
   };
   services.copyparty = import ./services/copyparty.nix { inherit user config ports; };
+
+  # users.users.paperless = {
+  #   description = "Service user for paperless-ngx";
+  #   group = "cloud";
+  #   isSystemUser = true;
+  # };
+  # sops.secrets."paperless" = {
+  #   owner = "paperless";
+  # };
+  # services.paperless = import ./services/paperless.nix { inherit user config ports; };
 
   sops.secrets."immich-secrets" = { };
   services.immich = import ./services/immich.nix { inherit config ports; };
