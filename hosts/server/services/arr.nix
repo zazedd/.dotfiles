@@ -15,6 +15,10 @@ in
     isSystemUser = true;
     description = "media user for arr services";
     group = "media";
+    extraGroups = [
+      "render"
+      "video"
+    ];
   };
 
   users.groups.media = { };
