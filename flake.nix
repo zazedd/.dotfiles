@@ -168,7 +168,7 @@
           specialArgs = inputs // {
             external_monitor = false;
             wallpaper = ./configs/wallpaper/hasui.jpg;
-            gpgid = "926022701E23A171";
+            gpgid = null;
             nvidia = false;
           };
           modules = [

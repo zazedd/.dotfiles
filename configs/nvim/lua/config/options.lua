@@ -2,14 +2,13 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-vim.g.python3_host_prog = "/usr/bin/python3"
 vim.g.loaded_coqtail = 1
 vim.g["coqtail#supported"] = 0
 
 vim.api.nvim_command("highlight NeoTreeNormalNC guibg=#111111")
 vim.api.nvim_command("highlight NeoTreeNormal guibg=#111111")
 
-local ui = require("lazyvim.util.ui")
+local ui = require("lazyvim.plugins.ui")
 
 local function get_num_wraps()
   -- Calculate the actual buffer width, accounting for splits, number columns, and other padding

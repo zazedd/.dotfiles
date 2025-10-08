@@ -5,7 +5,8 @@ return {
   },
 
   {
-    "tomtomjhj/coq-lsp.nvim",
+    "zazedd/coq-lsp.nvim",
+    enabled = true,
     ft = { "coq" },
     opts = {},
   },

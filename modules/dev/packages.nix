@@ -44,8 +44,6 @@ shared-packages
   moonlight-qt
 
   ## entertainment
-  jellyfin-media-player
-  feishin
 
   ## others
   libsForQt5.qt5.qtwayland

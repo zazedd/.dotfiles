@@ -12,12 +12,17 @@ return {
   },
 
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
+    enabled = false,
     opts_extend = { "ensure_installed" },
     opts = {
-      ensure_installed = {
-      },
+      ensure_installed = {},
     },
+  },
+
+  {
+    "mason-org/mason-lspconfig.nvim",
+    enabled = false,
   },
 
   -- LSP keymaps

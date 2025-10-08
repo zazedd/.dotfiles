@@ -1,14 +1,18 @@
 # the Asahi Linux kernel and options that must go along with it
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 {
   config = lib.mkIf config.hardware.asahi.enable {
-    boot.kernelPackages = let
-      pkgs' = config.hardware.asahi.pkgs;
-    in
+    boot.kernelPackages =
+      let
+        pkgs' = config.hardware.asahi.pkgs;
+      in
       pkgs'.linux-asahi.override {
         _kernelPatches = config.boot.kernelPatches;
-        withRust = config.hardware.asahi.withRust;
       };
 
     # we definitely want to use CONFIG_ENERGY_MODEL, and
@@ -21,6 +25,7 @@
       # list of initrd modules stolen from
       # https://github.com/AsahiLinux/asahi-scripts/blob/f461f080a1d2575ae4b82879b5624360db3cff8c/initcpio/install/asahi
       "apple-mailbox"
+      "apple_nvmem_spmi"
       "nvme_apple"
       "pinctrl-apple-gpio"
       "macsmc"
@@ -39,9 +44,7 @@
       "spi-hid-apple"
       "spi-hid-apple-of"
       "rtc-macsmc"
-      "simple-mfd-spmi"
       "spmi-apple-controller"
-      "nvmem_spmi_mfd"
       "apple-dockchannel"
       "dockchannel-hid"
       "apple-rtkit-helper"
@@ -92,15 +95,21 @@
   };
 
   imports = [
-    (lib.mkRemovedOptionModule [ "hardware" "asahi" "addEdgeKernelConfig" ]
-      "All edge kernel config options are now the default.")
+    (lib.mkRemovedOptionModule [
+      "hardware"
+      "asahi"
+      "addEdgeKernelConfig"
+    ] "All edge kernel config options are now the default.")
+    (lib.mkRemovedOptionModule [
+      "hardware"
+      "asahi"
+      "experimentalGPUInstallMode"
+    ] "This option became unnecessary with asahi support landing in mainline mesa.")
+    (lib.mkRemovedOptionModule [
+      "hardware"
+      "asahi"
+      "useExperimentalGPUDriver"
+    ] "This option became unnecessary with asahi support landing in mainline mesa.")
+    (lib.mkRemovedOptionModule [ "hardware" "asahi" "withRust" ] "Rust support is now the default.")
   ];
-
-  options.hardware.asahi.withRust = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = ''
-      Build the Asahi Linux kernel with Rust support.
-    '';
-  };
 }

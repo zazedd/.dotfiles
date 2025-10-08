@@ -42,11 +42,11 @@ in
 
   time.timeZone = "Portugal";
 
+  programs.nix-ld.enable = true;
+
   hardware = {
     asahi = {
       peripheralFirmwareDirectory = ./firmware;
-      useExperimentalGPUDriver = true;
-      experimentalGPUInstallMode = "overlay";
     };
     graphics = {
       enable = true;

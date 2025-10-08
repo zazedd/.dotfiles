@@ -1,11 +1,11 @@
 return {
   {
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     enabled = false,
   },
 
   {
-    "echasnovski/mini.surround",
+    "nvim-mini/mini.surround",
     enabled = false,
   },
 
@@ -17,10 +17,10 @@ return {
   },
 
   {
-    'windwp/nvim-autopairs',
+    "windwp/nvim-autopairs",
     event = "InsertEnter",
-    config = true
+    config = true,
     -- use opts = {} for passing setup options
     -- this is equivalent to setup({}) function
-  }
+  },
 }

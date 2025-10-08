@@ -16,6 +16,10 @@ let
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
+  nixpkgs.config.permittedInsecurePackages = [
+    "qtwebengine-5.15.19"
+  ];
+
   users.users.${user} = {
     name = "${user}";
     home = "${xdg_home}";
@@ -72,10 +76,10 @@ in
 
   programs.dconf.enable = true;
 
-  programs.neovim = {
-    enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-  };
+  # programs.neovim = {
+  #   enable = true;
+  #   package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+  # };
 
   # setup sops
   sops.age.keyFile = "${xdg_home}/.config/sops/age/keys.txt";
@@ -131,8 +135,17 @@ in
 
           waybar = import ./waybar.nix { inherit external_monitor; };
           tmux = import ./tmux.nix { inherit pkgs; };
-          qutebrowser = import ./qute.nix { inherit pkgs; };
+          # qutebrowser = import ./qute.nix { inherit pkgs; };
           mpv.enable = true;
+
+          neovim = {
+            enable = true;
+            package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+            withPython3 = true;
+            plugins = [
+              pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+            ];
+          };
 
           rclone =
             let
