@@ -5,22 +5,39 @@ return {
     enabled = true,
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
-    dependencies = "rafamadriz/friendly-snippets",
+    dependencies = { "rafamadriz/friendly-snippets", "onsails/lspkind.nvim" },
 
     -- use a release tag to download pre-built binaries
-    version = "v0.*",
+    version = "1.*",
     -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     -- build = 'cargo build --release',
 
     opts = {
       completion = {
-        menu = { border = "single" },
-        documentation = { window = { border = "single" } },
+        menu = {
+          -- Don't automatically show the completion menu
+          auto_show = false,
+
+          -- nvim-cmp style menu
+          draw = {
+            columns = {
+              { "label", "label_description", gap = 1 },
+              { "kind_icon", "kind" }
+            },
+          }
+        },
+
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
       },
 
       signature = { enabled = true },
 
       keymap = { preset = "enter" },
+
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
 
       -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- adjusts spacing to ensure icons are aligned

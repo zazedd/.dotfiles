@@ -28,28 +28,26 @@ return {
   -- LSP keymaps
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      -- change a keymap
-      if require("lazyvim.util").has("inc-rename.nvim") then
-        keys[#keys + 1] = {
-          "<leader>lr",
-          function()
-            local inc_rename = require("inc_rename")
-            return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand("<cword>")
-          end,
-          expr = true,
-          desc = "Rename",
-          has = "rename",
-        }
-      else
-        keys[#keys + 1] = { "<leader>lr", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
+    dependencies = { "saghen/blink.cmp" },
+    opts = {
+      servers = {
+        ["*"] = {
+          keys = {
+            { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", has = "definition" },
+            { "lr", "<cmd>lua vim.lsp.buf.rename()<CR>", has = "rename" },
+          },
+        },
+      },
+    },
+
+    config = function(_, opts)
+      local lspconfig = require("lspconfig")
+      for server, config in pairs(opts.servers) do
+        -- passing config.capabilities to blink.cmp merges with the capabilities in your
+        -- `opts[server].capabilities, if you've defined it
+        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
       end
-
-      keys[#keys + 1] = { "<leader>cr", false }
-      keys[#keys + 1] = { "<leader>ci", false }
-
-      keys[#keys + 1] = { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" }
     end,
   },
 }
