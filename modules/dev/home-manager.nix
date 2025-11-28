@@ -16,10 +16,6 @@ let
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
-  nixpkgs.config.permittedInsecurePackages = [
-    "qtwebengine-5.15.19"
-  ];
-
   users.users.${user} = {
     name = "${user}";
     home = "${xdg_home}";
@@ -34,6 +30,8 @@ in
     shell = pkgs.zsh;
     isNormalUser = true;
   };
+
+  security.pam.services."swaylock" = { };
 
   stylix = {
     enable = true;
@@ -182,6 +180,7 @@ in
               };
             };
 
+          swaylock.enable = true;
         }
         // import ../shared/home-manager.nix {
           inherit

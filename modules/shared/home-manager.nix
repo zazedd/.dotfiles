@@ -43,7 +43,7 @@ in
       gcl = "git clone";
 
       weather = "curl v2.wttr.in";
-      ff = "fastfetch --logo-color-1 3 --structure Title:Separator:OS:Host:Kernel:CPU:GPU:Uptime:Packages:Shell:Display:Terminal:TerminalFont:Disk:Battery:Memory --cpu-temp true --multithreading true";
+      ff = "fastfetch";
       rr = "source ~/.zshrc";
     };
     plugins = [
@@ -140,6 +140,18 @@ in
     enable = true;
     extraConfig = lib.mkMerge [
       ''
+        Match host github.com exec "[[ $PWD == /home/${user}/ahrefs* ]]"
+          Hostname github.com
+          IdentitiesOnly yes
+      ''
+      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
+        IdentityFile /home/${user}/.ssh/id_ahrefs
+      '')
+      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
+        IdentityFile /Users/${user}/.ssh/id_ahrefs
+      '')
+
+      ''
         Host github.com
           Hostname github.com
           IdentitiesOnly yes
@@ -164,18 +176,6 @@ in
       '')
 
       ''
-        Host git.ahrefs.dev
-          Hostname git.ahrefs.dev
-          IdentitiesOnly yes
-      ''
-      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
-        IdentityFile /home/${user}/.ssh/id_github
-      '')
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
-        IdentityFile /Users/${user}/.ssh/id_github
-      '')
-
-      ''
         Match all
           Include ~/.ssh/hop
           Include ~/.ssh/ahrefs/config
@@ -186,10 +186,10 @@ in
           Include ~/.ssh/ahrefs/per-user/spawnbox-devbox-uk-leonardosantos
       ''
       (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
-        IdentityFile /home/${user}/.ssh/id_github
+        IdentityFile /home/${user}/.ssh/id_ahrefs
       '')
       (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
-        IdentityFile /Users/${user}/.ssh/id_github
+        IdentityFile /Users/${user}/.ssh/id_ahrefs
       '')
 
     ];

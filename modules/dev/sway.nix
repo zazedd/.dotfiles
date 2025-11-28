@@ -40,6 +40,7 @@ in
       "${cmd}+c" = "exec ${pkgs.wtype}/bin/wtype -P XF86Copy";
       "${cmd}+v" = "exec ${pkgs.wtype}/bin/wtype -P XF86Paste";
 
+      "${opt}+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock";
     };
     fonts = {
       names = [ "Iosevka" ];

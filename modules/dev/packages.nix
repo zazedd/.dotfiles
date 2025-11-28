@@ -24,6 +24,7 @@ shared-packages
   bubblewrap
   libev
   libevent
+  claude-code
 
   ## nix
   nixfmt-rfc-style
