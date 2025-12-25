@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, old-betterdisplay-pkgs }:
 
 with pkgs;
 let
@@ -7,23 +7,21 @@ in
 shared-packages
 ++ [
   nixos-shell
-
-  (fenix.complete.withComponents [
-    "cargo"
-    "clippy"
-    "rust-src"
-    "rustc"
-    "rustfmt"
-    "rust-analyzer"
-  ])
-
-  colima
-  docker
-  yazi
-  opam
   gcalcli
   gmp
   dockutil
   dua
+
+  # dev
+  opam
   zoxide
+  yazi
+  wireguard-tools
+  claude-code
+
+  nodejs
+
+  alacritty
+
+  old-betterdisplay-pkgs.betterdisplay
 ]

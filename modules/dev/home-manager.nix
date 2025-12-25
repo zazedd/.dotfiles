@@ -31,6 +31,9 @@ in
     isNormalUser = true;
   };
 
+  imports = [ ./tailscale.nix ];
+
+  sops.age.keyFile = "${xdg_home}/.config/sops/age/keys.txt";
   security.pam.services."swaylock" = { };
 
   stylix = {
@@ -71,16 +74,7 @@ in
 
   programs.zsh.enable = true;
   programs.thunar.enable = true;
-
   programs.dconf.enable = true;
-
-  # programs.neovim = {
-  #   enable = true;
-  #   package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-  # };
-
-  # setup sops
-  sops.age.keyFile = "${xdg_home}/.config/sops/age/keys.txt";
 
   # Enable home-manager
   home-manager = {

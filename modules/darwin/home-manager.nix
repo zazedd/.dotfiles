@@ -5,6 +5,7 @@
   neovim-nightly-overlay,
   fenix,
   home-manager,
+  old-betterdisplay-pkgs,
   ...
 }@inputs:
 
@@ -15,52 +16,26 @@ let
   additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
-  imports = [
-    ./dock
-  ];
-
   users.users.${user} = {
     name = "${user}";
     home = "${xdg_home}";
     isHidden = false;
     shell = pkgs.zsh;
+    uid = 501;
   };
+
+  imports = [ ./tailscale.nix ];
+
+  sops.age.keyFile = "${xdg_home}/.config/sops/age/keys.txt";
 
   homebrew = {
     enable = true;
     casks = pkgs.callPackage ./casks.nix { };
     taps = builtins.attrNames config.nix-homebrew.taps;
 
-    brews = [
-      "gmp"
-      "opam"
-    ];
-
-    # mas = mac app store
-    # https://github.com/mas-cli/mas
-    # $ nix shell nixpkgs#mas
-    # $ mas search <app name>
-    #
-    # masApps = {
-    #   "1password" = 1333542190;
-    #   "wireguard" = 1451685025;
-    # };
+    brews = [ ];
   };
 
-  nixpkgs = {
-    overlays = [
-      (
-        _: super:
-        let
-          pkgs = fenix.inputs.nixpkgs.legacyPackages.${super.system};
-        in
-        fenix.overlays.default pkgs pkgs
-      )
-      inputs.neovim-nightly-overlay.overlay
-    ];
-  };
-
-  # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
     users.${user} =
@@ -73,7 +48,7 @@ in
       {
         home = {
           enableNixpkgsReleaseCheck = false;
-          packages = pkgs.callPackage ./packages.nix { };
+          packages = pkgs.callPackage ./packages.nix { inherit pkgs old-betterdisplay-pkgs; };
           file = lib.mkMerge [
             sharedFiles
             additionalFiles
@@ -83,11 +58,17 @@ in
             XDG_CONFIG_HOME = "${xdg_home}/.dotfiles/configs";
           };
 
-          stateVersion = "24.05";
+          stateVersion = "25.11";
         };
-        programs =
-          { }
-          // import ../shared/home-manager.nix {
+        programs = { 
+          tmux = import ../dev/tmux.nix { inherit pkgs; };
+
+          neovim = {
+            enable = true;
+            package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+            withPython3 = true;
+          };
+        } // import ../shared/home-manager.nix {
             inherit
               config
               pkgs
@@ -105,19 +86,5 @@ in
         # https://github.com/nix-community/home-manager/issues/3344
         manual.manpages.enable = false;
       };
-  };
-
-  # Fully declarative dock using the latest from Nix Store
-  local = {
-    dock = {
-      enable = true;
-      entries = [
-        {
-          path = "${config.users.users.${user}.home}/Downloads";
-          section = "others";
-          options = "--sort name --view grid --display stack";
-        }
-      ];
-    };
   };
 }

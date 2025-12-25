@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     my_nixpkgs.url = "github:zazedd/nixpkgs";
+    old-betterdisplay-nixpkgs.url = "github:nixos/nixpkgs/09b22eb8a65f65ec86625d1230c434cdca680606";
     home-manager.url = "github:nix-community/home-manager";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -49,8 +50,16 @@
       url = "github:homebrew/homebrew-services";
       flake = false;
     };
-    koek = {
-      url = "github:koekeishiya/homebrew-formulae";
+    homebrew-boring-notch = {
+      url = "github:TheBoredTeam/homebrew-boring-notch";
+      flake = false;
+    };
+    homebrew-aerospace = {
+      url = "github:nikitabobko/homebrew-tap";
+      flake = false;
+    };
+    homebrew-aerospace-gestures = {
+      url = "github:MediosZ/homebrew-tap";
       flake = false;
     };
     disko = {
@@ -70,9 +79,12 @@
       homebrew-core,
       homebrew-cask,
       homebrew-services,
-      koek,
+      homebrew-boring-notch,
+      homebrew-aerospace,
+      homebrew-aerospace-gestures,
       home-manager,
       nixpkgs,
+      old-betterdisplay-nixpkgs,
       sops-nix,
       lanzaboote,
       ...
@@ -138,8 +150,14 @@
         system:
         darwin.lib.darwinSystem {
           inherit system;
-          specialArgs = inputs;
+          specialArgs = inputs // {
+            old-betterdisplay-pkgs = import old-betterdisplay-nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+            };
+          };
           modules = [
+            sops-nix.darwinModules.sops
             home-manager.darwinModules.home-manager
             nix-homebrew.darwinModules.nix-homebrew
             {
@@ -151,7 +169,9 @@
                   "homebrew/homebrew-cask" = homebrew-cask;
                   "homebrew/homebrew-bundle" = homebrew-bundle;
                   "homebrew/homebrew-services" = homebrew-services;
-                  "koekeishiya/formulae" = koek;
+                  "TheBoredTeam/boring-notch" = homebrew-boring-notch;
+                  "nikitabobko/homebrew-tap" = homebrew-aerospace;
+                  "MediosZ/homebrew-tap" = homebrew-aerospace-gestures;
                 };
                 mutableTaps = true;
                 autoMigrate = true;

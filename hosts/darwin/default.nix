@@ -12,16 +12,14 @@ in
 {
 
   imports = [
-    ../../modules/darwin/secrets.nix
     ../../modules/darwin/home-manager.nix
-    ../../modules/shared
+    ../../modules/shared/default.nix
     ../../modules/shared/cachix
-    agenix.darwinModules.default
   ];
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  system.primaryUser = user;
 
+  # Auto upgrade nix package and the daemon service.
   # Setup user, packages, programs
   nix = {
     # package = pkgs.nixVersions.git;
@@ -46,7 +44,6 @@ in
     };
 
     gc = {
-      user = "root";
       automatic = true;
       interval = {
         Weekday = 0;
@@ -60,34 +57,16 @@ in
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-
-  };
-
-  services.yabai = {
-    enable = true;
-    enableScriptingAddition = true;
-    extraConfig = builtins.readFile ../../configs/yabai/yabairc;
-  };
-
-  services.skhd = {
-    enable = true;
-    skhdConfig = builtins.readFile ../../configs/skhd/skhdrc;
   };
 
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
-  environment.systemPackages =
-    with pkgs;
-    [
-      agenix.packages."${pkgs.system}".default
-    ]
-    ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+  environment.systemPackages = (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   # Enable fonts dir
   fonts = {
-    fontDir.enable = true;
     packages = with pkgs.nerd-fonts; [
       fira-code
       iosevka
@@ -95,7 +74,7 @@ in
   };
 
   system = {
-    stateVersion = 4;
+    stateVersion = 5;
 
     defaults = {
       NSGlobalDomain = {
@@ -108,6 +87,8 @@ in
         # 120, 94, 68, 35, 25, 15
         InitialKeyRepeat = 15;
 
+        NSWindowShouldDragOnGesture = true;
+
         "com.apple.mouse.tapBehavior" = 1;
         "com.apple.sound.beep.volume" = 0.0;
         "com.apple.sound.beep.feedback" = 0;
@@ -115,6 +96,7 @@ in
 
       dock = {
         autohide = true;
+        autohide-delay = 0.25;
         show-recents = false;
         launchanim = true;
         orientation = "right";

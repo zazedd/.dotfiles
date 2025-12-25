@@ -12,6 +12,10 @@ let
   user = "zazed";
   email = "leomendesantos@gmail.com";
   extra_sway = if nvidia then "--unsupported-gpu" else "";
+
+  homeDir = if pkgs.stdenv.hostPlatform.isDarwin
+            then "/Users/${user}"
+            else "/home/${user}";
 in
 {
   # Shared shell configuration
@@ -103,18 +107,12 @@ in
   git = {
     enable = true;
     ignores = [ "*.swp" ];
-    userName = "zazedd";
-    userEmail = email;
+    settings = {
+      user = {
+        name = "zazedd";
+        email = email;
+      };
 
-    signing = {
-      format = "openpgp";
-      key = gpgid;
-    };
-
-    lfs = {
-      enable = true;
-    };
-    extraConfig = {
       commit.gpgsign = gpgid != null;
 
       init.defaultBranch = "main";
@@ -125,6 +123,15 @@ in
 
       pull.rebase = true;
       rebase.autoStash = true;
+    };
+
+    signing = {
+      format = "openpgp";
+      key = gpgid;
+    };
+
+    lfs = {
+      enable = true;
     };
   };
 
@@ -137,61 +144,39 @@ in
   };
 
   ssh = {
+    enableDefaultConfig = false;
     enable = true;
-    extraConfig = lib.mkMerge [
-      ''
-        Match host github.com exec "[[ $PWD == /home/${user}/ahrefs* ]]"
-          Hostname github.com
-          IdentitiesOnly yes
-      ''
-      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
-        IdentityFile /home/${user}/.ssh/id_ahrefs
-      '')
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
-        IdentityFile /Users/${user}/.ssh/id_ahrefs
-      '')
 
-      ''
-        Host github.com
-          Hostname github.com
-          IdentitiesOnly yes
-      ''
-      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
-        IdentityFile /home/${user}/.ssh/id_github
-      '')
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
-        IdentityFile /Users/${user}/.ssh/id_github
-      '')
-
-      ''
-        Host gitlab.com
-          Hostname gitlab.com
-          IdentitiesOnly yes
-      ''
-      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
-        IdentityFile /home/${user}/.ssh/id_github
-      '')
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
-        IdentityFile /Users/${user}/.ssh/id_github
-      '')
-
-      ''
-        Match all
-          Include ~/.ssh/hop
-          Include ~/.ssh/ahrefs/config
-      ''
-
-      ''
-        Host nspawn
-          Include ~/.ssh/ahrefs/per-user/spawnbox-devbox-uk-leonardosantos
-      ''
-      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
-        IdentityFile /home/${user}/.ssh/id_ahrefs
-      '')
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
-        IdentityFile /Users/${user}/.ssh/id_ahrefs
-      '')
-
+    includes = [
+      "~/.ssh/hop"
+      "~/.ssh/ahrefs/config"
     ];
+    matchBlocks = {
+      "github.com-ahrefs" = {
+        match = ''host github.com exec "[[ $PWD == ${homeDir}/ahrefs* ]]"'';
+        hostname = "github.com";
+        identitiesOnly = true;
+        identityFile = "${homeDir}/.ssh/id_ahrefs";
+      };
+
+      "github.com" = lib.hm.dag.entryAfter ["github.com-ahrefs"] {
+        hostname = "github.com";
+        identitiesOnly = true;
+        identityFile = "${homeDir}/.ssh/id_github";
+      };
+
+      "gitlab.com" = {
+        hostname = "gitlab.com";
+        identitiesOnly = true;
+        identityFile = "${homeDir}/.ssh/id_github";
+      };
+
+      "nspawn" = {
+        identityFile = "${homeDir}/.ssh/id_ahrefs";
+        extraOptions = {
+          Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-uk-leonardosantos";
+        };
+      };
+    };
   };
 }

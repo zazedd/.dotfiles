@@ -1,28 +1,17 @@
 _:
 
 [
-  "wezterm"
-  "obsidian"
+  # fixing mac jank
+  "mos" # mouse linear scroll
+  "aldente" # battery limiter
+  "boring-notch"
+  "aerospace" # i3-like wm
+  "swipeaerospace"
+  "sol" # dmenu-like app launcher
 
-  # Utility Tools
-  "syncthing"
-  "aldente"
-  "coconutbattery"
-  "unnaturalscrollwheels"
-  "displaperture"
-  "deluge"
-  "betterdisplay"
-  #"whatsapp"
+  # dev
 
-  # Entertainment Tools
-  "iina"
-  "tidal"
-  "airparrot"
-
-  # Productivity Tools
-  "raycast"
-  # "utm"
-
-  # Browsers
-  "arc"
+  # others
+  "whatsapp"
+  "firefox"
 ]
