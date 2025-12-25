@@ -5,6 +5,7 @@
   # cloud = 5005;
 
   bitwarden = 8222;
+  actual = 8282;
 
   copyparty = 3210;
   copyparty_webdav = 3211;

@@ -13,7 +13,7 @@ shared-packages
   deluge
   mpv
   usbutils
-  pinentry
+  pinentry-curses
   wireguard-tools
   kdePackages.dolphin
   kdePackages.plasma-desktop

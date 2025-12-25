@@ -67,7 +67,6 @@ in
 
   hardware.graphics.enable = true;
   hardware.amdgpu = {
-    amdvlk.enable = true;
     initrd.enable = true;
     opencl.enable = true;
   };
@@ -129,12 +128,13 @@ in
   };
   services.minecraft-servers = import ./services/minecraft.nix { inherit pkgs; };
 
-  sops.secrets."firefly-api" = {
-    owner = "firefly-iii";
-    group = "nginx";
-    mode = "777";
-  };
-  services.firefly-iii = import ./services/firefly.nix { inherit config email domain; };
+  # sops.secrets."firefly-api" = {
+  #   owner = "firefly-iii";
+  #   group = "nginx";
+  #   mode = "777";
+  # };
+  # services.firefly-iii = import ./services/firefly.nix { inherit config email domain; };
+  services.actual = import ./services/actual.nix { inherit ports; };
 
   users.groups.cloud = { };
   # services.seafile = import ./services/seafile.nix { inherit email domain ports; };

@@ -31,6 +31,8 @@ in
     isNormalUser = true;
   };
 
+  imports = [ ../dev/tailscale.nix ];
+
   programs.zsh.enable = true;
 
   programs.neovim = {

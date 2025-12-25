@@ -82,10 +82,10 @@ in
           eDP-1 = {
             disable = "";
           };
-          HDMI-A-1 = {
+          DP-1 = {
             scale = "1.25";
             bg = "${wallpaper} fill";
-            resolution = "3840x2160@119.880Hz";
+            resolution = "3840x2160@144.000Hz";
           };
         }
       else

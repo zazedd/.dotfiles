@@ -190,7 +190,7 @@ in
         services.gpg-agent = {
           enable = true;
           pinentry = {
-            package = pkgs.pinentry;
+            package = pkgs.pinentry-curses;
             program = "pinentry-curses";
           };
         };

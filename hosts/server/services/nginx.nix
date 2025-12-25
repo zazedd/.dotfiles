@@ -60,6 +60,8 @@ in
     map mkProxy [
       "bitwarden"
 
+      "actual"
+
       "radarr"
       "sonarr"
       "lidarr"
