@@ -152,15 +152,15 @@ in
   };
   services.copyparty = import ./services/copyparty.nix { inherit user config ports; };
 
-  # users.users.paperless = {
-  #   description = "Service user for paperless-ngx";
-  #   group = "cloud";
-  #   isSystemUser = true;
-  # };
-  # sops.secrets."paperless" = {
-  #   owner = "paperless";
-  # };
-  # services.paperless = import ./services/paperless.nix { inherit user config ports; };
+  users.users.paperless = {
+    description = "Service user for paperless-ngx";
+    group = lib.mkForce "cloud";
+    isSystemUser = true;
+  };
+  sops.secrets."paperless" = {
+    owner = "paperless";
+  };
+  services.paperless = import ./services/paperless.nix { inherit config ports; };
 
   sops.secrets."immich-secrets" = { };
   services.immich = import ./services/immich.nix { inherit config ports; };

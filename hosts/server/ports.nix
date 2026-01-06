@@ -7,6 +7,8 @@
   bitwarden = 8222;
   actual = 8282;
 
+  paperless = 7999;
+
   copyparty = 3210;
   copyparty_webdav = 3211;
   cloud = 3210;

@@ -62,6 +62,8 @@ in
 
       "actual"
 
+      "paperless"
+
       "radarr"
       "sonarr"
       "lidarr"

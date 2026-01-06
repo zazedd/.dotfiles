@@ -18,7 +18,7 @@ with pkgs;
   fastfetch
   wget
   zip
-  gcc
+  # gcc
   gnumake
   pkg-config
   gnused

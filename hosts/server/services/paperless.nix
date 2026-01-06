@@ -1,10 +1,12 @@
 {
-  ports,
   config,
+  ports,
+  ...
 }:
 {
   enable = true;
-  dataDir = "/data/cloud/private/documents";
+  domain = "paperless.leoms.dev";
+  dataDir = "/data/cloud/documents";
   port = ports.paperless;
   user = "paperless";
   passwordFile = config.sops.secrets."paperless".path;
