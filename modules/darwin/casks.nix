@@ -14,4 +14,7 @@ _:
   # others
   "whatsapp"
   "firefox"
+
+  # entertainment
+  "prismlauncher"
 ]
