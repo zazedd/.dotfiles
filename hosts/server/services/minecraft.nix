@@ -135,7 +135,7 @@ let
   ];
 in
 {
-  enable = true;
+  enable = false;
   eula = true;
   servers.estupidos = {
     enable = true;
