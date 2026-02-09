@@ -167,6 +167,11 @@ in
   sops.secrets."immich-secrets" = { };
   services.immich = import ./services/immich.nix { inherit config ports; };
 
+  services.teamspeak3 = {
+    enable = true;
+    openFirewall = true;
+  };
+
   ## Rest
   environment.systemPackages = import ../../modules/shared/packages.nix { inherit pkgs; };
 

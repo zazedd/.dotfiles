@@ -14,6 +14,7 @@ _:
   # others
   "whatsapp"
   "firefox"
+  "teamspeak-client@beta"
 
   # entertainment
   "prismlauncher"
