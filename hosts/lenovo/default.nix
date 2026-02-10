@@ -11,11 +11,11 @@ in
 
 {
   imports = [
-    ../../modules/dev/home-manager.nix
-    ../../modules/shared
-    ../../modules/shared/cachix
+    ../../configurations/dev/home-manager.nix
+    ../../configurations/shared
+    ../../configurations/shared/cachix
 
-    ../../modules/shared/default.nix
+    ../../configurations/shared/default.nix
     ./hardware-configuration.nix
   ];
 
@@ -146,7 +146,7 @@ in
   environment.systemPackages = [
     pkgs.sbctl
   ]
-  ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+  ++ (import ../../configurations/shared/packages.nix { inherit pkgs; });
 
   fonts = {
     fontDir.enable = true;

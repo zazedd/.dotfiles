@@ -54,6 +54,19 @@ in
         '';
       };
 
+      "ts.${domain}" = {
+        forceSSL = true;
+        sslCertificate = "/var/lib/acme/ff.${domain}/fullchain.pem";
+        sslCertificateKey = "/var/lib/acme/ff.${domain}/key.pem";
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${ports.ts-http}/";
+          extraConfig = ''
+            proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          '';
+        };
+      };
     };
   }
   // builtins.listToAttrs (

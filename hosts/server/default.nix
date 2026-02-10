@@ -18,12 +18,13 @@ let
 in
 {
   imports = [
-    ../../modules/shared
-    ../../modules/shared/cachix
+    ../../configurations/shared
+    ../../configurations/shared/cachix
     ./hardware-configuration.nix
 
-    ../../modules/server/home-manager.nix
-    ../../modules/services/dufs.nix
+    ../../modules/teamspeak6
+    ../../configurations/server/home-manager.nix
+    ../../configurations/services/dufs.nix
     (import ./services/arr.nix { inherit ports; })
     (import ./services/homepage.nix {
       inherit
@@ -167,13 +168,14 @@ in
   sops.secrets."immich-secrets" = { };
   services.immich = import ./services/immich.nix { inherit config ports; };
 
-  services.teamspeak3 = {
+  services.teamspeak6 = {
     enable = true;
     openFirewall = true;
+    package = pkgs.callPackage ../../pkgs/teamspeak6/default.nix {};
   };
 
   ## Rest
-  environment.systemPackages = import ../../modules/shared/packages.nix { inherit pkgs; };
+  environment.systemPackages = import ../../configurations/shared/packages.nix { inherit pkgs; };
 
   networking.firewall = {
     enable = true;
