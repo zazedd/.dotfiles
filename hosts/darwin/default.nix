@@ -12,9 +12,9 @@ in
 {
 
   imports = [
-    ../../configurations/darwin/home-manager.nix
-    ../../configurations/shared/default.nix
-    ../../configurations/shared/cachix
+    ../../profiles/darwin/home-manager.nix
+    ../../profiles/shared/default.nix
+    ../../profiles/shared/cachix
   ];
 
   system.primaryUser = user;
@@ -62,7 +62,7 @@ in
   system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
-  environment.systemPackages = (import ../../configurations/shared/packages.nix { inherit pkgs; });
+  environment.systemPackages = (import ../../profiles/shared/packages.nix { inherit pkgs; });
 
   # Enable fonts dir
   fonts = {

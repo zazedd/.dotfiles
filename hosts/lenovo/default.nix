@@ -11,11 +11,13 @@ in
 
 {
   imports = [
-    ../../configurations/dev/home-manager.nix
-    ../../configurations/shared
-    ../../configurations/shared/cachix
+    ../../profiles/dev/home-manager.nix
+    ../../profiles/shared
+    ../../profiles/shared/cachix
 
-    ../../configurations/shared/default.nix
+    ../../profiles/gaming
+
+    ../../profiles/shared/default.nix
     ./hardware-configuration.nix
   ];
 
@@ -44,7 +46,6 @@ in
   boot.supportedFilesystems = [ "ntfs" ];
 
   programs.nix-ld.enable = true;
-  programs.steam.enable = true;
 
   networking = {
     hostName = "shitmachine";
@@ -146,7 +147,8 @@ in
   environment.systemPackages = [
     pkgs.sbctl
   ]
-  ++ (import ../../configurations/shared/packages.nix { inherit pkgs; });
+  ++ (import ../../profiles/shared/packages.nix { inherit pkgs; })
+  ++ (import ../../profiles/gaming/packages.nix { inherit pkgs; });
 
   fonts = {
     fontDir.enable = true;

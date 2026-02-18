@@ -18,13 +18,13 @@ let
 in
 {
   imports = [
-    ../../configurations/shared
-    ../../configurations/shared/cachix
+    ../../profiles/shared
+    ../../profiles/shared/cachix
     ./hardware-configuration.nix
 
     ../../modules/teamspeak6
-    ../../configurations/server/home-manager.nix
-    ../../configurations/services/dufs.nix
+    ../../profiles/server/home-manager.nix
+    ../../profiles/services/dufs.nix
     (import ./services/arr.nix { inherit ports; })
     (import ./services/homepage.nix {
       inherit
@@ -171,11 +171,11 @@ in
   services.teamspeak6 = {
     enable = true;
     openFirewall = true;
-    package = pkgs.callPackage ../../pkgs/teamspeak6/default.nix {};
+    package = pkgs.callPackage ../../pkgs/teamspeak6/default.nix { };
   };
 
   ## Rest
-  environment.systemPackages = import ../../configurations/shared/packages.nix { inherit pkgs; };
+  environment.systemPackages = import ../../profiles/shared/packages.nix { inherit pkgs; };
 
   networking.firewall = {
     enable = true;

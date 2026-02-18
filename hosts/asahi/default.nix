@@ -11,13 +11,13 @@ in
 {
 
   imports = [
-    ../../configurations/dev/home-manager.nix
-    ../../configurations/shared
-    ../../configurations/shared/cachix
+    ../../profiles/dev/home-manager.nix
+    ../../profiles/shared
+    ../../profiles/shared/cachix
     ./hardware-configuration.nix
     ./apple-silicon-support/default.nix
 
-    ../../configurations/shared/default.nix
+    ../../profiles/shared/default.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -142,7 +142,7 @@ in
   };
 
   # Load configuration that is shared across systems
-  environment.systemPackages = (import ../../configurations/shared/packages.nix { inherit pkgs; });
+  environment.systemPackages = (import ../../profiles/shared/packages.nix { inherit pkgs; });
 
   services.tailscale.enable = true;
   programs.extra-container.enable = true;
