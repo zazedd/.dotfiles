@@ -82,7 +82,7 @@ in
           eDP-1 = {
             disable = "";
           };
-          DP-1 = {
+          DP-2 = {
             scale = "1.25";
             bg = "${wallpaper} fill";
             resolution = "3840x2160@144.000Hz";

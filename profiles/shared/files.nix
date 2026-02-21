@@ -9,26 +9,19 @@ let
     paths:
     builtins.listToAttrs (
       map (p: {
-        name = "${xdg_home}/.zsh${p}";
+        name = "${xdg_home}/.zsh/${p}";
         value = {
-          text = builtins.readFile (configRoot + /zsh + p);
+          text = builtins.readFile (configRoot + /zsh + /${p});
         };
       }) paths
     );
 in
 mkZsh [
-  "/functions.zsh"
-  "/keys.zsh"
-  "/theme.zsh"
-  "/prompt.zsh"
-  "/vimode.zsh"
+  "functions.zsh"
+  "keys.zsh"
 ]
 // {
   "${xdg_home}/.ssh/id_github.pub" = {
     text = githubPublicKey;
-  };
-
-  "${xdg_configHome}/starship.toml" = {
-    text = builtins.readFile ../../configs/zsh/starship.toml;
   };
 }

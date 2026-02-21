@@ -2,14 +2,12 @@
 
 with pkgs;
 [
-
   # secrets
   sops
 
   # General packages for development and system management
   nh
   zoxide
-  starship
   bash-completion
   bat
   btop
@@ -18,7 +16,7 @@ with pkgs;
   fastfetch
   wget
   zip
-  # gcc
+  gcc
   gnumake
   pkg-config
   gnused

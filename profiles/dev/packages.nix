@@ -25,9 +25,10 @@ shared-packages
   libev
   libevent
   claude-code
+  tree-sitter
 
   ## nix
-  nixfmt-rfc-style
+  nixfmt
   nil
   nixd
 

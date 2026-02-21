@@ -1,53 +1,38 @@
 return {
+  { "mason.nvim", enabled = false },
+  { "mason-org/mason-lspconfig.nvim", enabled = false },
 
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        lua_ls = {
-          mason = false,
-        },
+        ocamllsp = {},
+        nixd = {},
+        luals = {},
       },
     },
   },
 
   {
-    "mason-org/mason.nvim",
-    enabled = false,
-    opts_extend = { "ensure_installed" },
+    "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = {},
-    },
-  },
+      ensure_installed = {
+        "ocaml",
 
-  {
-    "mason-org/mason-lspconfig.nvim",
-    enabled = false,
-  },
+        "bash",
+        "html",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
 
-  -- LSP keymaps
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = { "saghen/blink.cmp" },
-    opts = {
-      servers = {
-        ["*"] = {
-          keys = {
-            { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", has = "definition" },
-            { "lr", "<cmd>lua vim.lsp.buf.rename()<CR>", has = "rename" },
-          },
-        },
+        "query",
+        "regex",
+        "json",
+        "yaml",
+
+        "vim",
       },
     },
-
-    config = function(_, opts)
-      local lspconfig = require("lspconfig")
-      for server, config in pairs(opts.servers) do
-        -- passing config.capabilities to blink.cmp merges with the capabilities in your
-        -- `opts[server].capabilities, if you've defined it
-        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
-      end
-    end,
   },
 }

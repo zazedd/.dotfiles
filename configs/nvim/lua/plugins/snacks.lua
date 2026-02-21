@@ -19,3 +19,4 @@ return {
     scroll = { enabled = false },
   },
 }
+
