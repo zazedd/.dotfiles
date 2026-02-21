@@ -26,6 +26,8 @@ shell() {
     nix-shell '<nixpkgs>' -A "$1"
 }
 
+echo '\e[5 q' # line cursor
+
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
 

@@ -1,13 +1,12 @@
 {
   config,
-  ports,
   ...
 }:
 
 {
   enable = true;
   group = "cloud";
-  port = ports.immich;
+  port = config.my.reverse-proxy.immich.port;
   mediaLocation = "/data/cloud/photos";
   host = "0.0.0.0";
   settings.server.externalDomain = "https://photos.leoms.dev";

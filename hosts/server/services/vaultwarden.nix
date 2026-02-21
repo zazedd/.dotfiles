@@ -1,5 +1,4 @@
 {
-  ports,
   config,
   domain,
 }:
@@ -10,7 +9,7 @@
     DOMAIN = "https://bitwarden.${domain}";
     SIGNUPS_ALLOWED = true;
     ROCKET_ADDRESS = "127.0.0.1";
-    ROCKET_PORT = ports.bitwarden;
+    ROCKET_PORT = config.my.reverse-proxy.bitwarden.port;
   };
   environmentFile = config.sops.secrets."vaultwarden-env".path;
 }

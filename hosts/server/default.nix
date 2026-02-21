@@ -10,7 +10,6 @@ let
   user = "zazed";
   email = "leomendesantos@gmail.com";
   domain = "leoms.dev";
-  ports = import ./ports.nix;
   my_pkgs = import my_nixpkgs {
     system = "x86_64-linux";
     config.allowUnfree = true;
@@ -18,22 +17,16 @@ let
 in
 {
   imports = [
-    ../../profiles/shared
-    ../../profiles/shared/cachix
     ./hardware-configuration.nix
 
     ../../modules/teamspeak6
+    (import ../../modules/reverse-proxy { inherit config domain lib; })
+
+    ../../profiles/shared
+    ../../profiles/shared/cachix
     ../../profiles/server/home-manager.nix
-    ../../profiles/services/dufs.nix
-    (import ./services/arr.nix { inherit ports; })
-    (import ./services/homepage.nix {
-      inherit
-        config
-        domain
-        ports
-        lib
-        ;
-    })
+
+    (import ./services/arr.nix { inherit config; })
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
@@ -72,8 +65,6 @@ in
     opencl.enable = true;
   };
 
-  virtualisation.docker.enable = true;
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
@@ -100,9 +91,114 @@ in
 
   programs.nix-ld.enable = true;
 
-  ## Services
+  # services
 
-  sops.secrets."cloudflare-api" = { };
+  ## secrets
+  sops.secrets = {
+    "cloudflare-api" = { };
+    "vaultwarden-env" = { };
+    "minecraft-rcon" = { };
+    "copyparty-${user}" = {
+      owner = "copyparty";
+    };
+    "paperless" = {
+      owner = "paperless";
+    };
+    "immich-secrets" = { };
+    "glance-env" = { };
+  };
+
+  systemd.services.glance.serviceConfig.EnvironmentFile =
+    lib.mkForce
+      config.sops.secrets."glance-env".path;
+
+  ## users and groups
+  users.groups.cloud = { };
+
+  users.users.copyparty = {
+    description = "Service user for copyparty";
+    group = "cloud";
+    isSystemUser = true;
+  };
+
+  users.users.paperless = {
+    description = "Service user for paperless-ngx";
+    group = lib.mkForce "cloud";
+    isSystemUser = true;
+  };
+
+  ## proxies
+  my.reverse-proxy = {
+    jellyfin = {
+      port = 8096;
+      aliases = [ "watch" ];
+      extraLocations = {
+        "/socket" = {
+          proxyPass = "http://127.0.0.1:${toString config.my.reverse-proxy.jellyfin.port}/";
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Protocol $scheme;
+            proxy_set_header X-Forwarded-Host $http_host;
+          '';
+        };
+      };
+    };
+
+    jellyseerr = {
+      port = 5055;
+      aliases = [ "request" ];
+    };
+
+    immich = {
+      port = 2283;
+      aliases = [ "photos" ];
+    };
+
+    copyparty = {
+      port = 3210;
+      aliases = [ "cloud" ];
+    };
+
+    copyparty_webdav = {
+      port = 3211;
+      public = false;
+    };
+
+    radarr.port = 7878;
+    sonarr.port = 8989;
+    lidarr.port = 8686;
+    prowlarr.port = 9696;
+    bazarr.port = 6767;
+
+    sabnzbd.port = 8080;
+    deluge.port = 5000;
+
+    bitwarden.port = 8222;
+    actual.port = 8282;
+    paperless.port = 7999;
+    home.port = 5050;
+  };
+
+  ## services
+  services.glance = import ./services/homepage.nix { inherit config domain; };
+  services.vaultwarden = import ./services/vaultwarden.nix { inherit config domain; };
+  services.actual = import ./services/actual.nix { inherit config; };
+  services.copyparty = import ./services/copyparty.nix { inherit user config; };
+  services.paperless = import ./services/paperless.nix { inherit config; };
+  services.immich = import ./services/immich.nix { inherit config; };
+  services.teamspeak6 = {
+    enable = true;
+    openFirewall = true;
+    package = pkgs.callPackage ../../pkgs/teamspeak6/default.nix { };
+  };
+
+  ###
   security.acme = {
     acceptTerms = true;
     certs = {
@@ -118,63 +214,6 @@ in
     };
   };
 
-  sops.secrets."vaultwarden-env" = { };
-  services.vaultwarden = import ./services/vaultwarden.nix { inherit ports config domain; };
-
-  services.nginx = import ./services/nginx.nix { inherit ports domain; };
-
-  # services.factorio = import ./services/factorio.nix { inherit my_pkgs; };
-
-  sops.secrets."minecraft-rcon" = { };
-  systemd.services."minecraft-server-estupidos" = {
-    serviceConfig.EnvironmentFile = config.sops.secrets."minecraft-rcon".path;
-  };
-  services.minecraft-servers = import ./services/minecraft.nix { inherit pkgs; };
-
-  # sops.secrets."firefly-api" = {
-  #   owner = "firefly-iii";
-  #   group = "nginx";
-  #   mode = "777";
-  # };
-  # services.firefly-iii = import ./services/firefly.nix { inherit config email domain; };
-  services.actual = import ./services/actual.nix { inherit ports; };
-
-  users.groups.cloud = { };
-  # services.seafile = import ./services/seafile.nix { inherit email domain ports; };
-
-  # sops.secrets."dufs-env" = { };
-  # services.dufs = import ./services/dufs.nix { inherit config ports; };
-
-  users.users.copyparty = {
-    description = "Service user for copyparty";
-    group = "cloud";
-    isSystemUser = true;
-  };
-  sops.secrets."copyparty-${user}" = {
-    owner = "copyparty";
-  };
-  services.copyparty = import ./services/copyparty.nix { inherit user config ports; };
-
-  users.users.paperless = {
-    description = "Service user for paperless-ngx";
-    group = lib.mkForce "cloud";
-    isSystemUser = true;
-  };
-  sops.secrets."paperless" = {
-    owner = "paperless";
-  };
-  services.paperless = import ./services/paperless.nix { inherit config ports; };
-
-  sops.secrets."immich-secrets" = { };
-  services.immich = import ./services/immich.nix { inherit config ports; };
-
-  services.teamspeak6 = {
-    enable = true;
-    openFirewall = true;
-    package = pkgs.callPackage ../../pkgs/teamspeak6/default.nix { };
-  };
-
-  ## Rest
   environment.systemPackages = import ../../profiles/shared/packages.nix { inherit pkgs; };
 
   networking.firewall = {
@@ -182,17 +221,13 @@ in
     trustedInterfaces = [ "tailscale0" ];
     allowedUDPPorts = [
       config.services.tailscale.port
-      34197 # factorio
     ];
     allowedTCPPorts = [
-      8082
       5005
-      ports.copyparty
-      ports.copyparty_webdav
-      42069 # minecraft
-      42068 # rcon minecraft
+      config.my.reverse-proxy.copyparty.port
+      config.my.reverse-proxy.copyparty_webdav.port
     ];
   };
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }

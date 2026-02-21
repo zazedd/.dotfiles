@@ -1,5 +1,5 @@
 {
-  ports,
+  config,
   ...
 }:
 
@@ -37,7 +37,7 @@ in
     web = {
       enable = true;
       openFirewall = true;
-      port = ports.deluge;
+      port = config.my.reverse-proxy.deluge.port;
     };
   };
   services.sabnzbd = mediaDefaults;

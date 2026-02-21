@@ -1,11 +1,11 @@
 {
-  ports,
+  config,
   ...
 }:
 {
   enable = true;
   settings = {
     hostname = "0.0.0.0";
-    port = ports.actual;
+    port = config.my.reverse-proxy.actual.port;
   };
 }

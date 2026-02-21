@@ -49,21 +49,36 @@ in
   fileSystems."/data/cloud" = {
     device = "/dev/disk/by-label/cloud";
     fsType = "btrfs";
-    options = [ "compress=zstd" ];
+    options = [
+      "compress=zstd"
+      "x-systemd.automount"
+      "nofail"
+    ];
+    neededForBoot = false;
   };
 
   fileSystems."/backup" = {
     device = "/dev/disk/by-label/backup";
     fsType = "btrfs";
-    options = [ "compress=zstd" ];
+    options = [
+      "compress=zstd"
+      "x-systemd.automount"
+      "nofail"
+    ];
+    neededForBoot = false;
   };
 
   fileSystems."/data/media" = {
     device = "/dev/disk/by-label/media";
     fsType = "ext4";
+    options = [
+      "nofail"
+      "x-systemd.automount"
+    ];
+    neededForBoot = false;
   };
 
-  # Systemd services relating to disks
+  # systemd services relating to disks
 
   systemd.services.hd-idle = {
     description = "external HDD spin down daemon";
@@ -98,6 +113,7 @@ in
   };
 
   systemd.services."backup-minecraft" = {
+    enable = false;
     description = "rsync backup of /srv/minecraft/estupidos/backups to /backup/minecraft";
     serviceConfig = {
       Type = "oneshot";
@@ -106,6 +122,7 @@ in
   };
 
   systemd.timers."backup-minecraft" = {
+    enable = false;
     description = "run backup-minecraft daily";
     wantedBy = [ "timers.target" ];
     timerConfig = {

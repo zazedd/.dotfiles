@@ -1,6 +1,5 @@
 {
   user,
-  ports,
   config,
 }:
 {
@@ -8,8 +7,8 @@
   settings = {
     i = "127.0.0.1";
     p = [
-      ports.copyparty
-      ports.copyparty_webdav
+      config.my.reverse-proxy.copyparty.port
+      config.my.reverse-proxy.copyparty_webdav.port
     ];
     no-reload = true;
     ignored-flag = false;
