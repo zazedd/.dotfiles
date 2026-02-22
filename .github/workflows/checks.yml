@@ -1,0 +1,28 @@
+name: "check systems"
+on:
+  pull_request:
+  push:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        host: [lenovo, server]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - name: eval
+        run: nix eval .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
+      - name: build
+        run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
+
+  darwin:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - name: eval
+        run: nix eval .#darwinConfigurations.aarch64-darwin.system
+      - name: build
+        run: nix build .#darwinConfigurations.aarch64-darwin.system
