@@ -134,9 +134,6 @@ in
             enable = true;
             package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
             withPython3 = true;
-            plugins = [
-              pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-            ];
           };
 
           rclone =

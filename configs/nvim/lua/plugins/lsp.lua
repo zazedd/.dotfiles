@@ -18,6 +18,7 @@ return {
     opts = {
       ensure_installed = {
         "ocaml",
+        "nix",
 
         "bash",
         "html",

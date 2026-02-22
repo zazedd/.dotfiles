@@ -1,6 +1,6 @@
 { pkgs }:
 {
-  text = ''
+  text = /* toml */ ''
     # Config version for compatibility and deprecations
     # Fallback value (if you omit the key): config-version = 1
     config-version = 2

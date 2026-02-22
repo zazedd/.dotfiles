@@ -9,7 +9,7 @@
   plugins = with pkgs.tmuxPlugins; [
     {
       plugin = tmux-nova;
-      extraConfig = ''
+      extraConfig = /* bash */ ''
         set -g @nova-nerdfonts true
         set -g @nova-nerdfonts-left ▌
         set -g @nova-nerdfonts-right ▐
@@ -40,7 +40,7 @@
     better-mouse-mode
   ];
   baseIndex = 1;
-  extraConfig = ''
+  extraConfig = /* bash */ ''
     # True color
     set -as terminal-features ",alacritty*:RGB"
 

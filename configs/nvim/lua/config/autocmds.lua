@@ -42,3 +42,36 @@ vim.cmd([[
     autocmd BufNewFile,BufRead *.v set filetype=coq
   augroup END
 ]])
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        if vim.bo.filetype == "Outline" and vim.fn.winnr('$') == 1 then
+            vim.cmd("q")
+        end
+    end,
+})
+
+local outline_opened = false
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function(args)
+    if outline_opened then
+      return
+    end
+
+    local buf = args.buf
+
+    if vim.bo[buf].buftype ~= "" then
+      return
+    end
+
+    if vim.bo[buf].filetype == "Outline" then
+      return
+    end
+
+    outline_opened = true
+
+    vim.schedule(function()
+      vim.cmd("Outline")
+    end)
+  end,
+})

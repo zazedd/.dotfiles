@@ -18,6 +18,11 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- extras
+    { import =  "lazyvim.plugins.extras.coding.yanky" },
+    { import =  "lazyvim.plugins.extras.editor.navic" },
+    { import =  "lazyvim.plugins.extras.editor.outline" },
+    { import =  "lazyvim.plugins.extras.ui.smear-cursor" },
     -- import/override with your plugins
     { import = "plugins" },
   },
@@ -51,3 +56,5 @@ require("lazy").setup({
     },
   },
 })
+
+
