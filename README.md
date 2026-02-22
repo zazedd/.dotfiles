@@ -18,7 +18,7 @@ Currently, an x86_64-linux machine, aarch64-linux asahi machine, nix-darwin macb
 ```
 
 # Building and Deploying
-## For macOS (Feb 2025)
+## For macOS
 ```sh
 nix run .#build-switch
 ```
