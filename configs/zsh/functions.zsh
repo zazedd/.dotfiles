@@ -8,6 +8,28 @@ nixvm () {
   nix run ~/.dotfiles/#simple-vm
 }
 
+nix-shell-dev() {
+  local dev_installables=()
+  local shell_installables=()
+  for pkg in "$@"; do
+    dev_installables+=("nixpkgs#${pkg}.dev")
+    shell_installables+=("nixpkgs#${pkg}")
+  done
+
+  local dev_paths
+  dev_paths=$(
+    nix build --no-link --print-out-paths "${dev_installables[@]}"
+  )
+
+  local extra_ld extra_pc
+  extra_ld=$(echo "$dev_paths" | awk '{print $0 "/lib"}' | paste -sd:)
+  extra_pc=$(echo "$dev_paths" | awk '{print $0 "/lib/pkgconfig"}' | paste -sd:)
+
+  LD_LIBRARY_PATH="${extra_ld}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" \
+  PKG_CONFIG_PATH="${extra_pc}${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}" \
+    nix shell "${shell_installables[@]}"
+}
+
 # universal extract command
 ext () {
   if [ -f "$1" ]; then

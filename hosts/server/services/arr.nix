@@ -1,5 +1,6 @@
 {
   config,
+  domain,
   ...
 }:
 
@@ -40,7 +41,7 @@ in
       port = config.my.reverse-proxy.deluge.port;
     };
   };
-  services.sabnzbd = mediaDefaults;
+  services.sabnzbd = mediaDefaults // { settings.misc.special.host_whitelist = domain; };
 
   services.flaresolverr.enable = true;
 

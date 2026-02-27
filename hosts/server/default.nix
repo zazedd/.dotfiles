@@ -26,7 +26,7 @@ in
     ../../profiles/shared/cachix
     ../../profiles/server/home-manager.nix
 
-    (import ./services/arr.nix { inherit config; })
+    (import ./services/arr.nix { inherit config domain; })
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 

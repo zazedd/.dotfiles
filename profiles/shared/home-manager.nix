@@ -100,8 +100,8 @@ in
     enableCompletion = true;
 
     shellAliases = {
-      v = "XDG_CONFIG_HOME='/home/${user}/.dotfiles/configs' nvim"; # set XDG_CONFIG_HOME here to update lock file correctly when updating
-      nvim = "XDG_CONFIG_HOME='/home/${user}/.dotfiles/configs' nvim";
+      v = "XDG_CONFIG_HOME='${homeDir}/.dotfiles/configs' nvim"; # set XDG_CONFIG_HOME here to update lock file correctly when updating
+      nvim = "XDG_CONFIG_HOME='${homeDir}/.dotfiles/configs' nvim";
       t = "tmux new-session \; send-keys \"nvim\" C-m \; neww \; split-window -v \; selectp -t 1  \; selectw -t 1";
 
       # sudo alias hack
