@@ -6,13 +6,13 @@ let
     if [ $status = "Running" ]; then
       exit 0
     fi
-    ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale.path})"
+    ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.darwin.path})"
   '';
 in
 {
   services.tailscale.enable = true;
-  
-  sops.secrets.tailscale = {
+
+  sops.secrets.darwin = {
     sopsFile = ../../secrets/conn.yaml;
   };
 

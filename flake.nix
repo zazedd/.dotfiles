@@ -182,51 +182,62 @@
         }
       );
 
-      nixosConfigurations = {
-        asahi = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = inputs // {
-            external_monitor = false;
-            wallpaper = ./configs/wallpaper/hasui.jpg;
-            gpgid = null;
-            nvidia = false;
+      nixosConfigurations =
+        let
+          mkHost =
+            machine: cfg:
+            nixpkgs.lib.nixosSystem (
+              cfg
+              // {
+                specialArgs = inputs // (cfg.specialArgs or { }) // { inherit machine; };
+              }
+            );
+        in
+        nixpkgs.lib.mapAttrs mkHost {
+          asahi = {
+            system = "aarch64-linux";
+            specialArgs = {
+              external_monitor = false;
+              wallpaper = ./configs/wallpaper/hasui.jpg;
+              gpgid = null;
+              nvidia = false;
+            };
+            modules = [
+              sops-nix.nixosModules.sops
+              home-manager.nixosModules.home-manager
+              stylix.nixosModules.stylix
+              ./hosts/asahi
+            ];
           };
-          modules = [
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-            stylix.nixosModules.stylix
-            ./hosts/asahi
-          ];
-        };
 
-        lenovo = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = inputs // {
-            external_monitor = true;
-            wallpaper = ./configs/wallpaper/hasui-autumn2.png;
-            gpgid = "926022701E23A171";
-            nvidia = true;
+          lenovo = {
+            system = "x86_64-linux";
+            specialArgs = {
+              external_monitor = true;
+              wallpaper = ./configs/wallpaper/hasui-autumn2.png;
+              gpgid = "926022701E23A171";
+              nvidia = true;
+            };
+            modules = [
+              sops-nix.nixosModules.sops
+              home-manager.nixosModules.home-manager
+              stylix.nixosModules.stylix
+              nixos-hardware.nixosModules.lenovo-legion-16ach6h-nvidia
+              lanzaboote.nixosModules.lanzaboote
+              ./hosts/lenovo
+            ];
           };
-          modules = [
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-            stylix.nixosModules.stylix
-            nixos-hardware.nixosModules.lenovo-legion-16ach6h-nvidia
-            lanzaboote.nixosModules.lanzaboote
-            ./hosts/lenovo
-          ];
-        };
 
-        server = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = inputs;
-          modules = [
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-            copyparty.nixosModules.default
-            ./hosts/server
-          ];
+          server = {
+            system = "x86_64-linux";
+            specialArgs = inputs;
+            modules = [
+              sops-nix.nixosModules.sops
+              home-manager.nixosModules.home-manager
+              copyparty.nixosModules.default
+              ./hosts/server
+            ];
+          };
         };
-      };
     };
 }

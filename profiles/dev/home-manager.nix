@@ -2,6 +2,7 @@
   config,
   pkgs,
   neovim-nightly-overlay,
+  machine,
   external_monitor ? false,
   gpgid ? null,
   nvidia ? false,
@@ -31,7 +32,7 @@ in
     isNormalUser = true;
   };
 
-  imports = [ ./tailscale.nix ];
+  imports = [ (import ./tailscale.nix { inherit pkgs config machine; }) ];
 
   sops.age.keyFile = "${xdg_home}/.config/sops/age/keys.txt";
   security.pam.services."swaylock" = { };

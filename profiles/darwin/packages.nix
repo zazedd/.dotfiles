@@ -12,7 +12,13 @@ shared-packages
   dockutil
   dua
 
+  ## nix
+  nixfmt
+  nil
+  nixd
+
   # dev
+  niv
   opam
   zoxide
   yazi

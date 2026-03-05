@@ -31,7 +31,7 @@ in
     isNormalUser = true;
   };
 
-  imports = [ ../dev/tailscale.nix ];
+  imports = [ (import ../dev/tailscale.nix { inherit pkgs config; machine = "server"; }) ];
 
   programs.zsh.enable = true;
 

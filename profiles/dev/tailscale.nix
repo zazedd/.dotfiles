@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, machine, ... }:
 let
   tailscaleAuthScript = with pkgs; writeShellScript "tailscale-auth" ''
     sleep 2
@@ -6,13 +6,13 @@ let
     if [ $status = "Running" ]; then
       exit 0
     fi
-    ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.tailscale.path})"
+    ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.${machine}.path})"
   '';
 in
 {
   services.tailscale.enable = true;
 
-  sops.secrets.tailscale = {
+  sops.secrets.${machine} = {
     sopsFile = ../../secrets/conn.yaml;
   };
 
