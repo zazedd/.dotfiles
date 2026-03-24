@@ -15,3 +15,8 @@ italic.family = "Iosevka Nerd Font"
 bold_italic.family = "Iosevka Nerd Font"
 
 size = 15.0
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\x1b\r"

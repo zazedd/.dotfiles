@@ -62,10 +62,6 @@
       url = "github:MediosZ/homebrew-tap";
       flake = false;
     };
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs =
     {
@@ -91,61 +87,9 @@
     }@inputs:
     let
       user = "zazed";
-      linuxSystems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
       darwinSystems = [ "aarch64-darwin" ];
-      forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
-      devShell =
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          default =
-            with pkgs;
-            mkShell {
-              nativeBuildInputs = with pkgs; [
-                git
-              ];
-              shellHook = ''
-                export EDITOR=vim
-              '';
-            };
-        };
-      mkApp = scriptName: system: {
-        type = "app";
-        program = "${
-          (nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
-            #!/usr/bin/env bash
-            PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
-            echo "Running ${scriptName} for ${system}"
-            exec ${self}/apps/${system}/${scriptName}
-          '')
-        }/bin/${scriptName}";
-      };
-      mkLinuxApps = system: {
-        "apply" = mkApp "apply" system;
-        "build-switch" = mkApp "build-switch" system;
-        "check-keys" = mkApp "check-keys" system;
-        "install" = mkApp "install" system;
-        "install-with-secrets" = mkApp "install-with-secrets" system;
-      };
-      mkDarwinApps = system: {
-        "apply" = mkApp "apply" system;
-        "build" = mkApp "build" system;
-        "build-switch" = mkApp "build-switch" system;
-        "check-keys" = mkApp "check-keys" system;
-        "rollback" = mkApp "rollback" system;
-        "vm" = mkApp "vm" system;
-      };
     in
     {
-      devShells = forAllSystems devShell;
-      apps =
-        nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
-
       darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (
         system:
         darwin.lib.darwinSystem {
@@ -194,22 +138,6 @@
             );
         in
         nixpkgs.lib.mapAttrs mkHost {
-          asahi = {
-            system = "aarch64-linux";
-            specialArgs = {
-              external_monitor = false;
-              wallpaper = ./configs/wallpaper/hasui.jpg;
-              gpgid = null;
-              nvidia = false;
-            };
-            modules = [
-              sops-nix.nixosModules.sops
-              home-manager.nixosModules.home-manager
-              stylix.nixosModules.stylix
-              ./hosts/asahi
-            ];
-          };
-
           lenovo = {
             system = "x86_64-linux";
             specialArgs = {
