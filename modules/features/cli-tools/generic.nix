@@ -1,5 +1,5 @@
 let
-  genericPackages =
+  packages =
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
@@ -9,6 +9,7 @@ let
         jq
         ripgrep
         fzf
+        yazi
         tree
         unrar
         unzip
@@ -23,8 +24,6 @@ let
         wget
         zip
         gcc
-        gnumake
-        pkg-config
         gnused
         gnugrep
         gawk
@@ -43,6 +42,6 @@ let
     };
 in
 {
-  flake.modules.nixos.cli-tools.imports = [ genericPackages ];
-  flake.modules.darwin.cli-tools.imports = [ genericPackages ];
+  flake.modules.nixos.cli-tools.imports = [ packages ];
+  flake.modules.darwin.cli-tools.imports = [ packages ];
 }

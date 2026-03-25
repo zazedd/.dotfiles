@@ -31,9 +31,22 @@
       };
     };
 
-    darwin.zazed = {
-      imports = with self.modules.darwin; [ ];
-    };
+    darwin.zazed =
+      { pkgs, ... }:
+      {
+        users.users.zazed = {
+          home = "/Users/zazed";
+          shell = pkgs.zsh;
+        };
+
+        home-manager.users.zazed = {
+          imports = [
+            self.modules.homeManager.zazed
+          ];
+        };
+
+        system.primaryUser = "zazed";
+      };
 
     homeManager.zazed =
       { pkgs, ... }:

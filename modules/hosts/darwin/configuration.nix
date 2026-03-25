@@ -9,7 +9,6 @@ in
     ];
     networking.hostName = hostname;
 
-    system.primaryUser = "zazed";
     homebrew = {
       enable = true;
     };

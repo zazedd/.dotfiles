@@ -4,6 +4,18 @@
   flake.modules.darwin.windowmanager =
     { pkgs, ... }:
     {
+      environment.systemPackages =
+        let
+          old-betterdisplay-pkgs = import inputs.old-betterdisplay-nixpkgs {
+            system = pkgs.stdenv.hostPlatform.system;
+            config.allowUnfree = true;
+          };
+        in
+        [
+          old-betterdisplay-pkgs.betterdisplay
+          pkgs.brewCasks.sol # dmenu-like app launcher
+        ];
+
       services.aerospace = {
         enable = true;
         settings = {
@@ -55,13 +67,13 @@
             };
           };
 
-          # on-window-detected = [
-          #   {
-          #     check-further-callbacks = true;
-          #     if.window-title-regex-substring = "alacritty";
-          #     run = "layout tiling";
-          #   }
-          # ];
+          on-window-detected = [
+            {
+              check-further-callbacks = true;
+              "if".window-title-regex-substring = "alacritty";
+              run = "layout tiling";
+            }
+          ];
 
           mode = {
             main.binding = {

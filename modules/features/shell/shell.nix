@@ -1,18 +1,41 @@
-{ inputs, lib, ... }:
 {
+  inputs,
+  config,
+  lib,
+  ...
+}:
+let
+  name = config.flake.meta.users.zazed.name;
+  email = config.flake.meta.users.zazed.email;
+in
+{
+  flake.modules.nixos.shell =
+    { pkgs, ... }:
+    {
+      fonts.packages = with pkgs.nerd-fonts; [
+        iosevka
+      ];
+    };
+
+  flake.modules.darwin.shell =
+    { pkgs, ... }:
+    {
+      fonts.packages = with pkgs.nerd-fonts; [
+        iosevka
+      ];
+    };
+
   flake.modules.homeManager.shell =
     { config, pkgs, ... }:
     {
       programs = {
-        tmux = import ./_tmux.nix { inherit pkgs; };
-
         git = {
           enable = true;
           ignores = [ "*.swp" ];
           settings = {
             user = {
+              inherit email;
               name = "zazedd";
-              email = config.flake.meta.users.zazed.email;
             };
 
             # commit.gpgsign = gpgid != null;
@@ -42,7 +65,7 @@
           settings = {
             ignorecase = true;
           };
-          extraConfig = builtins.readFile ../../configs/vim/init.vim;
+          extraConfig = builtins.readFile ../../../configs/vim/init.vim;
         };
 
         zsh = {
@@ -68,7 +91,7 @@
             l = "eza -l";
             la = "eza -la";
             ip = "ip --color=auto";
-            sw = "sway --config /home/${config.flake.meta.users.zazed.name}/.config/sway/config --unsupported-gpu";
+            sw = "sway --config /home/${name}/.config/sway/config --unsupported-gpu";
             du = "dua";
 
             gs = "git status";

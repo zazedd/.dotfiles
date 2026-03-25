@@ -5,7 +5,7 @@ let
     {
       home-manager = {
         verbose = true;
-        useUserPackages = true;
+        useUserPackages = false;
         useGlobalPkgs = true;
         backupFileExtension = "backup";
         backupCommand = "rm";

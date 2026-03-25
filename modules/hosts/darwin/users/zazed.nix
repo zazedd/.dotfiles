@@ -3,11 +3,9 @@
   ...
 }:
 {
-  flake.modules.darwin.macbook = {
+  flake.modules.darwin.shitbook = {
     imports = with inputs.self.modules.darwin; [
       zazed
     ];
-
-    home-manager.users.zazed = { };
   };
 }

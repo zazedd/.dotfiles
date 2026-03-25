@@ -16,6 +16,7 @@
       system-default
 
       ssh
+      shell
       tailscale
       cli-tools
     ];

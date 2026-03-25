@@ -12,7 +12,7 @@
     services.openssh.enable = true;
   };
 
-  flake.modules.homeModules.ssh =
+  flake.modules.homeManager.ssh =
     { lib, config, ... }:
     {
       programs.ssh = {
