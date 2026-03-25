@@ -5,7 +5,6 @@ in
 {
   flake.modules.darwin.${hostname} = {
     imports = with inputs.self.modules.darwin; [
-      zazed
       system-desktop
     ];
     networking.hostName = hostname;
@@ -14,9 +13,5 @@ in
     homebrew = {
       enable = true;
     };
-
-    home-manager.users.zazed = { };
   };
-
-  flake.darwinConfigurations = inputs.self.lib.mkDarwin "aarch64-darwin" hostname;
 }

@@ -1,8 +1,4 @@
-{
-  inputs,
-  ...
-}:
-
+{ inputs, ... }:
 {
   flake.modules.nixos.windowmanager = { };
   flake.modules.darwin.windowmanager =
@@ -14,7 +10,7 @@
           config-version = 2;
 
           after-startup-command = [ ];
-          start-at-login = true;
+          # start-at-login = true;
 
           enable-normalization-flatten-containers = true;
           enable-normalization-opposite-orientation-for-nested-containers = true;
@@ -151,7 +147,6 @@
               ];
             };
           };
-
         };
       };
     };

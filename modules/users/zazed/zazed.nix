@@ -8,9 +8,7 @@
       {
         name = n;
         email = "leomendesantos@gmail.com";
-        key = "";
         username = n;
-        keygrip = [ ];
         authorizedKeys = [ ];
       };
   };
@@ -19,7 +17,7 @@
     nixos.zazed = {
       imports = with self.modules.nixos; [ ];
       users.users.zazed = {
-        description = config.flake.meta.users.user.name;
+        description = config.flake.meta.users.zazed.name;
         isNormalUser = true;
         createHome = true;
         extraGroups = [
@@ -40,7 +38,7 @@
     homeManager.zazed =
       { pkgs, ... }:
       {
-        imports = with self.modules.homeManager; [ ];
+        imports = with self.modules.homeManager; [ system-desktop ];
         home.packages = with pkgs; [ ];
       };
   };

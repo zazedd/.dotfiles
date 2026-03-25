@@ -27,6 +27,4 @@ in
       home-manager-config
     ];
   };
-
-  imports = [ inputs.home-manager.flakeModules.home-manager ];
 }

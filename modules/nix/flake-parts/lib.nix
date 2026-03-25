@@ -1,21 +1,18 @@
 {
   inputs,
-  flake-parts-lib,
   lib,
   ...
 }:
 # Helper functions for creating system / home-manager configurations
 {
-  options.flake = flake-parts-lib.mkSubmoduleOptions {
-    darwinConfigurations = lib.mkOption {
-      type = lib.types.lazyAttrsOf lib.types.raw;
-      default = { };
-    };
+  options.flake.lib = lib.mkOption {
+    type = lib.types.attrsOf lib.types.unspecified;
+    default = { };
+  };
 
-    lib = lib.mkOption {
-      type = lib.types.attrsOf lib.types.unspecified;
-      default = { };
-    };
+  options.flake.meta = lib.mkOption {
+    type = lib.types.attrsOf lib.types.unspecified;
+    default = { };
   };
 
   config.flake.lib = {

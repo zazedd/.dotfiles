@@ -1,7 +1,7 @@
 { inputs, ... }:
 # setup flake-parts for dendritic pattern
 {
-  inputs = [ inputs.flake-file.flakeModules.default ];
+  imports = [ inputs.flake-parts.flakeModules.modules ];
   systems = [
     "aarch64-darwin"
     "x86_64-linux"

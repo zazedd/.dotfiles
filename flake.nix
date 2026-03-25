@@ -2,6 +2,9 @@
   description = "a (never) good enough config";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+
     my_nixpkgs.url = "github:zazedd/nixpkgs";
     old-betterdisplay-nixpkgs.url = "github:nixos/nixpkgs/09b22eb8a65f65ec86625d1230c434cdca680606";
     home-manager.url = "github:nix-community/home-manager";
@@ -30,36 +33,16 @@
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    darwin = {
+    nix-darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
+    brew-nix = {
+      url = "github:BatteredBunny/brew-nix";
+      inputs.brew-api.follows = "brew-api";
     };
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
-    homebrew-services = {
-      url = "github:homebrew/homebrew-services";
-      flake = false;
-    };
-    homebrew-boring-notch = {
-      url = "github:TheBoredTeam/homebrew-boring-notch";
-      flake = false;
-    };
-    homebrew-aerospace = {
-      url = "github:nikitabobko/homebrew-tap";
-      flake = false;
-    };
-    homebrew-aerospace-gestures = {
-      url = "github:MediosZ/homebrew-tap";
+    brew-api = {
+      url = "github:BatteredBunny/brew-api";
       flake = false;
     };
   };
