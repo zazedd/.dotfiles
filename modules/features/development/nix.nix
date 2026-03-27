@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.dev =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     {
       home.packages = with pkgs; [
         nixfmt
@@ -10,6 +10,9 @@
         nix-fast-build
         nix-tree
       ];
-      programs.nh.enable = true;
+      programs.nh = {
+        enable = true;
+        flake = "${config.home.homeDirectory}/.dotfiles";
+      };
     };
 }

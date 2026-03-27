@@ -103,11 +103,6 @@ in
           };
           plugins = [
             {
-              name = "zsh-vi-mode";
-              src = pkgs.zsh-vi-mode;
-              file = "zsh-vi-mode.zsh";
-            }
-            {
               name = "zsh-autopair";
               src = pkgs.zsh-autopair;
               file = "autopair.zsh";
@@ -124,12 +119,12 @@ in
             }
             {
               name = "powerlevel10k-config";
-              src = ../../../configs/zsh;
+              src = ./.;
               file = ".p10k.zsh";
             }
           ];
 
-          initContent = lib.mkOrder 1500 (builtins.readFile ../../../configs/zsh/.zshrc);
+          initContent = lib.mkOrder 1500 (builtins.readFile ./.zshrc);
 
           syntaxHighlighting = {
             enable = true;

@@ -1,11 +1,12 @@
 {
-  inputs,
-  config,
-  ...
-}:
-{
   flake.modules.nixos.ssh = {
-    services.openssh.enable = true;
+    services.openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
+    };
   };
 
   flake.modules.darwin.ssh = {
