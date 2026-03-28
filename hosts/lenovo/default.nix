@@ -158,5 +158,71 @@ in
     ];
   };
 
+  ## gpu passthru
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.runAsRoot = false;
+    onBoot = "ignore";
+    onShutdown = "shutdown";
+  };
+  programs.virt-manager.enable = true;
+  specialisation = {
+    vfio.configuration =
+      let
+        vmRamMib = 22528;
+        hugepages = vmRamMib / 2;
+      in
+      {
+        powerManagement.cpuFreqGovernor = "performance";
+        home-manager.users.${user}.wayland.windowManager.sway.config.output = {
+          "eDP-1" = {
+            enable = "";
+          };
+        };
+
+        boot.kernelParams = [
+          "hugepages=${toString hugepages}"
+
+          # cpu pinning
+          "isolcpus=1-7"
+          "nohz_full=1-7"
+          "rcu_nocbs=1-7"
+
+          "amd_iommu=on"
+          "iommu=pt"
+          "pcie_aspm=off"
+
+          "vfio-pci.ids=10de:24dd,10de:228b"
+
+          "video=efifb:off"
+          "video=vesafb:off"
+
+          "modprobe.blacklist=nvidia,nvidia_drm,nvidia_modeset,nvidia_uvm,nouveau,nvidiafb"
+        ];
+
+        boot.kernel.sysctl."vm.nr_hugepages" = hugepages;
+
+        boot.kernelModules = [ "kvm-amd" ];
+
+        boot.initrd.kernelModules = [
+          "vfio"
+          "vfio_pci"
+          "vfio_iommu_type1"
+        ];
+
+        boot.initrd.availableKernelModules = [ "vfio-pci" ];
+
+        boot.blacklistedKernelModules = [
+          "nvidia"
+          "nvidia_drm"
+          "nvidia_modeset"
+          "nvidia_uvm"
+          "nouveau"
+          "nvidiafb"
+        ];
+      };
+  };
+
   system.stateVersion = "25.05";
 }

@@ -76,24 +76,22 @@ in
       titlebar = false;
       hideEdgeBorders = "both";
     };
-    output =
-      if external_monitor then
-        {
-          eDP-1 = {
-            disable = "";
-          };
-          DP-2 = {
-            scale = "1.25";
-            bg = "${wallpaper} fill";
-            resolution = "3840x2160@144.000Hz";
-          };
-        }
-      else
-        {
-          eDP-1 = {
-            scale = "1";
-            bg = "${wallpaper} fill";
-          };
-        };
+    output = {
+      "eDP-1" = {
+        disable = "";
+        scale = "1";
+        bg = "${wallpaper} fill";
+      };
+      "DP-1" = {
+        scale = "1.25";
+        bg = "${wallpaper} fill";
+        resolution = "3840x2160@144.000Hz";
+      };
+      "DP-2" = {
+        scale = "1.25";
+        bg = "${wallpaper} fill";
+        resolution = "3840x2160@144.000Hz";
+      };
+    };
   };
 }

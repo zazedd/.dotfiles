@@ -27,6 +27,9 @@ in
       "davfs2"
       "vboxusers"
       "networkmanager"
+      "libvirt"
+      "libvirt-qemu"
+      "libvirtd"
     ];
     shell = pkgs.zsh;
     isNormalUser = true;
