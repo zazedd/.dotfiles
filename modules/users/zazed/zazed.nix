@@ -14,22 +14,30 @@
   };
 
   flake.modules = {
-    nixos.zazed = {
-      imports = with self.modules.nixos; [ ];
-      users.users.zazed = {
-        description = config.flake.meta.users.zazed.name;
-        isNormalUser = true;
-        createHome = true;
-        extraGroups = [
-          "wheel"
-          "audio"
-          "video"
-          "davfs2"
-          "vboxusers"
-          "networkmanager"
-        ];
+    nixos.zazed =
+      { pkgs, ... }:
+      {
+        imports = with self.modules.nixos; [ ];
+        programs.zsh.enable = true;
+
+        users.users.zazed = {
+          description = config.flake.meta.users.zazed.name;
+          isNormalUser = true;
+          createHome = true;
+          shell = pkgs.zsh;
+          extraGroups = [
+            "wheel"
+            "audio"
+            "video"
+            "davfs2"
+            "vboxusers"
+            "networkmanager"
+            "libvirt"
+            "libvirt-qemu"
+            "libvirtd"
+          ];
+        };
       };
-    };
 
     darwin.zazed =
       { pkgs, ... }:

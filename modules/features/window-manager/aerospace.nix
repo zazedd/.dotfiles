@@ -1,6 +1,5 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.windowmanager = { };
   flake.modules.darwin.windowmanager =
     { pkgs, ... }:
     {
