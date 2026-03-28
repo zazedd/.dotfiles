@@ -10,6 +10,7 @@ in
         sopsFile = ../../../secrets/server.yaml;
       };
 
+      # this is linux only, sets up systemd
       programs.rclone =
         let
           cfg = {

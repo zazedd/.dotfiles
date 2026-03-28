@@ -24,7 +24,7 @@
       windowmanager
       browser
       dev
-      cloud-connection
+      cloud-connection # linux only
       desktop-util
     ];
   };

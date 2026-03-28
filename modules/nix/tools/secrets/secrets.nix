@@ -29,5 +29,6 @@ in
 
   flake.modules.homeManager.secrets = {
     imports = [ inputs.sops-nix.homeManagerModule ];
+    sops.age.keyFile = "/Users/${username}/.config/sops/age/keys.txt";
   };
 }

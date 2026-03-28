@@ -1,6 +1,8 @@
 { inputs, lib, ... }:
 {
   flake.modules.nixos.windowmanager = {
+    imports = [ inputs.self.modules.nixos.xdg ];
+
     options.windowmanager = {
       wallpaper = lib.mkOption { type = lib.types.path; };
     };
@@ -8,10 +10,8 @@
 
   flake.modules.homeManager.windowmanager =
     { osConfig, pkgs, ... }:
-    lib.mkIf pkgs.stdenv.isLinux {
-      imports = [ inputs.self.modules.nixos.xdg ];
-
-      wayland = {
+    {
+      wayland = lib.mkIf pkgs.stdenv.isLinux {
         windowManager.sway =
           let
             opt = "Mod1";
