@@ -7,6 +7,7 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         host: [lenovo, server]
     steps:
@@ -23,6 +24,6 @@ jobs:
       - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
       - name: eval
-        run: nix eval .#darwinConfigurations.aarch64-darwin.system
+        run: nix eval .#darwinConfigurations.shitbook.system
       - name: build
-        run: nix build .#darwinConfigurations.aarch64-darwin.system
+        run: nix build .#darwinConfigurations.shitbook.system

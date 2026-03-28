@@ -2,6 +2,9 @@
   description = "a (never) good enough config";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+
     my_nixpkgs.url = "github:zazedd/nixpkgs";
     old-betterdisplay-nixpkgs.url = "github:nixos/nixpkgs/09b22eb8a65f65ec86625d1230c434cdca680606";
     home-manager.url = "github:nix-community/home-manager";
@@ -30,142 +33,19 @@
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    darwin = {
+    nix-darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
+    brew-nix = {
+      url = "github:BatteredBunny/brew-nix";
+      inputs.brew-api.follows = "brew-api";
     };
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
-    homebrew-services = {
-      url = "github:homebrew/homebrew-services";
-      flake = false;
-    };
-    homebrew-boring-notch = {
-      url = "github:TheBoredTeam/homebrew-boring-notch";
-      flake = false;
-    };
-    homebrew-aerospace = {
-      url = "github:nikitabobko/homebrew-tap";
-      flake = false;
-    };
-    homebrew-aerospace-gestures = {
-      url = "github:MediosZ/homebrew-tap";
+    brew-api = {
+      url = "github:BatteredBunny/brew-api";
       flake = false;
     };
   };
-  outputs =
-    {
-      self,
-      darwin,
-      nix-homebrew,
-      nixos-hardware,
-      stylix,
-      copyparty,
-      homebrew-bundle,
-      homebrew-core,
-      homebrew-cask,
-      homebrew-services,
-      homebrew-boring-notch,
-      homebrew-aerospace,
-      homebrew-aerospace-gestures,
-      home-manager,
-      nixpkgs,
-      old-betterdisplay-nixpkgs,
-      sops-nix,
-      lanzaboote,
-      ...
-    }@inputs:
-    let
-      user = "zazed";
-      darwinSystems = [ "aarch64-darwin" ];
-    in
-    {
-      darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (
-        system:
-        darwin.lib.darwinSystem {
-          inherit system;
-          specialArgs = inputs // {
-            old-betterdisplay-pkgs = import old-betterdisplay-nixpkgs {
-              inherit system;
-              config.allowUnfree = true;
-            };
-          };
-          modules = [
-            sops-nix.darwinModules.sops
-            home-manager.darwinModules.home-manager
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                inherit user;
-                enable = true;
-                taps = {
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-cask" = homebrew-cask;
-                  "homebrew/homebrew-bundle" = homebrew-bundle;
-                  "homebrew/homebrew-services" = homebrew-services;
-                  "TheBoredTeam/boring-notch" = homebrew-boring-notch;
-                  "nikitabobko/homebrew-tap" = homebrew-aerospace;
-                  "MediosZ/homebrew-tap" = homebrew-aerospace-gestures;
-                };
-                mutableTaps = true;
-                autoMigrate = true;
-              };
-            }
-            ./hosts/darwin
-          ];
-        }
-      );
 
-      nixosConfigurations =
-        let
-          mkHost =
-            machine: cfg:
-            nixpkgs.lib.nixosSystem (
-              cfg
-              // {
-                specialArgs = inputs // (cfg.specialArgs or { }) // { inherit machine; };
-              }
-            );
-        in
-        nixpkgs.lib.mapAttrs mkHost {
-          lenovo = {
-            system = "x86_64-linux";
-            specialArgs = {
-              external_monitor = true;
-              wallpaper = ./configs/wallpaper/hasui-autumn2.png;
-              gpgid = "926022701E23A171";
-              nvidia = true;
-            };
-            modules = [
-              sops-nix.nixosModules.sops
-              home-manager.nixosModules.home-manager
-              stylix.nixosModules.stylix
-              nixos-hardware.nixosModules.lenovo-legion-16ach6h-nvidia
-              lanzaboote.nixosModules.lanzaboote
-              ./hosts/lenovo
-            ];
-          };
-
-          server = {
-            system = "x86_64-linux";
-            specialArgs = inputs;
-            modules = [
-              sops-nix.nixosModules.sops
-              home-manager.nixosModules.home-manager
-              copyparty.nixosModules.default
-              ./hosts/server
-            ];
-          };
-        };
-    };
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }
