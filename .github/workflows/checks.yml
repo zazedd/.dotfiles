@@ -13,6 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: "experimental-features = nix-command flakes pipe-operators"
       - name: eval
         run: nix eval .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
       - name: build
@@ -23,6 +25,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: "experimental-features = nix-command flakes pipe-operators"
       - name: eval
         run: nix eval .#darwinConfigurations.shitbook.system
       - name: build

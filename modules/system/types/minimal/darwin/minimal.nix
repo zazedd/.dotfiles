@@ -32,6 +32,7 @@
         experimental-features = [
           "nix-command"
           "flakes"
+          "pipe-operators"
         ];
 
         download-buffer-size = 1024 * 1024 * 1024;
