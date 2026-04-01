@@ -17,6 +17,7 @@
       home-manager
       homebrew
       secrets
+      linux-builder
     ];
   };
 
