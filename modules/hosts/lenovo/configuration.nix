@@ -4,16 +4,15 @@
     imports = with inputs.self.modules.nixos; [
       system-desktop
       gaming
-      gpu-passthrough
+      # gpu-passthrough
+      topology
     ];
 
-    virtualisation.gpuPassthrough = {
-      enable = true;
-      cpus = 8;
-      vfioId = "10de:24dd,10de:228b";
-      vmRamMib = 22528;
-    };
-
-    windowmanager.wallpaper = ../../../configs/wallpaper/hasui-autumn2.png;
+    # virtualisation.gpuPassthrough = {
+    #   enable = true;
+    #   cpus = 8;
+    #   vfioId = "10de:24dd,10de:228b";
+    #   vmRamMib = 22528;
+    # };
   };
 }

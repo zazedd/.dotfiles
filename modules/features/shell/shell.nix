@@ -12,16 +12,24 @@ in
   flake.modules.nixos.shell =
     { pkgs, ... }:
     {
-      fonts.packages = with pkgs.nerd-fonts; [
-        iosevka
-      ];
+      fonts = {
+        packages = [
+          pkgs.nerd-fonts.iosevka
+        ];
+
+        fontconfig.defaultFonts = {
+          monospace = [ "Iosevka Nerd Font Mono" ];
+          sansSerif = [ "Iosevka Nerd Font" ];
+          serif = [ "Iosevka Nerd Font" ];
+        };
+      };
     };
 
   flake.modules.darwin.shell =
     { pkgs, ... }:
     {
-      fonts.packages = with pkgs.nerd-fonts; [
-        iosevka
+      fonts.packages = [
+        pkgs.nerd-fonts.iosevka
       ];
     };
 

@@ -9,6 +9,8 @@
         reverse-proxy
         cloud
         mediaserver
+
+        topology
       ];
 
       sops.defaultSopsFile = ../../../secrets/server.yaml;

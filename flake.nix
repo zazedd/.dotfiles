@@ -4,6 +4,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
+    nix-wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     my_nixpkgs.url = "github:zazedd/nixpkgs";
     old-betterdisplay-nixpkgs.url = "github:nixos/nixpkgs/09b22eb8a65f65ec86625d1230c434cdca680606";
@@ -12,6 +16,10 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     nix-minecraft.url = "github:zazedd/nix-minecraft";
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     copyparty = {
       url = "github:9001/copyparty";

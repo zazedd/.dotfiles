@@ -11,6 +11,9 @@
         jack.enable = true;
       };
 
+      services.xserver.videoDrivers = [ "nvidia" ];
+      services.dbus.enable = true;
+
       boot = {
         loader = {
           systemd-boot.enable = lib.mkForce false;
