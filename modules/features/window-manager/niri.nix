@@ -27,75 +27,63 @@
     {
       imports = [ wlib.wrapperModules.niri ];
 
-      config."config.kdl".content = /* kdl */ ''
-        spawn-at-startup "${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia}"
+      settings = {
+        spawn-at-startup = [
+          "${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia}"
+        ];
 
-        input {
-          keyboard {
-            xkb {
-              layout "us"
-            }
-            repeat-delay 200
-            repeat-rate 35
-          }
-        }
+        input.keyboard = {
+          xkb.layout = "us";
+          repeat-delay = 200;
+          repeat-rate = 35;
+        };
 
-        hotkey-overlay {
-          skip-at-startup
-        }
+        hotkey-overlay.skip-at-startup = { };
 
-        layout {
-          gaps 5
-          focus-ring {
-            width 1.5
-          }
+        layout = {
+          gaps = 5;
+          focus-ring.width = 1.5;
+          default-column-width.proportion = 1.0;
+        };
 
-          default-column-width { proportion 1.0; }
-        }
+        binds = {
+          "Mod+Return".spawn = lib.getExe pkgs.alacritty;
+          "Mod+D".spawn = lib.getExe pkgs.fuzzel;
+          "Mod+B".spawn = lib.getExe pkgs.firefox;
+          "Mod+Q".close-window = { };
 
-        binds {
-          Mod+Return { spawn "${lib.getExe pkgs.alacritty}"; }
-          Mod+D { spawn "${lib.getExe pkgs.fuzzel}"; }
-          Mod+B { spawn "${lib.getExe pkgs.firefox}"; }
+          "Mod+1".focus-workspace = 1;
+          "Mod+2".focus-workspace = 2;
+          "Mod+3".focus-workspace = 3;
+          "Mod+4".focus-workspace = 4;
+          "Mod+5".focus-workspace = 5;
+          "Mod+6".focus-workspace = 6;
+          "Mod+7".focus-workspace = 7;
+          "Mod+8".focus-workspace = 8;
+          "Mod+9".focus-workspace = 9;
 
-          Mod+Q { close-window; }
+          "Mod+Shift+1".move-column-to-workspace = 1;
+          "Mod+Shift+2".move-column-to-workspace = 2;
+          "Mod+Shift+3".move-column-to-workspace = 3;
+          "Mod+Shift+4".move-column-to-workspace = 4;
+          "Mod+Shift+5".move-column-to-workspace = 5;
+          "Mod+Shift+6".move-column-to-workspace = 6;
+          "Mod+Shift+7".move-column-to-workspace = 7;
+          "Mod+Shift+8".move-column-to-workspace = 8;
+          "Mod+Shift+9".move-column-to-workspace = 9;
 
-          Mod+1 { focus-workspace 1; }
-          Mod+2 { focus-workspace 2; }
-          Mod+3 { focus-workspace 3; }
-          Mod+4 { focus-workspace 4; }
-          Mod+5 { focus-workspace 5; }
-          Mod+6 { focus-workspace 6; }
-          Mod+7 { focus-workspace 7; }
-          Mod+8 { focus-workspace 8; }
-          Mod+9 { focus-workspace 9; }
+          "Mod+H".focus-column-left = { };
+          "Mod+J".focus-window-down = { };
+          "Mod+K".focus-window-up = { };
+          "Mod+L".focus-column-right = { };
 
-          Mod+Shift+1 { move-column-to-workspace 1; }
-          Mod+Shift+2 { move-column-to-workspace 2; }
-          Mod+Shift+3 { move-column-to-workspace 3; }
-          Mod+Shift+4 { move-column-to-workspace 4; }
-          Mod+Shift+5 { move-column-to-workspace 5; }
-          Mod+Shift+6 { move-column-to-workspace 6; }
-          Mod+Shift+7 { move-column-to-workspace 7; }
-          Mod+Shift+8 { move-column-to-workspace 8; }
-          Mod+Shift+9 { move-column-to-workspace 9; }
+          "Mod+Shift+H".move-column-left = { };
+          "Mod+Shift+J".move-window-down = { };
+          "Mod+Shift+K".move-window-up = { };
+          "Mod+Shift+L".move-column-right = { };
+        };
 
-          Mod+H { focus-column-left; }
-          Mod+J { focus-window-down; }
-          Mod+K { focus-window-up; }
-          Mod+L { focus-column-right; }
-
-          Mod+Shift+H { move-column-left; }
-          Mod+Shift+J { move-window-down; }
-          Mod+Shift+K { move-window-up; }
-          Mod+Shift+L { move-column-right; }
-        }
-
-        animations {
-          workspace-switch {
-            off
-          }
-        }
-      '';
+        animations.workspace-switch.off = { };
+      };
     };
 }
