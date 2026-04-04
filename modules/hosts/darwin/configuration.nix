@@ -6,6 +6,7 @@ in
   flake.modules.darwin.${hostname} = {
     imports = with inputs.self.modules.darwin; [
       system-desktop
+      work
     ];
     networking.hostName = hostname;
 
