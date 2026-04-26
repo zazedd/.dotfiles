@@ -5,7 +5,6 @@
       system-desktop
       gaming
       # gpu-passthrough
-      topology
     ];
 
     # virtualisation.gpuPassthrough = {

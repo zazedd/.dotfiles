@@ -16,10 +16,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     nix-minecraft.url = "github:zazedd/nix-minecraft";
-    nix-topology = {
-      url = "github:oddlama/nix-topology";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     copyparty = {
       url = "github:9001/copyparty";
