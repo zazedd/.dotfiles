@@ -5,6 +5,7 @@ let
       environment.systemPackages = with pkgs; [
         # tools
         claude-code
+        nodejs
 
         # deps
         gmp
