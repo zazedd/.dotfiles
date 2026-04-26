@@ -28,12 +28,12 @@
           extraGroups = [
             "wheel"
             "audio"
+            "input"
             "video"
+            "seat"
             "davfs2"
             "vboxusers"
             "networkmanager"
-            "libvirt"
-            "libvirt-qemu"
             "libvirtd"
           ];
         };

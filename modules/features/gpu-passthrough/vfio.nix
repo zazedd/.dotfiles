@@ -86,18 +86,18 @@
       );
     };
 
-  flake.modules.homeManager.gpu-passthrough =
-    { osConfig, lib, ... }:
-    {
-      config =
-        lib.mkIf
-          (osConfig.virtualisation.gpuPassthrough.enable && osConfig.virtualisation.gpuPassthrough.inVfioMode)
-          {
-            wayland.windowManager.sway.config.output = {
-              "eDP-1" = {
-                disable = "";
-              };
-            };
-          };
-    };
+  # flake.modules.homeManager.gpu-passthrough =
+  #   { osConfig, lib, ... }:
+  #   {
+  #     config =
+  #       lib.mkIf
+  #         (osConfig.virtualisation.gpuPassthrough.enable && osConfig.virtualisation.gpuPassthrough.inVfioMode)
+  #         {
+  #           wayland.windowManager.sway.config.output = {
+  #             "eDP-1" = {
+  #               disable = "";
+  #             };
+  #           };
+  #         };
+  #   };
 }

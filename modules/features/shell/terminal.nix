@@ -2,7 +2,7 @@
   flake.modules.homeManager.shell = {
     programs.alacritty = {
       enable = true;
-      theme = "kanagawa_dragon";
+      # theme = "kanagawa_dragon";
       settings = {
         window = {
           opacity = 1.0;

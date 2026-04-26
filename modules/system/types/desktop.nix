@@ -21,7 +21,6 @@
   flake.modules.homeManager.system-desktop = {
     imports = with inputs.self.modules.homeManager; [
       system-cli
-      windowmanager
       browser
       dev
       cloud-connection # linux only
