@@ -9,6 +9,7 @@
         reverse-proxy
         cloud
         mediaserver
+        llm
       ];
 
       sops.defaultSopsFile = ../../../secrets/server.yaml;
