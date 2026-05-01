@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
   flake.modules.darwin.windowmanager =
     { pkgs, ... }:
@@ -12,7 +12,7 @@
         in
         [
           old-betterdisplay-pkgs.betterdisplay
-          pkgs.brewCasks.sol # dmenu-like app launcher
+          pkgs.brewCasks.raycast
         ];
 
       services.aerospace = {
@@ -76,7 +76,7 @@
 
           mode = {
             main.binding = {
-              alt-d = "exec-and-forget open /Applications/Sol.app";
+              # alt-d = "exec-and-forget open /Applications/Nix\ Apps/Wox.app";
               alt-enter = "exec-and-forget ${pkgs.alacritty}/bin/alacritty";
               alt-space = "layout tiling floating";
               alt-shift-q = "close --quit-if-last-window";

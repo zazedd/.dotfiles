@@ -4,6 +4,7 @@
       enable = true;
       # theme = "kanagawa_dragon";
       settings = {
+        terminal.osc52 = "CopyPaste";
         window = {
           opacity = 1.0;
           decorations = "None";

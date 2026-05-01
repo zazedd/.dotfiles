@@ -71,15 +71,15 @@
     "brew-api": {
       "flake": false,
       "locked": {
-        "lastModified": 1774398064,
-        "narHash": "sha256-x9Te7aMdCdf1P8OG51Zqve4orleJPRLIokEdWOM/FNU=",
-        "owner": "BatteredBunny",
+        "lastModified": 1777236641,
+        "narHash": "sha256-xpBi/K/cIcbSHRvroN++8/P4BojGQzT2s+iWnW3Ittk=",
+        "owner": "zazedd",
         "repo": "brew-api",
-        "rev": "bc3e155db33a8a95b2915caac657bccb464c8762",
+        "rev": "43b85e6394a23f900a675342208e8d9bf7790ed3",
         "type": "github"
       },
       "original": {
-        "owner": "BatteredBunny",
+        "owner": "zazedd",
         "repo": "brew-api",
         "type": "github"
       }
@@ -247,24 +247,6 @@
       }
     },
     "flake-parts_3": {
-      "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_2"
-      },
-      "locked": {
-        "lastModified": 1765835352,
-        "narHash": "sha256-XswHlK/Qtjasvhd1nOa1e8MgZ8GS//jBoTqWtrS1Giw=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "a34fae9c08a15ad73f295041fec82323541400a9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
-    "flake-parts_4": {
       "inputs": {
         "nixpkgs-lib": [
           "stylix",
@@ -564,27 +546,6 @@
         "type": "github"
       }
     },
-    "nix-topology": {
-      "inputs": {
-        "flake-parts": "flake-parts_3",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1773727286,
-        "narHash": "sha256-n7gZKq9pJb0IoRsAPxZqjYWbm8/v2UdrZxARlmlKzvk=",
-        "owner": "oddlama",
-        "repo": "nix-topology",
-        "rev": "49b439d8749703989a42f28a4bfe198b2b315894",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oddlama",
-        "repo": "nix-topology",
-        "type": "github"
-      }
-    },
     "nix-wrapper-modules": {
       "inputs": {
         "nixpkgs": [
@@ -644,21 +605,6 @@
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
         "rev": "c185c7a5e5dd8f9add5b2f8ebeff00888b070742",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "type": "github"
-      }
-    },
-    "nixpkgs-lib_2": {
-      "locked": {
-        "lastModified": 1765674936,
-        "narHash": "sha256-k00uTP4JNfmejrCLJOwdObYC9jHRrr/5M/a/8L2EIdo=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "2075416fcb47225d9b68ac469a5c4801a9c4dd85",
         "type": "github"
       },
       "original": {
@@ -810,7 +756,6 @@
         "nix-homebrew": "nix-homebrew",
         "nix-ld": "nix-ld",
         "nix-minecraft": "nix-minecraft",
-        "nix-topology": "nix-topology",
         "nix-wrapper-modules": "nix-wrapper-modules",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",
@@ -867,7 +812,7 @@
         "base16-helix": "base16-helix",
         "base16-vim": "base16-vim",
         "firefox-gnome-theme": "firefox-gnome-theme",
-        "flake-parts": "flake-parts_4",
+        "flake-parts": "flake-parts_3",
         "gnome-shell": "gnome-shell",
         "nixpkgs": [
           "nixpkgs"

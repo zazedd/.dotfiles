@@ -46,7 +46,7 @@
       inputs.brew-api.follows = "brew-api";
     };
     brew-api = {
-      url = "github:BatteredBunny/brew-api";
+      url = "github:zazedd/brew-api";
       flake = false;
     };
   };
