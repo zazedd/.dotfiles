@@ -19,18 +19,49 @@
           enable = true;
           package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
         };
+        environment.systemPackages = with pkgs; [
+          pavucontrol
+          xwayland-satellite
+        ];
+      };
+    };
+
+  flake.wrappers.fuzzel =
+    { pkgs, wlib, ... }:
+    {
+      imports = [ wlib.wrapperModules.fuzzel ];
+      package = pkgs.fuzzel;
+      settings = {
+        main = {
+          font = "Iosevka Mono";
+          tabs = 2;
+          width = 40;
+          use-bold = true;
+          placeholder = "Search";
+        };
+        colors = {
+          background = "#ffffffdd";
+          text = "#000000ff";
+          match = "#54546Dff";
+          selection = "#f2f2f2ff";
+          selection-match = "#8f0075ff";
+          selection-text = "#3548cfff";
+          border = "#c4c4c4ff";
+        };
       };
     };
 
   flake.wrappers.niri =
     { pkgs, wlib, ... }:
+    let
+      wpkgs = self.packages.${pkgs.stdenv.hostPlatform.system};
+    in
     {
       imports = [ wlib.wrapperModules.niri ];
 
       settings = {
-        spawn-at-startup = [
-          "${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia}"
-        ];
+        prefer-no-csd = { };
+        spawn-at-startup = [ "${lib.getExe wpkgs.noctalia}" ];
 
         input.keyboard = {
           xkb.layout = "us";
@@ -48,9 +79,10 @@
 
         binds = {
           "Mod+Return".spawn = lib.getExe pkgs.alacritty;
-          "Mod+D".spawn = lib.getExe pkgs.fuzzel;
+          "Mod+D".spawn-sh =
+            "cmd=$(${pkgs.dmenu-rs}/bin/dmenu_path | ${lib.getExe wpkgs.fuzzel} --dmenu) && niri msg action spawn -- $cmd";
           "Mod+B".spawn = lib.getExe pkgs.firefox;
-          "Mod+Q".close-window = { };
+          "Mod+Shift+Q".close-window = { };
 
           "Mod+1".focus-workspace = 1;
           "Mod+2".focus-workspace = 2;
@@ -81,6 +113,11 @@
           "Mod+Shift+J".move-window-down = { };
           "Mod+Shift+K".move-window-up = { };
           "Mod+Shift+L".move-column-right = { };
+
+          "Mod+equal".set-column-width = "+3%";
+          "Mod+minus".set-column-width = "-3%";
+          "Mod+F".maximize-column = { };
+          "Mod+Shift+F".set-column-width = "50%";
         };
 
         animations.workspace-switch.off = { };

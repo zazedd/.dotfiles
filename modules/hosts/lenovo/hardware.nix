@@ -3,7 +3,10 @@
   flake.modules.nixos.lenovo =
     { config, ... }:
     {
-      imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+      imports = [
+        inputs.lanzaboote.nixosModules.lanzaboote
+        inputs.nixos-hardware.nixosModules.lenovo-legion-16ach6h-nvidia
+      ];
 
       services.pipewire = {
         enable = true;

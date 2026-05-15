@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ inputs, lib, ... }:
 {
   flake.modules.nixos.gpu-passthrough =
     { config, ... }:
@@ -40,6 +40,8 @@
 
                 powerManagement.cpuFreqGovernor = "performance";
 
+                services.xserver.videoDrivers = lib.mkForce [ "amdgpu" ];
+
                 boot.kernelParams = [
                   "hugepages=${toString hugepages}"
 
@@ -53,9 +55,6 @@
                   "pcie_aspm=off"
 
                   "vfio-pci.ids=${cfg.vfioId}"
-
-                  "video=efifb:off"
-                  "video=vesafb:off"
 
                   "modprobe.blacklist=nvidia,nvidia_drm,nvidia_modeset,nvidia_uvm,nouveau,nvidiafb"
                 ];
@@ -85,19 +84,4 @@
         }
       );
     };
-
-  # flake.modules.homeManager.gpu-passthrough =
-  #   { osConfig, lib, ... }:
-  #   {
-  #     config =
-  #       lib.mkIf
-  #         (osConfig.virtualisation.gpuPassthrough.enable && osConfig.virtualisation.gpuPassthrough.inVfioMode)
-  #         {
-  #           wayland.windowManager.sway.config.output = {
-  #             "eDP-1" = {
-  #               disable = "";
-  #             };
-  #           };
-  #         };
-  #   };
 }

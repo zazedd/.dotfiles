@@ -4,14 +4,19 @@
     imports = with inputs.self.modules.nixos; [
       system-desktop
       gaming
-      # gpu-passthrough
+      gpu-passthrough
     ];
 
-    # virtualisation.gpuPassthrough = {
-    #   enable = true;
-    #   cpus = 8;
-    #   vfioId = "10de:24dd,10de:228b";
-    #   vmRamMib = 22528;
-    # };
+    virtualisation.gpuPassthrough = {
+      enable = true;
+      cpus = 8;
+      vfioId = "10de:24dd,10de:228b";
+      vmRamMib = 22528;
+    };
+
+    # Extend the VFIO specialization with hybrid graphics config
+    specialisation.vfio.configuration = {
+      imports = [ inputs.nixos-hardware.nixosModules.lenovo-legion-16ach6h-hybrid ];
+    };
   };
 }
