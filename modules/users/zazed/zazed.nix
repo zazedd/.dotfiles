@@ -10,8 +10,8 @@
         email = "leomendesantos@gmail.com";
         username = n;
         authorizedKeys = [ ];
-        homeLinux = "/Users/${n}";
-        homeDarwin = "/home/${n}";
+        homeLinux = "/home/${n}";
+        homeDarwin = "/Users/${n}";
       };
   };
 
@@ -47,9 +47,14 @@
     darwin.zazed =
       { pkgs, ... }:
       {
+        programs.fish = {
+          enable = true;
+          package = self.packages.${pkgs.stdenv.hostPlatform.system}.fish;
+        };
+
         users.users.zazed = {
           home = "/Users/zazed";
-          shell = self.packages.${pkgs.stdenv.hostPlatform.system}.fish;
+          shell = "/run/current-system/sw/bin/fish";
         };
 
         home-manager.users.zazed = {

@@ -1,6 +1,7 @@
 {
   self,
   config,
+  inputs,
   ...
 }:
 let
@@ -41,6 +42,8 @@ in
   flake.modules.homeManager.shell =
     { pkgs, ... }:
     {
+      imports = [ inputs.nix-wrapper-modules.homeModules.fish ];
+
       programs = {
         git = {
           enable = true;
@@ -122,13 +125,8 @@ in
         pkgs.fishPlugins.autopair
       ];
       configFile.content = /* fish */ ''
-        fish_add_path /run/current-system/sw/bin
-        fish_add_path /nix/var/nix/profiles/default/bin
-        fish_add_path $HOME/.nix-profile/bin
-
         set -gx GPG_TTY (tty)
         set -g fish_greeting ""
-        set -g fish_history fish
         fzf_configure_bindings --directory=ctrl-t
         bind \e\[127\;5u backward-kill-word
 
@@ -161,10 +159,16 @@ in
         set -g fish_pager_color_description yellow --dim
         set -g fish_pager_color_selected_background -r
 
-        if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-            source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-            source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+        if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+            source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+            source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
         end
+
+	set -gx PATH \
+	    $HOME/.nix-profile/bin \
+	    /nix/var/nix/profiles/default/bin \
+	    /run/current-system/sw/bin \
+	    $PATH
 
         function nix-shell-dev
             set -l dev_installables
