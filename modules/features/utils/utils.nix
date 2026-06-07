@@ -7,7 +7,6 @@
         with pkgs;
         [
           # shared
-          zathura
           mpv
         ]
         ++ lib.optionals stdenv.isDarwin [
@@ -18,6 +17,7 @@
         ]
         ++ lib.optionals stdenv.isLinux [
           whatsapp-electron
+          zathura
         ];
     };
 }

@@ -9,6 +9,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixpkgs-master = {
+      url = "github:nixos/nixpkgs/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     my_nixpkgs.url = "github:zazedd/nixpkgs";
     old-betterdisplay-nixpkgs.url = "github:nixos/nixpkgs/09b22eb8a65f65ec86625d1230c434cdca680606";
     home-manager.url = "github:nix-community/home-manager";
