@@ -5,7 +5,6 @@ let
       environment.systemPackages = with pkgs; [
         # text and terminal utilities
         htop
-        eza
         jq
         ripgrep
         fzf
@@ -27,7 +26,6 @@ let
         gnused
         gnugrep
         gawk
-        dua
         magic-wormhole-rs
 
         # encryption and security tools

@@ -10,6 +10,8 @@
         email = "leomendesantos@gmail.com";
         username = n;
         authorizedKeys = [ ];
+        homeLinux = "/home/${n}";
+        homeDarwin = "/Users/${n}";
       };
   };
 
@@ -18,13 +20,16 @@
       { pkgs, ... }:
       {
         imports = with self.modules.nixos; [ ];
-        programs.zsh.enable = true;
+        programs.fish = {
+          enable = true;
+          package = self.packages.${pkgs.stdenv.hostPlatform.system}.fish;
+        };
 
         users.users.zazed = {
           description = config.flake.meta.users.zazed.name;
           isNormalUser = true;
           createHome = true;
-          shell = pkgs.zsh;
+          shell = self.packages.${pkgs.stdenv.hostPlatform.system}.fish;
           extraGroups = [
             "wheel"
             "audio"
@@ -42,9 +47,14 @@
     darwin.zazed =
       { pkgs, ... }:
       {
+        programs.fish = {
+          enable = true;
+          package = self.packages.${pkgs.stdenv.hostPlatform.system}.fish;
+        };
+
         users.users.zazed = {
           home = "/Users/zazed";
-          shell = pkgs.zsh;
+          shell = "/run/current-system/sw/bin/fish";
         };
 
         home-manager.users.zazed = {

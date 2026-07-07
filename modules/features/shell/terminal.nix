@@ -31,6 +31,11 @@
               mods = "Shift";
               chars = "\x1b\r";
             }
+            {
+              key = "Back";
+              mods = "Control";
+              chars = "\x1b[127;5u";
+            }
           ];
         };
       };

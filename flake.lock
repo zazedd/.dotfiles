@@ -71,11 +71,11 @@
     "brew-api": {
       "flake": false,
       "locked": {
-        "lastModified": 1783456175,
-        "narHash": "sha256-U7vlVAqU/B8/wEBTtro8flmeShlvnYmb3uNFu5hMbMo=",
+        "lastModified": 1781181747,
+        "narHash": "sha256-j5cIfBn4m4zP0Bre6uzk7UQwSuyWmitqCH8w8YCjTDM=",
         "owner": "zazedd",
         "repo": "brew-api",
-        "rev": "467def9de81ca1ac438173a4ebfd342e11d6b7d9",
+        "rev": "06299e8d7ddc2e460da92d87126f2dd81bc7e432",
         "type": "github"
       },
       "original": {
@@ -789,7 +789,6 @@
         "nix-wrapper-modules": "nix-wrapper-modules",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_6",
-        "nixpkgs-master": "nixpkgs-master",
         "old-betterdisplay-nixpkgs": "old-betterdisplay-nixpkgs",
         "sops-nix": "sops-nix",
         "stylix": "stylix"
