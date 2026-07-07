@@ -124,9 +124,12 @@ in
         pkgs.fishPlugins.fzf-fish
         pkgs.fishPlugins.autopair
       ];
+      flags."--no-config" = false;
       configFile.content = /* fish */ ''
         set -gx GPG_TTY (tty)
         set -g fish_greeting ""
+        set -e fish_private_mode
+
         fzf_configure_bindings --directory=ctrl-t
         bind \e\[127\;5u backward-kill-word
 
