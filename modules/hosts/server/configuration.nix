@@ -10,6 +10,9 @@
         cloud
         mediaserver
         llm
+
+        remote-desktop
+        gaming
       ];
 
       sops.defaultSopsFile = ../../../secrets/server.yaml;

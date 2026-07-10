@@ -169,12 +169,6 @@ in
             source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
         end
 
-	set -gx PATH \
-	    $HOME/.nix-profile/bin \
-	    /nix/var/nix/profiles/default/bin \
-	    /run/current-system/sw/bin \
-	    $PATH
-
         function nix-shell-dev
             set -l dev_installables
             set -l shell_installables

@@ -48,6 +48,16 @@
         neededForBoot = false;
       };
 
+      fileSystems."/data/gaming" = {
+        device = "/dev/disk/by-label/gaming";
+        fsType = "ext4";
+        options = [
+          "nofail"
+          "noatime"
+        ];
+        neededForBoot = false;
+      };
+
       # systemd services relating to disks
 
       systemd.services.hd-idle = {
@@ -63,6 +73,16 @@
               -a /dev/disk/by-label/media -i 600
           '';
         };
+        after = [
+          "dev-disk-by\\x2dlabel-cloud.device"
+          "dev-disk-by\\x2dlabel-backup.device"
+          "dev-disk-by\\x2dlabel-media.device"
+        ];
+        wants = [
+          "dev-disk-by\\x2dlabel-cloud.device"
+          "dev-disk-by\\x2dlabel-backup.device"
+          "dev-disk-by\\x2dlabel-media.device"
+        ];
       };
 
       systemd.services."backup-cloud" = {
@@ -82,28 +102,27 @@
         };
       };
 
-      systemd.services."backup-minecraft" = {
-        enable = false;
-        description = "rsync backup of /srv/minecraft/estupidos/backups to /backup/minecraft";
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "${pkgs.rsync}/bin/rsync -a --delete /srv/minecraft/estupidos/backups/ /backup/minecraft/";
-        };
-      };
+      #systemd.services."backup-minecraft" = {
+      #  enable = false;
+      #  description = "rsync backup of /srv/minecraft/estupidos/backups to /backup/minecraft";
+      #  serviceConfig = {
+      #    Type = "oneshot";
+      #    ExecStart = "${pkgs.rsync}/bin/rsync -a --delete /srv/minecraft/estupidos/backups/ /backup/minecraft/";
+      #  };
+      #};
 
-      systemd.timers."backup-minecraft" = {
-        enable = false;
-        description = "run backup-minecraft daily";
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnCalendar = "daily";
-          Persistent = true;
-        };
-      };
+      #systemd.timers."backup-minecraft" = {
+      #  enable = false;
+      #  description = "run backup-minecraft daily";
+      #  wantedBy = [ "timers.target" ];
+      #  timerConfig = {
+      #    OnCalendar = "daily";
+      #    Persistent = true;
+      #  };
+      #};
 
       swapDevices = [
         { device = "/dev/disk/by-label/swap"; }
       ];
-
     };
 }

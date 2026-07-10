@@ -34,6 +34,7 @@
             "wheel"
             "audio"
             "input"
+            "uinput"
             "video"
             "seat"
             "davfs2"
