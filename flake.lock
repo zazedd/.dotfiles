@@ -789,6 +789,7 @@
         "nix-wrapper-modules": "nix-wrapper-modules",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_6",
+        "nixpkgs-master": "nixpkgs-master",
         "old-betterdisplay-nixpkgs": "old-betterdisplay-nixpkgs",
         "sops-nix": "sops-nix",
         "stylix": "stylix"

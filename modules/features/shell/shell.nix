@@ -121,7 +121,9 @@ in
       };
       plugins = [
         pkgs.fishPlugins.hydro
-        pkgs.fishPlugins.fzf-fish
+        (pkgs.fishPlugins.fzf-fish.overrideAttrs (_: {
+          doCheck = false;
+        }))
         pkgs.fishPlugins.autopair
       ];
       flags."--no-config" = false;

@@ -18,4 +18,17 @@
         MESA_LOADER_DRIVER_OVERRIDE = "zink";
       };
     };
+
+  flake.modules.darwin.gaming =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = [
+        (pkgs.brewCasks.steam.overrideAttrs (_: {
+          src = pkgs.fetchurl {
+            url = "https://cdn.cloudflare.steamstatic.com/client/installer/steam.dmg";
+            sha256 = "sha256-4av7qqe+Pg9IoODUwxMjPgWGGx0mrzKDDdyDi+iPJpE=";
+          };
+        }))
+      ];
+    };
 }
