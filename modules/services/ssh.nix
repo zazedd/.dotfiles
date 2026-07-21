@@ -22,11 +22,11 @@
 
         includes = [
           "~/.ssh/hop"
-          "~/.ssh/ahrefs/config"
+          "ahrefs/config"
         ];
         matchBlocks = {
           "github.com-ahrefs" = {
-            match = ''host github.com exec "[[ $PWD == ${config.home.homeDirectory}/ahrefs* ]]"'';
+            match = ''host github.com exec "sh -c 'case $PWD in ${config.home.homeDirectory}/ahrefs*) exit 0 ;; *) exit 1 ;; esac'"'';
             hostname = "github.com";
             identitiesOnly = true;
             identityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
@@ -48,6 +48,13 @@
             identityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
             extraOptions = {
               Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-uk-leonardosantos";
+            };
+          };
+
+          "nspawn-sg" = {
+            identityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
+            extraOptions = {
+              Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-sg-leonardosantos";
             };
           };
         };
