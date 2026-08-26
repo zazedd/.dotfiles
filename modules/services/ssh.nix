@@ -57,6 +57,13 @@
               Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-sg-leonardosantos";
             };
           };
+
+          "nspawn-us" = {
+            identityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
+            extraOptions = {
+              Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-us-leonardosantos";
+            };
+          };
         };
       };
     };

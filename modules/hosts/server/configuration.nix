@@ -13,6 +13,7 @@
 
         remote-desktop
         gaming
+        work
       ];
 
       sops.defaultSopsFile = ../../../secrets/server.yaml;
