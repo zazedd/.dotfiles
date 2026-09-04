@@ -18,9 +18,9 @@
       ];
 
       environment.variables = {
-        __GLX_VENDOR_LIBRARY_NAME = "mesa";
-        GALLIUM_DRIVER = "zink";
-        MESA_LOADER_DRIVER_OVERRIDE = "zink";
+        # __GLX_VENDOR_LIBRARY_NAME = "mesa";
+        # GALLIUM_DRIVER = "zink";
+        # MESA_LOADER_DRIVER_OVERRIDE = "zink";
       };
     };
 
