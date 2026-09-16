@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 # default settings needed for all darwinConfigurations
 {
   flake.modules.darwin.system-minimal =
@@ -40,6 +40,7 @@
         trusted-users = [
           "root"
           "@wheel"
+          config.flake.meta.users.zazed.name
         ];
       };
 

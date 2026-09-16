@@ -7,7 +7,9 @@ in
     imports = with inputs.self.modules.darwin; [
       system-desktop
       gaming
+      photography
       work
+      jellyfin
     ];
     networking.hostName = hostname;
 

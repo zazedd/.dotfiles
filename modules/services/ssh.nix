@@ -24,45 +24,39 @@
           "~/.ssh/hop"
           "ahrefs/config"
         ];
-        matchBlocks = {
+        settings = {
           "github.com-ahrefs" = {
-            match = ''host github.com exec "sh -c 'case $PWD in ${config.home.homeDirectory}/ahrefs*) exit 0 ;; *) exit 1 ;; esac'"'';
-            hostname = "github.com";
-            identitiesOnly = true;
-            identityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
+            header = ''Match host github.com exec "sh -c 'case $PWD in ${config.home.homeDirectory}/ahrefs*) exit 0 ;; *) exit 1 ;; esac'"'';
+            HostName = "github.com";
+            IdentitiesOnly = true;
+            IdentityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
           };
 
           "github.com" = lib.hm.dag.entryAfter [ "github.com-ahrefs" ] {
-            hostname = "github.com";
-            identitiesOnly = true;
-            identityFile = "${config.home.homeDirectory}/.ssh/id_github";
+            HostName = "github.com";
+            IdentitiesOnly = true;
+            IdentityFile = "${config.home.homeDirectory}/.ssh/id_github";
           };
 
           "gitlab.com" = {
-            hostname = "gitlab.com";
-            identitiesOnly = true;
-            identityFile = "${config.home.homeDirectory}/.ssh/id_github";
+            HostName = "gitlab.com";
+            IdentitiesOnly = true;
+            IdentityFile = "${config.home.homeDirectory}/.ssh/id_github";
           };
 
-          "nspawn" = {
-            identityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
-            extraOptions = {
-              Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-uk-leonardosantos";
-            };
+          nspawn = {
+            IdentityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
+            Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-uk-leonardosantos";
           };
 
           "nspawn-sg" = {
-            identityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
-            extraOptions = {
-              Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-sg-leonardosantos";
-            };
+            IdentityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
+            Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-sg-leonardosantos";
           };
 
           "nspawn-us" = {
-            identityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
-            extraOptions = {
-              Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-us-leonardosantos";
-            };
+            IdentityFile = "${config.home.homeDirectory}/.ssh/id_ahrefs";
+            Include = "~/.ssh/ahrefs/per-user/spawnbox-devbox-us-leonardosantos";
           };
         };
       };

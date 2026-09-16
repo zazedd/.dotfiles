@@ -28,6 +28,7 @@
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
+        brewCasks.prismlauncher
         brewCasks.moonlight
         (brewCasks.steam.overrideAttrs (_: {
           src = pkgs.fetchurl {

@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 # default settings needed for all nixosConfigurations
 {
   flake.modules.nixos.system-minimal =
@@ -41,6 +41,7 @@
         trusted-users = [
           "root"
           "@wheel"
+          config.flake.meta.users.zazed.name
         ];
       };
 

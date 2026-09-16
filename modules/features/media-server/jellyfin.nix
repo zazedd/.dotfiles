@@ -31,4 +31,10 @@
       };
     };
   };
+
+  flake.modules.darwin.jellyfin = { pkgs, ... }: {
+    environment.systemPackages = with pkgs; [
+      brewCasks.jellyfin-media-player
+    ];
+  };
 }
