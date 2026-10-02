@@ -20,7 +20,7 @@
     {
       environment.systemPackages = [ probo-agent ];
 
-      system.activationScripts.probo-agent.text = ''
+      system.activationScripts.postActivation.text = lib.mkAfter ''
         app_plist="/Applications/Probo Agent.app/Contents/Info.plist"
         installed_version=""
 

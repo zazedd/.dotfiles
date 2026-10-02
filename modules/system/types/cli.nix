@@ -16,7 +16,6 @@
     imports = with inputs.self.modules.darwin; [
       system-default
 
-      ssh
       shell
       tailscale
       cli-tools

@@ -12,7 +12,8 @@
         in
         [
           old-betterdisplay-pkgs.betterdisplay
-          pkgs.brewCasks.raycast
+          # pkgs.brewCasks.raycast
+          pkgs.brewCasks.tinycast
         ];
 
       services.aerospace = {
