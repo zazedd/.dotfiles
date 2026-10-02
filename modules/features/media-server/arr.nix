@@ -1,3 +1,4 @@
+{ inputs, ... }:
 let
   mediaDefaults = {
     enable = true;
@@ -7,7 +8,10 @@ let
 in
 {
   flake.modules.nixos.mediaserver = {
+    imports = [ inputs.self.modules.nixos.chaptarr ];
+
     services = {
+      chaptarr = mediaDefaults;
       radarr = mediaDefaults;
       sonarr = mediaDefaults;
       readarr = mediaDefaults;
@@ -19,6 +23,7 @@ in
 
   flake.modules.nixos.reverse-proxy = {
     registry = {
+      chaptarr.port = 8789;
       radarr.port = 7878;
       sonarr.port = 8989;
       readarr = {
