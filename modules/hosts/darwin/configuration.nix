@@ -10,6 +10,7 @@ in
       photography
       work
       jellyfin
+      trading
     ];
     networking.hostName = hostname;
 
