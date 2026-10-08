@@ -40,6 +40,8 @@ buildGoModule {
 
   vendorHash = "sha256-+r/IBdisnJirHbifrO71TSUn1PAvRJBJZdGFlXUwn8Y=";
 
+  patches = [ ./no-relevance-filtering.patch ];
+
   preBuild = ''
     rm -rf internal/webui/dist
     cp -r ${web} internal/webui/dist
@@ -51,6 +53,11 @@ buildGoModule {
     "-s"
     "-w"
     "-X main.version=${version}"
+    # Trust indexer results instead of dropping releases based on Bindery's
+    # title/author relevance heuristics. The patch keeps upstream's default
+    # enabled so its test suite still exercises the stock behavior.
+    "-X github.com/vavallee/bindery/internal/indexer.relevanceFiltering=false"
+    "-X github.com/vavallee/bindery/internal/indexer/newznab.relevanceFiltering=false"
   ];
 
   env.CGO_ENABLED = 0;

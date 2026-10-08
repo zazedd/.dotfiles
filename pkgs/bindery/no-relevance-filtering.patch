@@ -1,0 +1,52 @@
+diff --git a/internal/indexer/newznab/client.go b/internal/indexer/newznab/client.go
+index f94b1eb..d7122c5 100644
+--- a/internal/indexer/newznab/client.go
++++ b/internal/indexer/newznab/client.go
+@@ -662,6 +662,8 @@ func authorSurname(author string) string {
+ 	return fields[len(fields)-1]
+ }
+ 
++var relevanceFiltering = "true"
++
+ // titleHasRelevantResult returns true when *every* significant word of
+ // queryTitle (as determined by SigWords) appears in at least one result —
+ // the words may be spread across different results, not all in one. A false
+@@ -685,6 +687,12 @@ func authorSurname(author string) string {
+ // indexer's response is worth keeping at all, before the cascade advances.
+ // See wordsPresentInAll for the empty-word-list contract.
+ func titleHasRelevantResult(queryTitle string, results []SearchResult) bool {
++	// Set to false at link time by the local package. Keeping this as a string lets
++	// upstream tests exercise the original default without special test hooks.
++	if relevanceFiltering == "false" {
++		return len(results) > 0
++	}
++
+ 	combined := make([]string, len(results))
+ 	for i, r := range results {
+ 		combined[i] = foldForSigWordMatch(r.Title + " " + r.BookTitle)
+diff --git a/internal/indexer/searcher.go b/internal/indexer/searcher.go
+index f6117c5..fb96b9b 100644
+--- a/internal/indexer/searcher.go
++++ b/internal/indexer/searcher.go
+@@ -830,6 +830,8 @@ func titleMatchesResult(normResult string, titleKws []string, authorToks []strin
+ 	}
+ }
+ 
++var relevanceFiltering = "true"
++
+ // filterRelevant removes results that don't plausibly match the requested book.
+ // Strategy:
+ //   - Multi-significant-word titles: try a contiguous phrase match first; if
+@@ -871,6 +873,12 @@ func filterRelevant(results []newznab.SearchResult, title, author string, aliase
+ // kept for a "Volume 17" title (#2921). One implementation means a guard
+ // cannot land in one path and miss the other.
+ func filterRelevantDetailed(results []newznab.SearchResult, title, author string, aliases []string) ([]newznab.SearchResult, []FilterDebug) {
++	// Set to false at link time by the local package. Keeping this as a string lets
++	// upstream tests exercise the original default without special test hooks.
++	if relevanceFiltering == "false" {
++		return results, nil
++	}
++
+ 	// Strip edition qualifiers ("(German Edition)" etc.) and normalize
+ 	// smart quotes before tokenizing, so they don't become spurious keywords.
+ 	// Format qualifiers mid title ("(Light Novel)") go too, matching what the
