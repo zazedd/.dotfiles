@@ -1,7 +1,7 @@
 { inputs, self, ... }:
 {
   flake.modules.darwin.windowmanager =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       environment.systemPackages =
         let
@@ -12,7 +12,6 @@
         in
         [
           old-betterdisplay-pkgs.betterdisplay
-          # pkgs.brewCasks.raycast
           pkgs.brewCasks.tinycast
         ];
 
@@ -77,10 +76,14 @@
 
           mode = {
             main.binding = {
-              # alt-d = "exec-and-forget open /Applications/Nix\ Apps/Wox.app";
               alt-enter = "exec-and-forget ${pkgs.alacritty}/bin/alacritty";
               alt-space = "layout tiling floating";
-              alt-shift-q = "close --quit-if-last-window";
+              alt-shift-q =
+                # keep the current workspace focused when macOS activates a window on another workspace after closing the last window (aerospace #1097).
+                let
+                  aero = lib.getExe pkgs.aerospace;
+                in
+                ''exec-and-forget current_workspace="$(${aero} list-workspaces --focused)"; ${aero} close --quit-if-last-window; ${aero} workspace "$current_workspace"'';
 
               alt-slash = "layout tiles horizontal vertical";
               alt-comma = "layout accordion horizontal vertical";
