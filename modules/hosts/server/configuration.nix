@@ -7,6 +7,7 @@
         system-cli
         domain
         reverse-proxy
+        attic
         cloud
         mediaserver
         llm

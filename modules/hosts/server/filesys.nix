@@ -89,7 +89,8 @@
         description = "rsync backup of /data/cloud to /backup/cloud";
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "${pkgs.rsync}/bin/rsync -a --delete /data/cloud/ /backup/cloud/";
+          # The binary cache is reproducible and intentionally not backed up.
+          ExecStart = "${pkgs.rsync}/bin/rsync -a --delete --exclude=/attic/ /data/cloud/ /backup/cloud/";
         };
       };
 
