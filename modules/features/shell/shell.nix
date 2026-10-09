@@ -97,8 +97,8 @@ in
       imports = [ wlib.wrapperModules.fish ];
       package = pkgs.fish;
       shellAliases = {
-        v = "XDG_CONFIG_HOME='${home pkgs.stdenv.isDarwin}/.dotfiles/configs' command nvim"; # set XDG_CONFIG_HOME here to update lock file correctly when updating
-        nvim = "XDG_CONFIG_HOME='${home pkgs.stdenv.isDarwin}/.dotfiles/configs' command nvim";
+        v = "XDG_CONFIG_HOME='${home pkgs.stdenv.hostPlatform.isDarwin}/.dotfiles/configs' command nvim"; # set XDG_CONFIG_HOME here to update lock file correctly when updating
+        nvim = "XDG_CONFIG_HOME='${home pkgs.stdenv.hostPlatform.isDarwin}/.dotfiles/configs' command nvim";
 
         # utilities
         mv = "mv -iv";

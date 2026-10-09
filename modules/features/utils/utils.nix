@@ -9,13 +9,13 @@
           # shared
           mpv
         ]
-        ++ lib.optionals stdenv.isDarwin [
+        ++ lib.optionals stdenv.hostPlatform.isDarwin [
           # fixing mac jank
           mos # mouse linear scroll
           aldente # battery limiter
           # brewCasks.whatsapp
         ]
-        ++ lib.optionals stdenv.isLinux [
+        ++ lib.optionals stdenv.hostPlatform.isLinux [
           whatsapp-electron
           zathura
         ];

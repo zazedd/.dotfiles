@@ -110,14 +110,6 @@
           size = 48;
         };
         hotCorners = {
-          bottomLeft = {
-            modifiers = {
-              command = false;
-              control = false;
-              option = false;
-              shift = false;
-            };
-          };
           bottomRight = {
             action = "Quick Note";
             modifiers = {
@@ -129,14 +121,6 @@
           };
           topLeft = {
             action = "Mission Control";
-            modifiers = {
-              command = false;
-              control = false;
-              option = false;
-              shift = false;
-            };
-          };
-          topRight = {
             modifiers = {
               command = false;
               control = false;

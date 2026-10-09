@@ -7,6 +7,7 @@
         enable = true;
         package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
         withPython3 = true;
+        withRuby = false;
       };
 
       xdg.configFile.nvim = {
