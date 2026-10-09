@@ -1,45 +1,19 @@
 { inputs, config, ... }:
+let
+  user = config.flake.meta.users.zazed.name;
+in
 {
   flake.modules.darwin.settings = {
+    imports = [ inputs.nix-plist-manager.darwinModules.default ];
+
+    home-manager.sharedModules = [ inputs.nix-plist-manager.homeManagerModules.default ];
+    home-manager.users.${user}.programs.nix-plist-manager = {
+      enable = true;
+      options = import ./_definitions/mac.nix;
+    };
+
     system = {
-      primaryUser = config.flake.meta.users.zazed.name;
-      defaults = {
-        NSGlobalDomain = {
-          AppleShowAllExtensions = true;
-          ApplePressAndHoldEnabled = false;
-
-          # 120, 90, 60, 30, 12, 6, 2
-          KeyRepeat = 2;
-
-          # 120, 94, 68, 35, 25, 15
-          InitialKeyRepeat = 15;
-
-          NSWindowShouldDragOnGesture = true;
-
-          "com.apple.mouse.tapBehavior" = 1;
-          "com.apple.sound.beep.volume" = 0.0;
-          "com.apple.sound.beep.feedback" = 0;
-        };
-
-        dock = {
-          autohide = true;
-          autohide-delay = 0.25;
-          show-recents = false;
-          launchanim = true;
-          orientation = "right";
-          tilesize = 48;
-        };
-
-        finder = {
-          _FXShowPosixPathInTitle = false;
-        };
-
-        trackpad = {
-          Clicking = true;
-          # TrackpadThreeFingerDrag = true;
-        };
-      };
-
+      primaryUser = user;
       keyboard = {
         enableKeyMapping = true;
         remapCapsLockToControl = true;
