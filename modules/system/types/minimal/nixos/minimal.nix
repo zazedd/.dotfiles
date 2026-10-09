@@ -1,20 +1,12 @@
-{ inputs, config, ... }:
+{ config, ... }:
 # default settings needed for all nixosConfigurations
 {
   flake.modules.nixos.system-minimal =
-    { pkgs, ... }:
+    { ... }:
     {
       system.stateVersion = "25.11";
 
       nixpkgs.config.allowUnfree = true;
-      nixpkgs.overlays = [
-        (final: _prev: {
-          unstable = import inputs.nixpkgs-unstable {
-            inherit (final) config;
-            system = pkgs.stdenv.hostPlatform.system;
-          };
-        })
-      ];
 
       nix.settings = {
         substituters = [

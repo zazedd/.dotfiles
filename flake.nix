@@ -2,55 +2,53 @@
   description = "a (never) good enough config";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix-plist-manager.url = "github:SushyDev/nix-plist-manager";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:vic/import-tree";
-    nix-wrapper-modules = {
-      url = "github:BirdeeHub/nix-wrapper-modules";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    my_nixpkgs.url = "github:zazedd/nixpkgs";
     old-betterdisplay-nixpkgs.url = "github:nixos/nixpkgs/09b22eb8a65f65ec86625d1230c434cdca680606";
     home-manager.url = "github:nix-community/home-manager";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-    nix-minecraft.url = "github:zazedd/nix-minecraft";
-
-    copyparty = {
-      url = "github:9001/copyparty";
-      inputs.nixpkgs.follows = "nixpkgs";
+    import-tree.url = "github:vic/import-tree";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    gitea-mirror.url = "github:RayLabsHQ/gitea-mirror";
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
+    nix-wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix = {
-      url = "github:nix-community/stylix";
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
+
+    # server
+    copyparty = {
+      url = "github:9001/copyparty";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin/master";
+    gitea-mirror = {
+      url = "github:RayLabsHQ/gitea-mirror";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # darwin
+    nix-darwin.url = "github:LnL7/nix-darwin/master";
+    nix-plist-manager.url = "github:SushyDev/nix-plist-manager";
+    brew-api = {
+      url = "github:zazedd/brew-api";
+      flake = false;
     };
     brew-nix = {
       url = "github:BatteredBunny/brew-nix";
       inputs.brew-api.follows = "brew-api";
-    };
-    brew-api = {
-      url = "github:zazedd/brew-api";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
