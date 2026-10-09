@@ -29,9 +29,10 @@
       url = "github:9001/copyparty";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    systems.url = "github:nix-systems/default-linux";
     gitea-mirror = {
       url = "github:RayLabsHQ/gitea-mirror";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.bun2nix.inputs.systems.follows = "systems";
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";

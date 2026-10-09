@@ -25,6 +25,7 @@
 
       services.gitea-mirror = {
         enable = true;
+        package = inputs.gitea-mirror.packages.${pkgs.stdenv.hostPlatform.system}.default;
         host = "127.0.0.1";
         port = config.registry.git-mirror.port;
         betterAuthUrl = "https://git-mirror.leoms.dev";
