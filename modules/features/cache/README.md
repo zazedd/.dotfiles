@@ -20,7 +20,7 @@ atticd-atticadm make-token \
 # then, in your local machine
 attic login home https://cache.leoms.dev <token>
 attic cache create home:dotfiles --public
-attic cache configure home:dotfiles --retention-period "1 week"
+attic cache configure home:dotfiles --retention-period "1 month"
 attic cache info home:dotfiles
 ```
 

@@ -15,12 +15,6 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: "experimental-features = nix-command flakes pipe-operators"
-      - name: eval
-        run: nix eval .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
-      - name: build
-        id: build
-        run: |
-          echo "path=$(nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel --no-link --print-out-paths)" >> "$GITHUB_OUTPUT"
       - name: connect to tailnet
         if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
         uses: tailscale/github-action@v4
@@ -28,15 +22,30 @@ jobs:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
-          ping: xinho
+          ping: ricardogoncalves
+      - name: resolve Attic over Tailscale
+        if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
+        run: |
+          cache_ip="$(tailscale status | awk '$2 == "ricardogoncalves" { print $1; exit }')"
+          test -n "$cache_ip"
+          echo "$cache_ip cache.leoms.dev" | sudo tee -a /etc/hosts
+      - name: build
+        id: build
+        run: |
+          cache_args=()
+          if [[ "${{ github.event_name }}" == "push" && "${{ vars.ATTIC_ENABLED }}" == "true" ]]; then
+            cache_args+=(
+              --extra-substituters https://cache.leoms.dev/dotfiles
+              --extra-trusted-public-keys dotfiles:L8eOKFwsyzXtQShyNzr9HpLA2T2owJFE9XbzMyb3Rn0=
+            )
+          fi
+          path="$(nix build "${cache_args[@]}" .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel --no-link --print-out-paths)"
+          echo "path=$path" >> "$GITHUB_OUTPUT"
       - name: push to Attic
         if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
-          cache_ip="$(tailscale status --json | jq -r '.Peer[] | select(.HostName == "xinho") | .TailscaleIPs[] | select(contains("."))' | head -n1)"
-          test -n "$cache_ip"
-          echo "$cache_ip cache.leoms.dev" | sudo tee -a /etc/hosts
           nix run nixpkgs#attic-client -- login home https://cache.leoms.dev "$ATTIC_TOKEN"
           nix run nixpkgs#attic-client -- push dotfiles "${{ steps.build.outputs.path }}"
 
@@ -47,12 +56,6 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: "experimental-features = nix-command flakes pipe-operators"
-      - name: eval
-        run: nix eval .#darwinConfigurations.shitbook.system
-      - name: build
-        id: build
-        run: |
-          echo "path=$(nix build .#darwinConfigurations.shitbook.system --no-link --print-out-paths)" >> "$GITHUB_OUTPUT"
       - name: connect to tailnet
         if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
         uses: tailscale/github-action@v4
@@ -60,14 +63,29 @@ jobs:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
-          ping: xinho
+          ping: ricardogoncalves
+      - name: resolve Attic over Tailscale
+        if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
+        run: |
+          cache_ip="$(tailscale status | awk '$2 == "ricardogoncalves" { print $1; exit }')"
+          test -n "$cache_ip"
+          echo "$cache_ip cache.leoms.dev" | sudo tee -a /etc/hosts
+      - name: build
+        id: build
+        run: |
+          cache_args=()
+          if [[ "${{ github.event_name }}" == "push" && "${{ vars.ATTIC_ENABLED }}" == "true" ]]; then
+            cache_args+=(
+              --extra-substituters https://cache.leoms.dev/dotfiles
+              --extra-trusted-public-keys dotfiles:L8eOKFwsyzXtQShyNzr9HpLA2T2owJFE9XbzMyb3Rn0=
+            )
+          fi
+          path="$(nix build "${cache_args[@]}" .#darwinConfigurations.shitbook.system --no-link --print-out-paths)"
+          echo "path=$path" >> "$GITHUB_OUTPUT"
       - name: push to Attic
         if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
-          cache_ip="$(tailscale status --json | jq -r '.Peer[] | select(.HostName == "xinho") | .TailscaleIPs[] | select(contains("."))' | head -n1)"
-          test -n "$cache_ip"
-          echo "$cache_ip cache.leoms.dev" | sudo tee -a /etc/hosts
           nix run nixpkgs#attic-client -- login home https://cache.leoms.dev "$ATTIC_TOKEN"
           nix run nixpkgs#attic-client -- push dotfiles "${{ steps.build.outputs.path }}"

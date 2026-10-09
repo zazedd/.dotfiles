@@ -20,6 +20,7 @@
         users.atticd = {
           isSystemUser = true;
           group = "atticd";
+          extraGroups = [ "cloud" ];
           home = storagePath;
         };
         groups.atticd = { };
@@ -44,15 +45,19 @@
 
           garbage-collection = {
             interval = "12 hours";
-            default-retention-period = "1 week";
+            default-retention-period = "1 month";
           };
         };
       };
 
-      # A static user allows Attic to write to storage on /data/cloud.
+      # a static user allows Attic to write to storage on /data/cloud.
       systemd.services.atticd = {
         unitConfig.RequiresMountsFor = [ "/data/cloud" ];
-        serviceConfig.DynamicUser = lib.mkForce false;
+        serviceConfig = {
+          DynamicUser = lib.mkForce false;
+          PrivateUsers = lib.mkForce false;
+          SupplementaryGroups = [ "cloud" ];
+        };
       };
 
       registry.cache.port = 8081;
