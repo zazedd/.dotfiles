@@ -1,11 +1,9 @@
 {
-  self,
   config,
   inputs,
   ...
 }:
 let
-  name = config.flake.meta.users.zazed.name;
   email = config.flake.meta.users.zazed.email;
   home =
     isDarwin:

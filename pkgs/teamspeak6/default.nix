@@ -11,7 +11,7 @@
   llvmPackages,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: rec {
+stdenvNoCC.mkDerivation rec {
   pname = "teamspeak6-server";
   version = "6.0.0-beta8";
 
@@ -67,4 +67,4 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
     mainProgram = "tsserver";
     platforms = [ "x86_64-linux" ];
   };
-})
+}

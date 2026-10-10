@@ -66,6 +66,8 @@ in
 
         openFilesLimit = 8192;
       };
+
+      systemd.services.copyparty.unitConfig.RequiresMountsFor = [ "/data/cloud" ];
     };
 
   flake.modules.nixos.reverse-proxy = {

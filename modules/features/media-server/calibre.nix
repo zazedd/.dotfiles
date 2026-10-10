@@ -108,9 +108,9 @@ in
         user = "media";
         group = "media";
         dataDir = "/var/lib/calibre-web";
-        openFirewall = true;
+        openFirewall = false;
         listen = {
-          ip = "0.0.0.0";
+          ip = "127.0.0.1";
           port = config.registry.calibre.port;
         };
         options = {
@@ -120,6 +120,8 @@ in
           enableKepubify = true;
         };
       };
+
+      systemd.services.calibre-web.unitConfig.RequiresMountsFor = [ libraryDir ];
     };
 
   flake.modules.nixos.reverse-proxy = {

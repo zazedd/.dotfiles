@@ -1,7 +1,11 @@
-{ ... }:
-{
+_: {
   flake.modules.nixos.remote-desktop =
-    { lib, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       # krfb-virtualmonitor holds the virtual output open for as long as it
       # runs, so start it detached and tear it down on undo.
@@ -10,12 +14,13 @@
         w="''${SUNSHINE_CLIENT_WIDTH:-3840}"
         h="''${SUNSHINE_CLIENT_HEIGHT:-2160}"
         fps="''${SUNSHINE_CLIENT_FPS:-144}"
+        password="$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.krfb-password.path})"
 
         ${pkgs.coreutils}/bin/nohup ${pkgs.kdePackages.krfb}/bin/krfb-virtualmonitor \
           --name Moonlight \
           --resolution "''${w}x''${h}" \
           --scale 1 \
-          --password "" \
+          --password "$password" \
           --port 5900 \
           >/tmp/krfb-virtualmonitor.log 2>&1 &
         # give KWin a moment to register the new output before we retune it
@@ -33,6 +38,10 @@
       '';
     in
     {
+      sops.secrets.krfb-password = {
+        owner = "zazed";
+      };
+
       services.desktopManager.plasma6.enable = true;
       services.displayManager = {
         sddm = {
@@ -51,7 +60,7 @@
       services.sunshine = {
         enable = true;
         autoStart = true;
-        openFirewall = true;
+        openFirewall = false;
         capSysAdmin = true;
         package = pkgs.sunshine.override {
           cudaSupport = true;

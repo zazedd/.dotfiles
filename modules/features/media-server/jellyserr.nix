@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.jellyseerr = {
+  flake.modules.nixos.mediaserver = {
     services.seerr.enable = true;
   };
 

@@ -12,10 +12,12 @@ in
         group = "cloud";
         port = config.registry.immich.port;
         mediaLocation = "/data/cloud/photos";
-        host = "0.0.0.0";
+        host = "127.0.0.1";
         settings.server.externalDomain = "https://${alias}.${config.domain}";
         secretsFile = config.sops.secrets."immich-secrets".path;
       };
+
+      systemd.services.immich-server.unitConfig.RequiresMountsFor = [ "/data/cloud" ];
     };
 
   flake.modules.nixos.reverse-proxy = {

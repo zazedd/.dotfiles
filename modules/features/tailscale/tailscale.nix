@@ -5,35 +5,26 @@ let
     writeShellScript "tailscale-auth" ''
       sleep 2
       status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
-      if [ $status = "Running" ]; then
+      if [ "$status" = "Running" ]; then
         exit 0
       fi
-      ${tailscale}/bin/tailscale up -authkey "$(cat ${config.sops.secrets.${machine}.path})"
+      ${tailscale}/bin/tailscale up --auth-key "$(cat ${config.sops.secrets.${machine}.path})"
     '';
 in
 {
   flake.modules.nixos.tailscale =
-    { pkgs, config, ... }:
+    { config, ... }:
+    let
+      authKey = config.sops.secrets.${config.networking.hostName};
+    in
     {
-      services.tailscale.enable = true;
+      services.tailscale = {
+        enable = true;
+        authKeyFile = authKey.path;
+      };
 
       sops.secrets.${config.networking.hostName} = {
         sopsFile = ../../../secrets/conn.yaml;
-      };
-
-      systemd.services.tailscale-autoconnect = {
-        description = "Automatic connection to Tailscale";
-        after = [
-          "network-pre.target"
-          "tailscale.service"
-        ];
-        wants = [
-          "network-pre.target"
-          "tailscale.service"
-        ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig.Type = "oneshot";
-        script = builtins.readFile (tailscaleAuthScript config.networking.hostName config pkgs);
       };
     };
 

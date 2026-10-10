@@ -9,6 +9,8 @@
         configFile = null;
         settings.misc.special.host_whitelist = config.domain;
       };
+
+      systemd.services.sabnzbd.unitConfig.RequiresMountsFor = [ "/data/media" ];
     };
 
   flake.modules.nixos.reverse-proxy = {

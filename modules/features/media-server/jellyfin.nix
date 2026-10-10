@@ -5,6 +5,8 @@
       user = "media";
       group = "media";
     };
+
+    systemd.services.jellyfin.unitConfig.RequiresMountsFor = [ "/data/media" ];
   };
 
   flake.modules.nixos.reverse-proxy = {

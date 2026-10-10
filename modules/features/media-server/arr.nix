@@ -29,6 +29,21 @@ in
       prowlarr.enable = true;
       flaresolverr.enable = true;
     };
+
+    systemd.services = builtins.listToAttrs (
+      map
+        (name: {
+          inherit name;
+          value.unitConfig.RequiresMountsFor = [ "/data/media" ];
+        })
+        [
+          "bazarr"
+          "bindery"
+          "chaptarr"
+          "radarr"
+          "sonarr"
+        ]
+    );
   };
 
   flake.modules.nixos.reverse-proxy = {

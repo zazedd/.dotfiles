@@ -4,6 +4,22 @@ on:
   push:
 
 jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: "experimental-features = nix-command flakes pipe-operators"
+      - name: check formatting
+        run: nix fmt -- --ci
+      - name: lint Nix
+        run: |
+          nix run nixpkgs#statix -- check .
+          nix run nixpkgs#deadnix -- --fail --no-lambda-pattern-names .
+      - name: check flake
+        run: nix flake check
+
   linux:
     runs-on: ubuntu-latest
     strategy:

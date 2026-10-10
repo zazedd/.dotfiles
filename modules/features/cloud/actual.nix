@@ -5,7 +5,7 @@
       services.actual = {
         enable = true;
         settings = {
-          hostname = "0.0.0.0";
+          hostname = "127.0.0.1";
           port = config.registry.actual.port;
         };
       };
