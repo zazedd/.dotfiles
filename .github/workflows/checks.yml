@@ -11,6 +11,20 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: "experimental-features = nix-command flakes pipe-operators"
+      - name: connect to tailnet
+        if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+          ping: ricardogoncalves
+      - name: resolve Attic over Tailscale
+        if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
+        run: |
+          cache_ip="$(tailscale status | awk '$2 == "ricardogoncalves" { print $1; exit }')"
+          test -n "$cache_ip"
+          echo "$cache_ip cache.leoms.dev" | sudo tee -a /etc/hosts
       - name: check formatting
         run: nix fmt -- --ci
       - name: lint Nix
@@ -18,7 +32,30 @@ jobs:
           nix run nixpkgs#statix -- check .
           nix run nixpkgs#deadnix -- --fail --no-lambda-pattern-names .
       - name: check flake
-        run: nix flake check
+        run: |
+          cache_args=()
+          if [[ "${{ github.event_name }}" == "push" && "${{ vars.ATTIC_ENABLED }}" == "true" ]]; then
+            cache_args+=(
+              --extra-substituters https://cache.leoms.dev/dotfiles
+              --extra-trusted-public-keys dotfiles:L8eOKFwsyzXtQShyNzr9HpLA2T2owJFE9XbzMyb3Rn0=
+            )
+          fi
+          nix flake check "${cache_args[@]}"
+      - name: push checks to Attic
+        if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
+        env:
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+        run: |
+          nix run nixpkgs#attic-client -- login home https://cache.leoms.dev "$ATTIC_TOKEN"
+
+          mapfile -t check_names < <(
+            nix eval --json .#checks.x86_64-linux --apply builtins.attrNames | jq -r '.[]'
+          )
+          check_paths=()
+          for check_name in "${check_names[@]}"; do
+            check_paths+=("$(nix path-info ".#checks.x86_64-linux.$check_name")")
+          done
+          nix run nixpkgs#attic-client -- push dotfiles "${check_paths[@]}"
 
   linux:
     runs-on: ubuntu-latest
