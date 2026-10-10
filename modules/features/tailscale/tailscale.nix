@@ -21,6 +21,7 @@ in
       services.tailscale = {
         enable = true;
         authKeyFile = authKey.path;
+        openFirewall = true;
       };
 
       email-on-failure.tailscaled = true;

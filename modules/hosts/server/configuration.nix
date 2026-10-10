@@ -2,6 +2,9 @@
 {
   flake.modules.nixos.server =
     { config, ... }:
+    let
+      sunshinePort = config.services.sunshine.settings.port;
+    in
     {
       imports = with inputs.self.modules.nixos; [
         system-cli
@@ -25,11 +28,27 @@
         hostName = "xinho";
         firewall = {
           enable = true;
-          trustedInterfaces = [ "tailscale0" ];
-          allowedUDPPorts = [
-            config.services.tailscale.port
-          ];
+          interfaces.tailscale0 = {
+            allowedTCPPorts = [
+              80
+              443
+              (sunshinePort - 5)
+              sunshinePort
+              (sunshinePort + 1)
+              (sunshinePort + 21)
+            ];
+            allowedUDPPorts = [
+              (sunshinePort + 9)
+              (sunshinePort + 10)
+              (sunshinePort + 11)
+              (sunshinePort + 13)
+              (sunshinePort + 21)
+            ];
+          };
         };
       };
+
+      # Moonlight connects by hostname, so LAN-wide mDNS exposure is unnecessary.
+      services.avahi.openFirewall = false;
     };
 }

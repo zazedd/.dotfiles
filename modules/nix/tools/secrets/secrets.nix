@@ -27,8 +27,10 @@ in
       sops.age.keyFile = "/Users/${username}/.config/sops/age/keys.txt";
     };
 
-  flake.modules.homeManager.secrets = {
-    imports = [ inputs.sops-nix.homeManagerModule ];
-    sops.age.keyFile = "/Users/${username}/.config/sops/age/keys.txt";
-  };
+  flake.modules.homeManager.secrets =
+    { config, ... }:
+    {
+      imports = [ inputs.sops-nix.homeManagerModule ];
+      sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    };
 }

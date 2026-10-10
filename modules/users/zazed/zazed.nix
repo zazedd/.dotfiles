@@ -9,7 +9,9 @@
         name = n;
         email = "leomendesantos@gmail.com";
         username = n;
-        authorizedKeys = [ ];
+        authorizedKeys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA47RV+m4PubAmG21MCU7KCyWEvrFS+HGfFloX16gUjx zazed@shitbook.local"
+        ];
         homeLinux = "/home/${n}";
         homeDarwin = "/Users/${n}";
       };
@@ -42,6 +44,7 @@
             "networkmanager"
             "libvirtd"
           ];
+          openssh.authorizedKeys.keys = config.flake.meta.users.zazed.authorizedKeys;
         };
       };
 
@@ -71,7 +74,10 @@
       { pkgs, ... }:
       {
         imports = with self.modules.homeManager; [ system-desktop ];
-        home.packages = with pkgs; [ ];
+        home = {
+          username = config.flake.meta.users.zazed.username;
+          packages = with pkgs; [ ];
+        };
       };
   };
 }

@@ -22,28 +22,41 @@ in
           BINDERY_DOWNLOAD_ALLOW_LOOPBACK = "1";
         };
       };
-      chaptarr = mediaDefaults;
-      radarr = mediaDefaults;
-      sonarr = mediaDefaults;
+      chaptarr = mediaDefaults // {
+        settings.server.bindAddress = "127.0.0.1";
+      };
+      radarr = mediaDefaults // {
+        settings.server.bindAddress = "127.0.0.1";
+      };
+      sonarr = mediaDefaults // {
+        settings.server.bindAddress = "127.0.0.1";
+      };
       bazarr = mediaDefaults;
-      prowlarr.enable = true;
+      prowlarr = {
+        enable = true;
+        settings.server.bindAddress = "127.0.0.1";
+      };
       flaresolverr.enable = true;
     };
 
-    systemd.services = builtins.listToAttrs (
-      map
-        (name: {
-          inherit name;
-          value.unitConfig.RequiresMountsFor = [ "/data/media" ];
-        })
-        [
-          "bazarr"
-          "bindery"
-          "chaptarr"
-          "radarr"
-          "sonarr"
-        ]
-    );
+    systemd.services =
+      builtins.listToAttrs (
+        map
+          (name: {
+            inherit name;
+            value.unitConfig.RequiresMountsFor = [ "/data/media" ];
+          })
+          [
+            "bazarr"
+            "bindery"
+            "chaptarr"
+            "radarr"
+            "sonarr"
+          ]
+      )
+      // {
+        flaresolverr.environment.HOST = "127.0.0.1";
+      };
 
     email-on-failure = {
       bazarr = true;
