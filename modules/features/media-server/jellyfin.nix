@@ -5,8 +5,6 @@
       user = "media";
       group = "media";
     };
-
-    services.jellyseerr.enable = true;
   };
 
   flake.modules.nixos.reverse-proxy = {

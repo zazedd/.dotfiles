@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.jellyseerr = {
-    services.jellyseerr.enable = true;
+    services.seerr.enable = true;
   };
 
   flake.modules.nixos.reverse-proxy = {

@@ -2,7 +2,6 @@
   description = "a (never) good enough config";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     old-betterdisplay-nixpkgs.url = "github:nixos/nixpkgs/09b22eb8a65f65ec86625d1230c434cdca680606";
     home-manager.url = "github:nix-community/home-manager";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";

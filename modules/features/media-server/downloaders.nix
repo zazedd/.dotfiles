@@ -6,6 +6,7 @@
         enable = true;
         user = "media";
         group = "media";
+        configFile = null;
         settings.misc.special.host_whitelist = config.domain;
       };
     };
