@@ -17,7 +17,7 @@ in
             user = user;
             type = "webdav";
             hard_delete = true;
-            url = "https://cloud.leoms.dev/";
+            url = "https://webdav.leoms.dev/";
             vendor = "owncloud";
             pacer_min_sleep = "0.01ms";
           };

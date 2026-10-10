@@ -7,6 +7,7 @@ in
     {
       lib,
       config,
+      pkgs,
       ...
     }:
     let
@@ -22,6 +23,12 @@ in
       cfg = config.registry;
       domain = config.domain;
 
+      nginxLocationModule =
+        import "${pkgs.path}/nixos/modules/services/web-servers/nginx/location-options.nix"
+          {
+            inherit lib config;
+          };
+
       serviceModule = types.submodule (
         { name, ... }:
         {
@@ -30,25 +37,23 @@ in
               type = types.port;
               description = "port for ${name}";
             };
-            extraPort = mkOption {
-              type = types.nullOr types.port;
-              default = null;
-              description = "extra port for ${name}";
-            };
             aliases = mkOption {
               type = types.listOf types.str;
               default = [ ];
               description = "additional DNS names pointing to ${name}";
             };
-            public = mkOption {
-              type = types.bool;
-              default = true;
-              description = "whether to expose via nginx";
+            exposure = mkOption {
+              type = types.enum [
+                "tailnet"
+                "local"
+              ];
+              default = "tailnet";
+              description = "whether ${name} is exposed through nginx on the tailnet or remains local-only";
             };
             extraLocations = mkOption {
-              type = types.attrsOf types.anything;
+              type = types.attrsOf (types.submodule nginxLocationModule);
               default = { };
-              description = "additional nginx locations for this service (maps path to location attrs)";
+              description = "additional typed nginx locations for ${name}";
             };
           };
         }
@@ -56,10 +61,10 @@ in
 
       ports = mapAttrsToList (_: v: v.port) cfg;
       hostnames = flatten (mapAttrsToList (name: svc: [ name ] ++ svc.aliases) cfg);
-      hostMap = flatten (
+      tailnetHosts = flatten (
         mapAttrsToList (
           name: svc:
-          if svc.public then
+          if svc.exposure == "tailnet" then
             let
               names = [ name ] ++ svc.aliases;
             in
@@ -104,7 +109,7 @@ in
       options.registry = mkOption {
         type = types.attrsOf serviceModule;
         default = { };
-        description = "reverse proxy service registry.";
+        description = "service registry for local and tailnet-routed services";
       };
 
       config = {
@@ -146,7 +151,7 @@ in
               forceSSL = true;
             };
           }
-          // builtins.listToAttrs (map mkProxy hostMap);
+          // builtins.listToAttrs (map mkProxy tailnetHosts);
         };
       };
     };

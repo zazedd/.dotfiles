@@ -18,7 +18,7 @@ in
           i = "127.0.0.1";
           p = [
             config.registry.copyparty.port
-            config.registry.copyparty_webdav.port
+            config.registry.webdav.port
           ];
           no-reload = true;
           ignored-flag = false;
@@ -76,10 +76,7 @@ in
         port = 3210;
         aliases = [ "cloud" ];
       };
-      copyparty_webdav = {
-        port = 3211;
-        public = false;
-      };
+      webdav.port = 3211;
     };
   };
 }
