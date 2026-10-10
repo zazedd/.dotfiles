@@ -122,6 +122,11 @@ in
       };
 
       systemd.services.calibre-web.unitConfig.RequiresMountsFor = [ libraryDir ];
+
+      email-on-failure = {
+        calibre-library-init = true;
+        calibre-web = true;
+      };
     };
 
   flake.modules.nixos.reverse-proxy = {

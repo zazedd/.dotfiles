@@ -59,6 +59,8 @@ _: {
         };
       };
 
+      email-on-failure.atticd = true;
+
       registry.cache.port = 8081;
     };
 }

@@ -9,6 +9,8 @@
           port = config.registry.actual.port;
         };
       };
+
+      email-on-failure.actual = true;
     };
 
   flake.modules.nixos.reverse-proxy = {

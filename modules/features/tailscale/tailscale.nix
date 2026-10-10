@@ -23,6 +23,8 @@ in
         authKeyFile = authKey.path;
       };
 
+      email-on-failure.tailscaled = true;
+
       sops.secrets.${config.networking.hostName} = {
         sopsFile = ../../../secrets/conn.yaml;
       };

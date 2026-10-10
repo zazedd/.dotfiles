@@ -7,6 +7,7 @@
     };
 
     systemd.services.jellyfin.unitConfig.RequiresMountsFor = [ "/data/media" ];
+    email-on-failure.jellyfin = true;
   };
 
   flake.modules.nixos.reverse-proxy = {

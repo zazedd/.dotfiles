@@ -141,6 +141,8 @@ in
           };
         };
 
+        email-on-failure.nginx = true;
+
         services.nginx = {
           enable = true;
           recommendedProxySettings = true;

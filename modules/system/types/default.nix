@@ -7,6 +7,7 @@
 
       home-manager
       secrets
+      email-on-failure
     ];
   };
 

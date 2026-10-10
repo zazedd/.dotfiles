@@ -18,6 +18,13 @@ in
       };
 
       systemd.services.immich-server.unitConfig.RequiresMountsFor = [ "/data/cloud" ];
+
+      email-on-failure = {
+        immich-machine-learning = true;
+        immich-server = true;
+        postgresql = true;
+        redis-immich = true;
+      };
     };
 
   flake.modules.nixos.reverse-proxy = {

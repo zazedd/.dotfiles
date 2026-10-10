@@ -29,6 +29,14 @@
         user = "paperless";
         passwordFile = config.sops.secrets."paperless".path;
       };
+
+      email-on-failure = {
+        paperless-consumer = true;
+        paperless-scheduler = true;
+        paperless-task-queue = true;
+        paperless-web = true;
+        redis-paperless = true;
+      };
     };
 
   flake.modules.nixos.reverse-proxy = {

@@ -44,6 +44,16 @@ in
           "sonarr"
         ]
     );
+
+    email-on-failure = {
+      bazarr = true;
+      bindery = true;
+      chaptarr = true;
+      flaresolverr = true;
+      prowlarr = true;
+      radarr = true;
+      sonarr = true;
+    };
   };
 
   flake.modules.nixos.reverse-proxy = {

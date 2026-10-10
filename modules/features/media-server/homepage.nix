@@ -25,6 +25,8 @@ in
         lib.mkForce
           config.sops.secrets."glance-env".path;
 
+      email-on-failure.glance = true;
+
       services.glance = {
         enable = true;
         settings = {

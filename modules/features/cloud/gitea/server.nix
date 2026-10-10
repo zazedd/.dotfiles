@@ -43,5 +43,7 @@
         # Create the external repository root as gitea:cloud before startup.
         serviceConfig.ExecStartPre = lib.mkBefore [ "+${prepareRepositories}" ];
       };
+
+      email-on-failure.gitea = true;
     };
 }

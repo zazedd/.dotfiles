@@ -11,6 +11,7 @@
       };
 
       systemd.services.sabnzbd.unitConfig.RequiresMountsFor = [ "/data/media" ];
+      email-on-failure.sabnzbd = true;
     };
 
   flake.modules.nixos.reverse-proxy = {

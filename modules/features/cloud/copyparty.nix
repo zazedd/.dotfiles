@@ -68,6 +68,7 @@ in
       };
 
       systemd.services.copyparty.unitConfig.RequiresMountsFor = [ "/data/cloud" ];
+      email-on-failure.copyparty = true;
     };
 
   flake.modules.nixos.reverse-proxy = {

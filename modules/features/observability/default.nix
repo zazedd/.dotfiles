@@ -67,6 +67,13 @@ in
       };
 
       services.smartd.enable = true;
+
+      email-on-failure = {
+        beszel-agent = true;
+        beszel-hub = true;
+        smartd = true;
+      };
+
       registry.beszel.port = 8090;
     };
 }
