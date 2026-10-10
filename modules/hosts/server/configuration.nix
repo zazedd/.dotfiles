@@ -11,6 +11,7 @@
         cloud
         mediaserver
         llm
+        observability
 
         remote-desktop
         gaming

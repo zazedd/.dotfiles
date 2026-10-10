@@ -1,6 +1,10 @@
+{ config, ... }:
+let
+  email = config.flake.meta.users.zazed.email;
+in
 {
   flake.modules.nixos.server =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       fileSystems."/" = {
         device = "/dev/disk/by-label/nixos";
@@ -85,22 +89,132 @@
         ];
       };
 
-      systemd.services."backup-cloud" = {
-        description = "rsync backup of /data/cloud to /backup/cloud";
-        serviceConfig = {
-          Type = "oneshot";
-          # The binary cache is reproducible and intentionally not backed up.
-          ExecStart = "${pkgs.rsync}/bin/rsync -a --delete --exclude=/attic/ /data/cloud/ /backup/cloud/";
+      sops.secrets.restic-password = { };
+
+      services.postgresqlBackup = {
+        enable = true;
+        backupAll = true;
+        compression = "zstd";
+        location = "/var/backup/databases/postgresql";
+        startAt = [ ];
+      };
+
+      services.restic.backups = {
+        cloud = {
+          initialize = true;
+          repository = "/backup/restic/cloud";
+          passwordFile = config.sops.secrets.restic-password.path;
+          paths = [
+            "/data/cloud"
+            "/var/backup/databases"
+            "/var/lib/actual"
+            "/var/lib/beszel-agent"
+            "/var/lib/beszel-hub"
+            "/var/lib/gitea"
+          ];
+          exclude = [ "/data/cloud/attic" ];
+          pruneOpts = [
+            "--keep-daily 7"
+            "--keep-weekly 4"
+            "--keep-monthly 12"
+            "--keep-yearly 3"
+          ];
+          timerConfig = {
+            OnCalendar = "*-*-* 03:00:00";
+            Persistent = true;
+            RandomizedDelaySec = "30m";
+          };
+        };
+
+        cloud-check = {
+          repository = "/backup/restic/cloud";
+          passwordFile = config.sops.secrets.restic-password.path;
+          runCheck = true;
+          checkOpts = [ "--read-data-subset=10%" ];
+          timerConfig = {
+            OnCalendar = "monthly";
+            Persistent = true;
+          };
         };
       };
 
-      systemd.timers."backup-cloud" = {
-        description = "run backup-cloud daily";
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnCalendar = "daily";
-          Persistent = true;
+      systemd.services.sqlite-backup = {
+        description = "Consistent SQLite database backups";
+        serviceConfig.Type = "oneshot";
+        path = [
+          pkgs.coreutils
+          pkgs.findutils
+          pkgs.sqlite
+        ];
+        script = ''
+          set -euo pipefail
+
+          destination=/var/backup/databases/sqlite
+          install -d -m 0700 "$destination/actual"
+
+          backup_db() {
+            local source="$1"
+            local target="$2"
+            if [[ -f "$source" ]]; then
+              install -d -m 0700 "$(dirname "$target")"
+              sqlite3 "$source" ".backup '$target'"
+            fi
+          }
+
+          backup_db /var/lib/beszel-hub/pb_data/data.db "$destination/beszel.db"
+          backup_db /var/lib/gitea/data/gitea.db "$destination/gitea.db"
+          backup_db /data/cloud/documents/db.sqlite3 "$destination/paperless.db"
+
+          while IFS= read -r -d "" database; do
+            relative="''${database#/var/lib/actual/}"
+            backup_db "$database" "$destination/actual/$relative"
+          done < <(find /var/lib/actual -type f \( -name "*.db" -o -name "*.sqlite" \) -print0)
+        '';
+      };
+
+      systemd.services."email-on-failure@" = {
+        description = "Email notification for failed unit %i";
+        serviceConfig.Type = "oneshot";
+        path = [ pkgs.systemd ];
+        scriptArgs = "%i";
+        script = ''
+          unit="$1"
+          {
+            printf 'To: %s\n' ${email}
+            printf 'From: %s\n' ${email}
+            printf 'Subject: [xinho] systemd failure: %s\n' "$unit"
+            printf '\n'
+            systemctl --no-pager --full status "$unit" || true
+            printf '\nRecent journal output:\n'
+            journalctl --no-pager -u "$unit" -n 200 || true
+          } | /run/wrappers/bin/sendmail -t
+        '';
+      };
+
+      systemd.services = {
+        postgresqlBackup.onFailure = [ "email-on-failure@%n.service" ];
+        sqlite-backup.onFailure = [ "email-on-failure@%n.service" ];
+        restic-backups-cloud = {
+          requires = [
+            "postgresqlBackup.service"
+            "sqlite-backup.service"
+          ];
+          after = [
+            "postgresqlBackup.service"
+            "sqlite-backup.service"
+          ];
+          onFailure = [ "email-on-failure@%n.service" ];
+          unitConfig.RequiresMountsFor = [
+            "/data/cloud"
+            "/backup"
+          ];
         };
+        restic-backups-cloud-check = {
+          onFailure = [ "email-on-failure@%n.service" ];
+          unitConfig.RequiresMountsFor = [ "/backup" ];
+        };
+        beszel-agent.onFailure = [ "email-on-failure@%n.service" ];
+        beszel-hub.onFailure = [ "email-on-failure@%n.service" ];
       };
 
       #systemd.services."backup-minecraft" = {
