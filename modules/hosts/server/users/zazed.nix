@@ -9,6 +9,7 @@
       system-minimal
       shell
       browser
+      dev
     ];
   };
 }
