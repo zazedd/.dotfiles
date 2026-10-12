@@ -5,6 +5,7 @@
     imports = with inputs.self.modules.nixos; [
       system-cli
       # windowmanager
+      security
       dev
     ];
   };
@@ -14,6 +15,7 @@
       system-cli
       settings
       windowmanager
+      security
       dev
     ];
   };
