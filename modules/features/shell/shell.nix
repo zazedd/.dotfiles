@@ -43,6 +43,20 @@ in
       imports = [ inputs.nix-wrapper-modules.homeModules.fish ];
 
       programs = {
+        bash.enable = true;
+
+        fish = {
+          enable = true;
+          package = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.fish;
+        };
+
+        direnv = {
+          enable = true;
+          enableBashIntegration = true;
+          enableFishIntegration = true;
+          nix-direnv.enable = true;
+        };
+
         git = {
           enable = true;
           ignores = [ "*.swp" ];
