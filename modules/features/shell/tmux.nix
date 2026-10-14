@@ -47,8 +47,9 @@
       ];
       baseIndex = 1;
       configAfter = /* bash */ ''
-        # True color
-        set -as terminal-features ",alacritty*:RGB"
+        # Forward clipboard writes from tmux and applications over SSH via OSC 52.
+        set -s set-clipboard on
+        set -as terminal-features ",alacritty*:RGB:clipboard"
 
         bind-key -n C-Delete send-keys -X backward-delete-word
 
