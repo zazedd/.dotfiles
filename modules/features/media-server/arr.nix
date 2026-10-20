@@ -15,6 +15,7 @@ in
 
     services = {
       bindery = mediaDefaults // {
+        openFirewall = true;
         environment = {
           BINDERY_LIBRARY_DIR = "/data/media/books";
           BINDERY_DOWNLOAD_DIR = "/data/media/downloads";
