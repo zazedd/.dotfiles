@@ -88,7 +88,7 @@
           GITEA_PRESERVE_VISIBILITY=true
           GITEA_LFS=true
           MIRROR_WIKI=true
-          MIRROR_RELEASES=true
+          MIRROR_RELEASES=false
           MIRROR_ISSUES=true
           MIRROR_PULL_REQUESTS=true
           MIRROR_LABELS=true
