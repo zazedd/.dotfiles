@@ -23,7 +23,6 @@
         lfs.enable = true;
         settings = {
           server = {
-            DOMAIN = "git.leoms.dev";
             ROOT_URL = "https://git.leoms.dev/";
             HTTP_ADDR = "127.0.0.1";
             HTTP_PORT = config.registry.git.port;
