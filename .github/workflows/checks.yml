@@ -43,11 +43,10 @@ jobs:
           nix flake check "${cache_args[@]}"
       - name: push checks to Attic
         if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
+        continue-on-error: true
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
-          nix run nixpkgs#attic-client -- login home https://cache.leoms.dev "$ATTIC_TOKEN"
-
           mapfile -t check_names < <(
             nix eval --json .#checks.x86_64-linux --apply builtins.attrNames | jq -r '.[]'
           )
@@ -55,7 +54,7 @@ jobs:
           for check_name in "${check_names[@]}"; do
             check_paths+=("$(nix path-info ".#checks.x86_64-linux.$check_name")")
           done
-          nix run nixpkgs#attic-client -- push dotfiles "${check_paths[@]}"
+          bash .github/scripts/push-attic.sh "${check_paths[@]}"
 
   linux:
     runs-on: ubuntu-latest
@@ -96,11 +95,10 @@ jobs:
           echo "path=$path" >> "$GITHUB_OUTPUT"
       - name: push to Attic
         if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
+        continue-on-error: true
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
-        run: |
-          nix run nixpkgs#attic-client -- login home https://cache.leoms.dev "$ATTIC_TOKEN"
-          nix run nixpkgs#attic-client -- push dotfiles "${{ steps.build.outputs.path }}"
+        run: bash .github/scripts/push-attic.sh "${{ steps.build.outputs.path }}"
 
   darwin:
     runs-on: macos-latest
@@ -137,8 +135,7 @@ jobs:
           echo "path=$path" >> "$GITHUB_OUTPUT"
       - name: push to Attic
         if: github.event_name == 'push' && vars.ATTIC_ENABLED == 'true'
+        continue-on-error: true
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
-        run: |
-          nix run nixpkgs#attic-client -- login home https://cache.leoms.dev "$ATTIC_TOKEN"
-          nix run nixpkgs#attic-client -- push dotfiles "${{ steps.build.outputs.path }}"
+        run: bash .github/scripts/push-attic.sh "${{ steps.build.outputs.path }}"
